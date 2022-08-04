@@ -24,8 +24,8 @@ public class Review {
 	@Column(name = "review_id")
 	private Long id;
 
-	@Column(name = "review_note", nullable = false)
-	private byte note;
+	@Column(name = "review_grade", nullable = false)
+	private byte grade;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
@@ -41,9 +41,9 @@ public class Review {
 	public Review() {
 	}
 
-	public Review(Long id, byte note, User user, Project project, LocalDateTime date) {
+	public Review(Long id, byte grade, User user, Project project, LocalDateTime date) {
 		this.id = id;
-		this.note = note;
+		this.grade = grade;
 		this.user = user;
 		this.project = project;
 		this.date = date;
@@ -58,11 +58,11 @@ public class Review {
 	}
 
 	public byte getNote() {
-		return note;
+		return grade;
 	}
 
-	public void setNote(byte note) {
-		this.note = note;
+	public void setGrade(byte grade) {
+		this.grade = grade;
 	}
 
 	public User getUser() {
