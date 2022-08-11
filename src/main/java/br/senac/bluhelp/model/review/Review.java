@@ -57,7 +57,7 @@ public class Review {
 		this.id = id;
 	}
 
-	public byte getNote() {
+	public byte getGrade() {
 		return grade;
 	}
 
