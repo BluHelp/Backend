@@ -1,18 +1,95 @@
 package br.senac.bluhelp.service.user;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import br.senac.bluhelp.dto.user.UserDTO;
+import br.senac.bluhelp.exception.user.UserCpfRegisteredException;
+import br.senac.bluhelp.exception.user.UserNotFoundException;
+import br.senac.bluhelp.mapper.user.UserMapper;
+import br.senac.bluhelp.model.user.User;
+import br.senac.bluhelp.projection.user.UserProjection;
+import br.senac.bluhelp.projection.user.UserWithContactProjection;
+import br.senac.bluhelp.projection.user.UserWithContributedProjectsProjection;
+import br.senac.bluhelp.projection.user.UserWithCreatedProjectsProjections;
+import br.senac.bluhelp.repository.user.UserRepository;
 
+@Service
 public class UserServiceImpl implements UserService {
-
-	public UserDTO save(UserDTO user) {
-		return null;
+	
+	private final UserRepository userRepository;
+	private final UserMapper userMapper;
+	
+	public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
+		this.userRepository = userRepository;
+		this.userMapper = userMapper;
 	}
 
-	public void edit(Long id, UserDTO userDTO) {
+	public UserDTO save(UserDTO userDTO) {
+		
+		if(userRepository.existsByCpf(userDTO.cpf()))
+			throw new UserCpfRegisteredException("CPF " + userDTO.cpf() + " is already registered");
+		
+		User user = userMapper.toEntity(userDTO);
+		User userSaved = userRepository.save(user);
+		
+		return userMapper.toDTO(userSaved);
+		
+	}
 
+	public void update(Long id, UserDTO userDTO) {
+		
+		User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User " + id + " was not found"));
+		
+		if(userRepository.existsByCpf(userDTO.cpf()))
+			throw new UserCpfRegisteredException("CPF " + userDTO.cpf() + " is already registered");
+		
+		user.setName(userDTO.name());
+		user.setPassword(userDTO.password());
+		user.setCpf(userDTO.cpf());
+		
+		userRepository.save(user);
 	}
 
 	public void delete(Long id) {
+		
+		if(!userRepository.existsById(id))
+			throw new UserNotFoundException("User " + id + " was not found");
+		
+		userRepository.deleteById(id);
+	}
 
+	public UserProjection findById(Long id) {
+		
+		UserProjection user = userRepository.findUserById(id).orElseThrow(() -> new UserNotFoundException("User " + id + " was not found"));
+		
+		return user;
+	}
+
+	public UserWithContactProjection findByIdWithContact(Long id) {
+		
+		UserWithContactProjection user = userRepository.findUserWithContactById(id).orElseThrow(() -> new UserNotFoundException("User " + id + " was not found"));
+	
+		return user;
+	}
+
+	public UserWithContributedProjectsProjection findByIdWithContributedProjects(Long id) {
+		
+		UserWithContributedProjectsProjection user = userRepository.findUserWithContributedProjectsById(id).orElseThrow(() -> new UserNotFoundException("User " + id + " was not found"));
+
+		return user;
+	}
+
+	public UserWithCreatedProjectsProjections findByIdWithCreatedProjects(Long id) {
+		
+		UserWithCreatedProjectsProjections user = userRepository.findUserWithCreatedProjectsById(id).orElseThrow(() -> new UserNotFoundException("User " + id + " was not found"));
+	
+		return user;
+	}
+
+	public List<UserProjection> findAll() {
+	
+		return userRepository.findUsers();
 	}
 }
