@@ -1,19 +1,66 @@
 package br.senac.bluhelp.service.comment;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import br.senac.bluhelp.dto.comment.CommentDTO;
+import br.senac.bluhelp.exception.comment.CommentNotFoundException;
+import br.senac.bluhelp.mapper.comment.CommentMapper;
+import br.senac.bluhelp.model.comment.Comment;
+import br.senac.bluhelp.projection.comment.CommentProjection;
+import br.senac.bluhelp.repository.comment.CommentRepository;
 
+@Service
 public class CommentServiceImpl implements CommentService {
-
-	public CommentDTO save(CommentDTO comment) {
-		return null;
+	
+	private final CommentRepository commentRepository;
+	private final CommentMapper commentMapper;
+	
+	public CommentServiceImpl(CommentRepository commentRepository, CommentMapper commentMapper) {
+		this.commentRepository = commentRepository;
+		this.commentMapper = commentMapper;
 	}
 
-	public void edit(Long id, CommentDTO commentDTO) {
+	public CommentDTO save(CommentDTO commentDTO) {
+		
+		Comment comment = commentMapper.toEntity(commentDTO);
+		Comment commentSaved = commentRepository.save(comment);
+		
+		return commentMapper.toDTO(commentSaved);
+	}
 
+	public void update(Long id, CommentDTO commentDTO) {
+		
+		Comment comment = commentRepository.findById(id).orElseThrow(() -> new CommentNotFoundException("Comment " + id + " was not found"));
+		
+		comment.setContents(commentDTO.contents());
+		comment.setUser(commentDTO.user());
+		comment.setProject(commentDTO.project());
+		comment.setDate(commentDTO.date());
+		comment.setReferenceComment(commentDTO.referenceComment());
+		
+		commentRepository.save(comment);
 	}
 
 	public void delete(Long id) {
-
+		
+		if(!commentRepository.existsById(id)) {
+			throw new CommentNotFoundException("Comment " + id + " was not found");
+		}
+		
+		commentRepository.deleteById(id);
 	}
 
+	public CommentProjection findById(Long id) {
+		
+		CommentProjection comment = commentRepository.findCommentById(id).orElseThrow(() -> new CommentNotFoundException("Comment " + id + " was not found"));
+		
+		return comment;
+	}
+
+	public List<CommentProjection> findAll() {
+		return commentRepository.findComments();
+	}
+	
 }
