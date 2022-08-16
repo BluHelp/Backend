@@ -13,23 +13,21 @@ public class AddressMapper {
 
 	public AddressDTO toDTO(Address address) {
 
-		return new AddressDTO(address.getId(), address.getRoadType(), address.getStreet(), address.getNumber(),
-				address.getNeighborhood(), address.getComplement());
+		return new AddressDTO(address.getId(), address.getRoadType(), address.getStreet(), address.getNumber(), address.getNeighborhood(), address.getComplement());
 	}
 
-	public List<AddressDTO> toDTO(List<Address> neighborhood) {
+	public List<AddressDTO> toDTO(List<Address> addresses) {
 
-		final List<AddressDTO> neighborhoodDTO = new ArrayList<>();
+		final List<AddressDTO> addressesDTO = new ArrayList<>();
 
-		for (Address address : neighborhood)
-			neighborhoodDTO.add(toDTO(address));
+		for (Address address : addresses)
+			addressesDTO.add(toDTO(address));
 
-		return neighborhoodDTO;
+		return addressesDTO;
 
 	}
 
-	public Address toEntity(AddressDTO dto) {
-		return new Address(dto.id(), dto.roadType(), dto.street(), dto.number(), dto.number(), dto.neighborhood(),
-				dto.complement());
+	public Address toEntity(AddressDTO addressDTO) {
+		return new Address(addressDTO.id(), addressDTO.roadType(), addressDTO.street(), addressDTO.number(), addressDTO.neighborhood(), addressDTO.complement());
 	}
 }
