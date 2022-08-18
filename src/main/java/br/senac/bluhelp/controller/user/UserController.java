@@ -34,18 +34,18 @@ public class UserController {
 	
 	@PostMapping
 	public ResponseEntity<UserDTO> addUser(@RequestBody UserDTO userDTO){
-		return ResponseEntity.status(HttpStatus.CREATED).body(UserService.save(userDTO));
+		return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(userDTO));
 	}
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<String> updateUser(@RequestBody UserDTO userDTO, @PathVariable(value = "id") Long id) {
-		userService.update(userDTO, id);
+		userService.update(id, userDTO);
 		return ResponseEntity.status(HttpStatus.OK).body("Usuário atualizado");
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteAddress(@PathVariable(value = "id") Long id) {
-		addressService.delete(id);
+		userService.delete(id);
 		return ResponseEntity.status(HttpStatus.OK).body("Endereço deletado");
 	}
 
