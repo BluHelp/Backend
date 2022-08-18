@@ -1,7 +1,12 @@
 package br.senac.bluhelp.mapper.contact;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import br.senac.bluhelp.dto.contact.ContactDTO;
+import br.senac.bluhelp.dto.project.ProjectDTO;
 import br.senac.bluhelp.model.contact.Contact;
 
 
@@ -10,20 +15,20 @@ public class ContactMapper {
 	
 	public ContactDTO toDTO(Contact contact) {
 		
-		return new ContactDTO(contact.getID(), contact.getEmail(), contact.getPhone(), contact.getUser());
+		return new ContactDTO(contact.getId(), contact.getEmail(), contact.getPhone(), contact.getUser());
 	}
 	
-	public List<ContactDTO> toDTO(List<Contact> user) {
+	public List<ContactDTO> toDTO(List<Contact> contacts) {
 		
-		final List<ContactDTO> userDTO = new ArrayList<>();
+		final List<ContactDTO> contactsDTO = new ArrayList<>();
 		
-		for (Contact contact : user)
-			userDTO.add(toDTO(project));
+		for (Contact contact : contacts)
+			contactsDTO.add(toDTO(contact));
 		
-		return userDTO;
+		return contactsDTO;
 	}
 	
-	public Contact toEntity(ProjectDTO dto) {
-		return new Project(dto.id, dto.email, dto.phone, dto.user);
+	public Contact toEntity(ContactDTO contactDTO) {
+		return new Contact(contactDTO.id(), contactDTO.email(), contactDTO.phone(), contactDTO.user());
 	}
 }
