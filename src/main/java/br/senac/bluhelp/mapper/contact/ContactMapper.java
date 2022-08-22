@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import br.senac.bluhelp.dto.contact.ContactDTO;
-import br.senac.bluhelp.dto.project.ProjectDTO;
 import br.senac.bluhelp.model.contact.Contact;
 
 

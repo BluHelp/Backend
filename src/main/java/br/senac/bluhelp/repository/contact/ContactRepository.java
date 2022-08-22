@@ -22,7 +22,7 @@ public interface ContactRepository extends JpaRepository<Contact, Long> {
 	
 	boolean existsByUser(User user);
 	
-	Optional <ContactRepository> findContactById(Long id);
+	Optional <ContactProjection> findContactById(Long id);
 	
 	Optional <ContactProjection> findContactProjection(Long id);
 	

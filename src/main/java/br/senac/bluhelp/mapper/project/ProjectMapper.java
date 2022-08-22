@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import br.senac.bluhelp.dto.address.AddressDTO;
 import br.senac.bluhelp.dto.project.ProjectDTO;
 import br.senac.bluhelp.model.project.Project;
 

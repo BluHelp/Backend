@@ -8,13 +8,10 @@ import br.senac.bluhelp.dto.contact.ContactDTO;
 import br.senac.bluhelp.exception.contact.ContactEmailRegisteredException;
 import br.senac.bluhelp.exception.contact.ContactNotFoundException;
 import br.senac.bluhelp.exception.contact.ContactPhoneRegisteredException;
-import br.senac.bluhelp.exception.user.UserCpfRegisteredException;
 import br.senac.bluhelp.exception.user.UserNotFoundException;
 import br.senac.bluhelp.mapper.contact.ContactMapper;
 import br.senac.bluhelp.model.contact.Contact;
-import br.senac.bluhelp.model.user.User;
 import br.senac.bluhelp.projection.contact.ContactProjection;
-import br.senac.bluhelp.projection.user.UserProjection;
 import br.senac.bluhelp.repository.contact.ContactRepository;
 
 @Service

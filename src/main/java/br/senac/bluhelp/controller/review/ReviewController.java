@@ -31,13 +31,13 @@ public class ReviewController {
 
 	@PostMapping
 	public ResponseEntity<ReviewDTO> addReview(@RequestBody ReviewDTO reviewDTO) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(ReviewService.save(reviewDTO));
+		return ResponseEntity.status(HttpStatus.CREATED).body(reviewService.save(reviewDTO));
 	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<String> updateReview(@RequestBody ReviewDTO reviewDTO,
 			@PathVariable(value = "id") Long id) {
-		reviewService.update(reviewDTO, id);
+		reviewService.update(id, reviewDTO);
 		return ResponseEntity.status(HttpStatus.OK).body("Avaliação atualizada");
 	}
 
