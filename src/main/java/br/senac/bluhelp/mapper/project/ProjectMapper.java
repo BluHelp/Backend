@@ -25,11 +25,12 @@ public class ProjectMapper {
 		for (Project project : contributors)
 			contributorsDTO.add(toDTO(project));
 
-		return projectDTO;
+		return contributorsDTO;
 
 	}
 
-	public Project toEntity(ProjectDTO dto) {
-		return new Project(dto.id(), dto.creator(), dto.title(), dto.objective(), dto.address(), dto.projectDescription(),
+	public Project toEntity(ProjectDTO projectDTO) {
+		return new Project(projectDTO.id(), projectDTO.creator(), projectDTO.title(), projectDTO.objective(),
+				projectDTO.address(), projectDTO.projectDescription(), projectDTO.progress());
 	}
 }

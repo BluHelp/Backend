@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import br.senac.bluhelp.dto.contact.ContactDTO;
 import br.senac.bluhelp.exception.contact.ContactEmailRegisteredException;
+import br.senac.bluhelp.exception.contact.ContactNotFoundException;
 import br.senac.bluhelp.exception.contact.ContactPhoneRegisteredException;
 import br.senac.bluhelp.exception.user.UserCpfRegisteredException;
 import br.senac.bluhelp.exception.user.UserNotFoundException;
@@ -68,7 +69,7 @@ public class ContactServiceImpl implements ContactService {
 
 	public ContactProjection findById(Long id) {
 		ContactProjection contact = contactRepository.findContactById(id)
-				.orElseThrow(() -> new UserNotFoundException("Contact " + id + " was not found"));
+				.orElseThrow(() -> new ContactNotFoundException("Contact " + id + " was not found"));
 
 		return contact;
 	}
