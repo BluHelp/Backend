@@ -1,13 +1,21 @@
 package br.senac.bluhelp.service.address;
 
-import br.senac.bluhelp.model.address.Address;
+
+import br.senac.bluhelp.projection.address.AddressProjection;
+
+import java.util.List;
+
+import br.senac.bluhelp.dto.address.AddressDTO;
 
 public interface AddressService {
 
-	void addAddress(Address address);
+	AddressDTO save(AddressDTO addressDTO);
+	
+	void update(Long id, AddressDTO addressDTO);
 
-	void deleteAddress(Long id);
-
-	void editAddress(Address address);
-
+	void delete(Long id);
+	
+	AddressProjection findById(Long id);
+	
+	List<AddressProjection> findAll();
 }
