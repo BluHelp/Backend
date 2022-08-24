@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.bluhelp.dto.contact.ContactDTO;
 import br.senac.bluhelp.projection.contact.ContactProjection;
-import br.senac.bluhelp.projection.user.UserProjection;
 import br.senac.bluhelp.service.contact.ContactService;
 
 @RestController
@@ -32,12 +31,12 @@ private final ContactService contactService;
 	
 	@PostMapping
 	public ResponseEntity<ContactDTO> addContact(@RequestBody ContactDTO contactDTO){
-		return ResponseEntity.status(HttpStatus.CREATED).body(ContactService.save(contactDTO));
+		return ResponseEntity.status(HttpStatus.CREATED).body(contactService.save(contactDTO));
 	}
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<String> updateContact(@RequestBody ContactDTO contactDTO, @PathVariable(value = "id") Long id) {
-		contactService.update(contactDTO, id);
+		contactService.update(id, contactDTO);
 		return ResponseEntity.status(HttpStatus.OK).body("Contato atualizado");
 	}
 
@@ -48,8 +47,8 @@ private final ContactService contactService;
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<UserProjection> getUser(@PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(userService.findById(id));
+	public ResponseEntity<ContactProjection> getUser(@PathVariable(value = "id") Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(contactService.findById(id));
 	}
 
 	@GetMapping()

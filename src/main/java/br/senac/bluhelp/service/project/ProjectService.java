@@ -13,8 +13,8 @@ public interface ProjectService {
 	void update(Long id, ProjectDTO projectDTO);
 	void delete(Long id);
 	ProjectProjection findById(Long id);
-	ProjectWithAddressProjection findByProjectWithAddressProjection(Long id);
-	ProjectWithReviewsProjection findByWithReviewsProjection(Long id);
+	ProjectWithAddressProjection findByIdWithAddress(Long id);
+	ProjectWithReviewsProjection findByIdWithReview(Long id);
 	List<ProjectProjection> findAll();
 	
 }

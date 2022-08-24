@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.bluhelp.dto.comment.CommentDTO;
-import br.senac.bluhelp.projection.address.AddressProjection;
 import br.senac.bluhelp.projection.comment.CommentProjection;
 import br.senac.bluhelp.service.comment.CommentService;
 
@@ -32,12 +31,12 @@ public class CommentController {
 	
 	@PostMapping
 	public ResponseEntity<CommentDTO> addComment(@RequestBody CommentDTO commentDTO){
-		return ResponseEntity.status(HttpStatus.CREATED).body(CommentService.save(commentDTO));
+		return ResponseEntity.status(HttpStatus.CREATED).body(commentService.save(commentDTO));
 	}
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<String> updateComment(@RequestBody CommentDTO commentDTO, @PathVariable(value = "id") Long id) {
-		commentService.update(commentDTO, id);
+		commentService.update(id, commentDTO);
 		return ResponseEntity.status(HttpStatus.OK).body("Comentário atualizado");
 	}
 
@@ -53,7 +52,7 @@ public class CommentController {
 	}
 	
 	@GetMapping()
-	public ResponseEntity<List<AddressProjection>> getAllAddresses() {
-		return ResponseEntity.status(HttpStatus.OK).body(CommentService.findAll());
+	public ResponseEntity<List<CommentProjection>> getAllComments() {
+		return ResponseEntity.status(HttpStatus.OK).body(commentService.findAll());
 	}
 }

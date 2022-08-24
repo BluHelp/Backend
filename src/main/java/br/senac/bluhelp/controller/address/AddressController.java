@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.bluhelp.dto.address.AddressDTO;
 import br.senac.bluhelp.projection.address.AddressProjection;
-import br.senac.bluhelp.projection.address.AddressWithProjectsProjection;
 import br.senac.bluhelp.service.address.AddressService;
 
 @RestController
@@ -32,12 +31,12 @@ public class AddressController {
 	
 	@PostMapping
 	public ResponseEntity<AddressDTO> addAddress(@RequestBody AddressDTO addressDTO){
-		return ResponseEntity.status(HttpStatus.CREATED).body(AddressService.save(addressDTO));
+		return ResponseEntity.status(HttpStatus.CREATED).body(addressService.save(addressDTO));
 	}
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<String> updateAddress(@RequestBody AddressDTO addressDTO, @PathVariable(value = "id") Long id) {
-		addressService.update(addressDTO, id);
+		addressService.update(id, addressDTO);
 		return ResponseEntity.status(HttpStatus.OK).body("Endereço atualizado");
 	}
 
@@ -50,11 +49,6 @@ public class AddressController {
 	@GetMapping("/{id}")
 	public ResponseEntity<AddressProjection> getAddress(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(addressService.findById(id));
-	}
-
-	@GetMapping("/{id}/projects")
-	public ResponseEntity<AddressWithProjectsProjection> getAddressWithProjects(@PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(addressService.findByIdWithProjects(id));
 	}
 
 	@GetMapping()

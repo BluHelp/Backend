@@ -63,14 +63,14 @@ public class ProjectServiceImpl implements ProjectService {
 		return project;
 	}
 
-	public ProjectWithAddressProjection findByProjectWithAddressProjection(Long id) {
+	public ProjectWithAddressProjection findByIdWithAddress(Long id) {
 		ProjectWithAddressProjection project = projectRepository.findProjectWithAddressById(id)
 				.orElseThrow(() -> new ProjectNotFoundException("Project " + id + " was not found"));
 
 		return project;
 	}
 
-	public ProjectWithReviewsProjection findByWithReviewsProjection(Long id) {
+	public ProjectWithReviewsProjection findByIdWithReview(Long id) {
 		ProjectWithReviewsProjection project = projectRepository.findProjectWithReviewsById(id)
 				.orElseThrow(() -> new ProjectNotFoundException("Project " + id + " was not found"));
 
