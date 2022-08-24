@@ -13,21 +13,20 @@ import br.senac.bluhelp.projection.user.UserProjection;
 import br.senac.bluhelp.projection.user.UserWithContactProjection;
 import br.senac.bluhelp.projection.user.UserWithContributedProjectsProjection;
 import br.senac.bluhelp.projection.user.UserWithCreatedProjectsProjections;
+
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-
-	
 	boolean existsByCpf(String cpf);
-	
-	Optional <UserProjection> findUserById(Long id);
-	
+
+	Optional<UserProjection> findUserById(Long id);
+
 	Optional<UserWithContactProjection> findUserWithContactById(Long id);
-	
+
 	Optional<UserWithContributedProjectsProjection> findUserWithContributedProjectsById(Long id);
-	
+
 	Optional<UserWithCreatedProjectsProjections> findUserWithCreatedProjectsById(Long id);
-	
-	@Query(value ="SELECT u.id AS id, u.name AS name, u.password AS password, u.cpf AS cpf FROM User u")
-		List<UserProjection> findUsers();
+
+	@Query(value = "SELECT u.id AS id, u.name AS name, u.password AS password, u.cpf AS cpf FROM User as u")
+	List<UserProjection> findUsers();
 }

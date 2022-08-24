@@ -18,14 +18,12 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 
 	boolean existsById(Long id);
 	
-	boolean existsByPhoto(byte[] photo);
-	
 	Optional <ProjectProjection> findProjectById(Long id);
 	
 	Optional <ProjectWithAddressProjection> findProjectWithAddressById(Long id);
 	
 	Optional <ProjectWithReviewsProjection> findProjectWithReviewsById(Long id);
 	
-	@Query(value= "SELECT p.title AS title, p.id AS id, p.creator AS creator, p.address AS address, p.category AS category, p.reviews AS reviews, p.progress AS progress FROM Project")
+	@Query(value= "SELECT p.title AS title, p.id AS id, p.creator AS creator, p.address AS address, p.category AS category, p.reviews AS reviews, p.progress AS progress FROM Project as p")
 	List<ProjectProjection> findProjects();
 }

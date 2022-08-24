@@ -10,7 +10,7 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "address", uniqueConstraints = {
-		@UniqueConstraint(columnNames = { "address_street", "address_numero" }) })
+		@UniqueConstraint(columnNames = { "address_street", "address_number" }) })
 public class Address {
 
 	@Id
@@ -29,16 +29,20 @@ public class Address {
 
 	@Column(name = "address_neighborhood", length = 60, nullable = false)
 	private String neighborhood;
+	
+	@Column(name = "address_cep", length = 9, nullable = false)
+	private String cep;
 
 	@Column(name = "address_complement", length = 60, nullable = true)
 	private String complement;
 
-	public Address(Long id, String roadType, String street, short number, String neighborhood, String complement) {
+	public Address(Long id, String roadType, String street, short number, String neighborhood, String cep, String complement) {
 		this.id = id;
 		this.roadType = roadType;
 		this.street = street;
 		this.number = number;
 		this.neighborhood = neighborhood;
+		this.cep = cep;
 		this.complement = complement;
 	}
 
@@ -80,6 +84,14 @@ public class Address {
 
 	public void setNeighborhood(String neighborhood) {
 		this.neighborhood = neighborhood;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
 	}
 
 	public String getComplement() {

@@ -2,6 +2,8 @@ package br.senac.bluhelp.service.review;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import br.senac.bluhelp.dto.review.ReviewDTO;
 import br.senac.bluhelp.exception.review.ReviewNotFoundException;
 import br.senac.bluhelp.mapper.review.ReviewMapper;
@@ -9,6 +11,7 @@ import br.senac.bluhelp.model.review.Review;
 import br.senac.bluhelp.projection.review.ReviewProjection;
 import br.senac.bluhelp.repository.review.ReviewRepository;
 
+@Service
 public class ReviewServiceImpl implements ReviewService {
 	
 	private final ReviewRepository reviewRepository;

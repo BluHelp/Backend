@@ -2,6 +2,7 @@ package br.senac.bluhelp.controller.project;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,7 +26,8 @@ import br.senac.bluhelp.service.project.ProjectService;
 @RequestMapping("/project")
 public class ProjectController {
 
-private final ProjectService projectService;
+	@Autowired
+	private final ProjectService projectService;
 	
 	public ProjectController(ProjectService projectService) {
 		this.projectService = projectService;

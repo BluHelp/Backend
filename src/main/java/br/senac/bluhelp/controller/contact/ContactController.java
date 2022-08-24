@@ -2,6 +2,7 @@ package br.senac.bluhelp.controller.contact;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,7 +24,8 @@ import br.senac.bluhelp.service.contact.ContactService;
 @RequestMapping("/contact")
 public class ContactController {
 
-private final ContactService contactService;
+	@Autowired
+	private final ContactService contactService;
 	
 	public ContactController(ContactService contactService) {
 		this.contactService = contactService;

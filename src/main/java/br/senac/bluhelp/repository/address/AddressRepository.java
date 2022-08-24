@@ -17,7 +17,7 @@ public interface AddressRepository extends JpaRepository<Address, Long> {
 	
 	Optional <AddressProjection> findAddressById(Long id);
 	
-	@Query(value="SELECT a.id AS id, a.street AS street, a.number AS number, a.neighborhood AS neighborhod, a.cep AS cep FROM Address")
+	@Query(value="SELECT a.id AS id, a.street AS street, a.number AS number, a.neighborhood AS neighborhod, a.cep AS cep FROM Address AS a")
 	List<AddressProjection> findAddresses();
 
 }

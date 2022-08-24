@@ -2,6 +2,7 @@ package br.senac.bluhelp.controller.user;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,6 +27,7 @@ import br.senac.bluhelp.service.user.UserService;
 @RequestMapping("/user")
 public class UserController {
 
+	@Autowired
 	private final UserService userService;
 	
 	public UserController(UserService userService) {
@@ -64,7 +66,7 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(userService.findByIdWithCreatedProjects(id));
 	}
 	
-	@GetMapping("/{id}/createdProjects")
+	@GetMapping("/{id}/contributedProjects")
 	public ResponseEntity<UserWithContributedProjectsProjection> getUserWithContributedProjects(@PathVariable(value = "id") Long id){
 		return ResponseEntity.status(HttpStatus.OK).body(userService.findByIdWithContributedProjects(id));
 	}

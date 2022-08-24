@@ -2,6 +2,7 @@ package br.senac.bluhelp.controller.comment;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,6 +24,7 @@ import br.senac.bluhelp.service.comment.CommentService;
 @RequestMapping("/comment")
 public class CommentController {
 
+	@Autowired
 	private final CommentService commentService;
 	
 	public CommentController(CommentService commentService) {
