@@ -6,13 +6,10 @@ import org.springframework.stereotype.Service;
 
 import br.senac.bluhelp.dto.address.AddressDTO;
 import br.senac.bluhelp.exception.address.AddressNotFoundException;
-import br.senac.bluhelp.exception.user.UserCpfRegisteredException;
 import br.senac.bluhelp.exception.user.UserNotFoundException;
 import br.senac.bluhelp.mapper.address.AddressMapper;
 import br.senac.bluhelp.model.address.Address;
-import br.senac.bluhelp.model.user.User;
 import br.senac.bluhelp.projection.address.AddressProjection;
-import br.senac.bluhelp.projection.user.UserProjection;
 import br.senac.bluhelp.repository.address.AddressRepository;
 
 @Service

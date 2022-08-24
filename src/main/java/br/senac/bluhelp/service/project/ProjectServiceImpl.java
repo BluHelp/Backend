@@ -6,16 +6,12 @@ import org.springframework.stereotype.Service;
 
 import br.senac.bluhelp.dto.project.ProjectDTO;
 import br.senac.bluhelp.exception.project.ProjectNotFoundException;
-import br.senac.bluhelp.exception.user.UserCpfRegisteredException;
-import br.senac.bluhelp.exception.user.UserNotFoundException;
 import br.senac.bluhelp.projection.project.ProjectProjection;
 import br.senac.bluhelp.projection.project.ProjectWithAddressProjection;
 import br.senac.bluhelp.projection.project.ProjectWithReviewsProjection;
-import br.senac.bluhelp.projection.user.UserProjection;
 import br.senac.bluhelp.repository.project.ProjectRepository;
 import br.senac.bluhelp.mapper.project.ProjectMapper;
 import br.senac.bluhelp.model.project.Project;
-import br.senac.bluhelp.model.user.User;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
@@ -67,14 +63,14 @@ public class ProjectServiceImpl implements ProjectService {
 		return project;
 	}
 
-	public ProjectWithAddressProjection findByProjectWithAddressProjection(Long id) {
+	public ProjectWithAddressProjection findByIdWithAddress(Long id) {
 		ProjectWithAddressProjection project = projectRepository.findProjectWithAddressById(id)
 				.orElseThrow(() -> new ProjectNotFoundException("Project " + id + " was not found"));
 
 		return project;
 	}
 
-	public ProjectWithReviewsProjection findByWithReviewsProjection(Long id) {
+	public ProjectWithReviewsProjection findByIdWithReview(Long id) {
 		ProjectWithReviewsProjection project = projectRepository.findProjectWithReviewsById(id)
 				.orElseThrow(() -> new ProjectNotFoundException("Project " + id + " was not found"));
 

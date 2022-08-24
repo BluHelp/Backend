@@ -10,17 +10,16 @@ import org.springframework.stereotype.Repository;
 import br.senac.bluhelp.model.user.User;
 import br.senac.bluhelp.projection.user.UserProjection;
 import br.senac.bluhelp.projection.user.UserWithContactProjection;
+
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-
-	
 	boolean existsByCpf(String cpf);
-	
-	Optional <UserProjection> findUserById(Long id);
-	
+
+	Optional<UserProjection> findUserById(Long id);
+
 	Optional<UserWithContactProjection> findUserWithContactById(Long id);
 	
-	@Query(value ="SELECT u.id AS id, u.name AS name, u.password AS password, u.cpf AS cpf FROM User u")
-		List<UserProjection> findUsers();
+	@Query(value = "SELECT u.id AS id, u.name AS name, u.password AS password, u.cpf AS cpf FROM User as u")
+	List<UserProjection> findUsers();
 }

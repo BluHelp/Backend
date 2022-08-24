@@ -4,7 +4,10 @@ public interface AddressProjection {
 
 	Long getId();
 	String getStreet();
-	String getDistrict();
-	String getReference();
+	short getNumber();
+	String getNeighborhood();
+	String getCep();
+	String getComplement();
+
 	
 }

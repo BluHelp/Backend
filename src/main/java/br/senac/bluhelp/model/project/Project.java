@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import br.senac.bluhelp.enumeration.category.Category;
 import br.senac.bluhelp.enumeration.progress.Progress;
 import br.senac.bluhelp.model.address.Address;
 import br.senac.bluhelp.model.comment.Comment;
@@ -61,12 +62,15 @@ public class Project {
 
 	@Enumerated(EnumType.ORDINAL)
 	private Progress progress;
+	
+	@Enumerated(EnumType.ORDINAL)
+	private Category category;
 
 	public Project() {
 	}
 
 	public Project(Long id, User creator, String title, String objective, Address address, String projectDescription,
-			Progress progress) {
+			Progress progress, Category category) {
 		this.id = id;
 		this.creator = creator;
 		this.title = title;
@@ -77,6 +81,7 @@ public class Project {
 		this.comments = new ArrayList<>();
 		this.reviews = new ArrayList<>();
 		this.progress = progress;
+		this.category = category;
 	}
 
 	public Long getId() {
@@ -170,4 +175,13 @@ public class Project {
 	public void setProgress(Progress progress) {
 		this.progress = progress;
 	}
+	
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
 }
