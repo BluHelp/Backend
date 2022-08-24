@@ -2,6 +2,7 @@ package br.senac.bluhelp.controller.review;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,6 +24,7 @@ import br.senac.bluhelp.service.review.ReviewService;
 @RequestMapping("/review")
 public class ReviewController {
 
+	@Autowired
 	private final ReviewService reviewService;
 
 	public ReviewController(ReviewService reviewService) {
@@ -31,20 +33,20 @@ public class ReviewController {
 
 	@PostMapping
 	public ResponseEntity<ReviewDTO> addReview(@RequestBody ReviewDTO reviewDTO) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(ReviewService.save(reviewDTO));
+		return ResponseEntity.status(HttpStatus.CREATED).body(reviewService.save(reviewDTO));
 	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<String> updateReview(@RequestBody ReviewDTO reviewDTO,
 			@PathVariable(value = "id") Long id) {
-		reviewService.update(reviewDTO, id);
+		reviewService.update(id, reviewDTO);
 		return ResponseEntity.status(HttpStatus.OK).body("Avaliação atualizada");
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteReview(@PathVariable(value = "id") Long id) {
 		reviewService.delete(id);
-		return ResponseEntity.status(HttpStatus.OK).body("avaliação deletada");
+		return ResponseEntity.status(HttpStatus.OK).body("Avaliação deletada");
 	}
 
 	@GetMapping()

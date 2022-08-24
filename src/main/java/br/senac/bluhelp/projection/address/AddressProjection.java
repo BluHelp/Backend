@@ -7,6 +7,7 @@ public interface AddressProjection {
 	String getStreet();
 	short getNumber();
 	String getNeighborhood();
+	String getCep();
 	String getComplement();
 	
 }

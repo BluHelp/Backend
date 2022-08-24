@@ -2,6 +2,7 @@ package br.senac.bluhelp.controller.project;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,20 +26,21 @@ import br.senac.bluhelp.service.project.ProjectService;
 @RequestMapping("/project")
 public class ProjectController {
 
-private final ProjectService projectService;
+	@Autowired
+	private final ProjectService projectService;
 	
 	public ProjectController(ProjectService projectService) {
-		this.userService = userService;
+		this.projectService = projectService;
 	}
 	
 	@PostMapping
 	public ResponseEntity<ProjectDTO> addProject(@RequestBody ProjectDTO projectDTO){
-		return ResponseEntity.status(HttpStatus.CREATED).body(ProjectService.save(projectDTO));
+		return ResponseEntity.status(HttpStatus.CREATED).body(projectService.save(projectDTO));
 	}
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<String> updateProject(@RequestBody ProjectDTO projectDTO, @PathVariable(value = "id") Long id) {
-		projectService.update(userDTO, id);
+		projectService.update(id, projectDTO);
 		return ResponseEntity.status(HttpStatus.OK).body("Projeto atualizado");
 	}
 
@@ -70,4 +72,3 @@ private final ProjectService projectService;
 	
 }
 
-}
