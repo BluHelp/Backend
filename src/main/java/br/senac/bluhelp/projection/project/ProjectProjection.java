@@ -29,6 +29,7 @@ public interface ProjectProjection {
 	
 		Long getId();
 		String getName();
+		String getSurname();
 		
 	}
 	
@@ -63,6 +64,7 @@ public interface ProjectProjection {
 			
 			Long getId();
 			String getName();
+			String getSurname();
 			
 		}
 	}

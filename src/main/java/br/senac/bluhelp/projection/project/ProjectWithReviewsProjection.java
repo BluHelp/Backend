@@ -1,30 +1,21 @@
 package br.senac.bluhelp.projection.project;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
-import br.senac.bluhelp.model.review.Review;
+import br.senac.bluhelp.enumeration.progress.Progress;
 import br.senac.bluhelp.model.user.User;
 
 public interface ProjectWithReviewsProjection{
 
-	Long getId();
+	Long getId ();
 	User getCreator();
 	String getTitle();
-	String getObjective();
-	List<Review> getReview();
-	
-	interface ProjectCreator{
-		
-		Long getId();
-		String getName();
-		
-	}
+	Progress getProgress();
 	
 	interface ProjectReviewsProjection{
 			
 		Long getId();
-		byte getNote();
+		byte getRating();
 		User getUser();
 		LocalDateTime getDate();
 			
@@ -32,6 +23,7 @@ public interface ProjectWithReviewsProjection{
 				
 				Long getId();
 				String getName();
+				String getSurname();
 				
 			}
 		}

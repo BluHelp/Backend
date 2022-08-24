@@ -11,8 +11,6 @@ import br.senac.bluhelp.mapper.user.UserMapper;
 import br.senac.bluhelp.model.user.User;
 import br.senac.bluhelp.projection.user.UserProjection;
 import br.senac.bluhelp.projection.user.UserWithContactProjection;
-import br.senac.bluhelp.projection.user.UserWithContributedProjectsProjection;
-import br.senac.bluhelp.projection.user.UserWithCreatedProjectsProjections;
 import br.senac.bluhelp.repository.user.UserRepository;
 
 @Service
@@ -74,21 +72,7 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 
-	public UserWithContributedProjectsProjection findByIdWithContributedProjects(Long id) {
-		
-		UserWithContributedProjectsProjection user = userRepository.findUserWithContributedProjectsById(id).orElseThrow(() -> new UserNotFoundException("User " + id + " was not found"));
-
-		return user;
-	}
-
-	public UserWithCreatedProjectsProjections findByIdWithCreatedProjects(Long id) {
-		
-		UserWithCreatedProjectsProjections user = userRepository.findUserWithCreatedProjectsById(id).orElseThrow(() -> new UserNotFoundException("User " + id + " was not found"));
-	
-		return user;
-	}
-
-	public List<UserProjection> findAll() {
+		public List<UserProjection> findAll() {
 	
 		return userRepository.findUsers();
 	}

@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import br.senac.bluhelp.dto.user.UserDTO;
 import br.senac.bluhelp.projection.user.UserProjection;
 import br.senac.bluhelp.projection.user.UserWithContactProjection;
-import br.senac.bluhelp.projection.user.UserWithContributedProjectsProjection;
-import br.senac.bluhelp.projection.user.UserWithCreatedProjectsProjections;
 import br.senac.bluhelp.service.user.UserService;
 
 @RestController
@@ -61,16 +59,6 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(userService.findByIdWithContact(id));
 	}
 	
-	@GetMapping("/{id}/createdProjects")
-	public ResponseEntity<UserWithCreatedProjectsProjections> getUserWithCreatedProjects(@PathVariable(value = "id") Long id){
-		return ResponseEntity.status(HttpStatus.OK).body(userService.findByIdWithCreatedProjects(id));
-	}
-	
-	@GetMapping("/{id}/contributedProjects")
-	public ResponseEntity<UserWithContributedProjectsProjection> getUserWithContributedProjects(@PathVariable(value = "id") Long id){
-		return ResponseEntity.status(HttpStatus.OK).body(userService.findByIdWithContributedProjects(id));
-	}
-
 	@GetMapping()
 	public ResponseEntity<List<UserProjection>> getAllUsers() {
 		return ResponseEntity.status(HttpStatus.OK).body(userService.findAll());
