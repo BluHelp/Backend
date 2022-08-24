@@ -4,5 +4,6 @@ public interface UserProjection {
 
 	Long getId();
 	String getName();
+	String getSurname();
 
 }
