@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 
 import br.senac.bluhelp.dto.project.ProjectDTO;
 import br.senac.bluhelp.exception.project.ProjectNotFoundException;
+import br.senac.bluhelp.projection.project.ProjectByUserProjection;
 import br.senac.bluhelp.projection.project.ProjectProjection;
 import br.senac.bluhelp.projection.project.ProjectWithAddressProjection;
+import br.senac.bluhelp.projection.project.ProjectWithDistrictProjection;
 import br.senac.bluhelp.projection.project.ProjectWithReviewsProjection;
 import br.senac.bluhelp.repository.project.ProjectRepository;
 import br.senac.bluhelp.mapper.project.ProjectMapper;
@@ -43,6 +45,7 @@ public class ProjectServiceImpl implements ProjectService {
 		project.setProgress(projectDTO.progress());
 		project.setProjectDescription(projectDTO.projectDescription());
 		project.setTitle(projectDTO.title());
+		project.setCategory(projectDTO.category());
 
 		projectRepository.save(project);
 
@@ -73,6 +76,20 @@ public class ProjectServiceImpl implements ProjectService {
 	public ProjectWithReviewsProjection findByIdWithReview(Long id) {
 		ProjectWithReviewsProjection project = projectRepository.findProjectWithReviewsById(id)
 				.orElseThrow(() -> new ProjectNotFoundException("Project " + id + " was not found"));
+
+		return project;
+	}
+
+	public ProjectByUserProjection findByIdWithUser(Long id) {
+		ProjectByUserProjection project = projectRepository.findProjectWithUserById(id)
+				.orElseThrow(() -> new ProjectNotFoundException("Project" + id + " was not found"));
+
+		return project;
+	}
+
+	public ProjectWithDistrictProjection findByIdWithDistrict(Long id) {
+		ProjectWithDistrictProjection project = projectRepository.findProjectWithDistrictById(id)
+				.orElseThrow(() -> new ProjectNotFoundException("Project" + id + " was not found"));
 
 		return project;
 	}
