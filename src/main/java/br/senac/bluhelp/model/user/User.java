@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -29,6 +30,9 @@ public class User {
 
 	@Column(name = "user_name", length = 45, nullable = false, unique = false)
 	private String name;
+	
+	@Column(name = "user_surname", length = 45, nullable = false, unique = false)
+	private String surname;
 
 	@Column(name = "user_password", length = 30, nullable = false, unique = false)
 	private String password;
@@ -42,17 +46,23 @@ public class User {
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "project_user", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
 	private List<Project> contributedProjects;
+	
+	@Lob
+	@Column(name = "user_photo")
+	private byte[] photo;
 
 	public User() {
 	}
 
-	public User(Long id, String name, String password, String cpf) {
+	public User(Long id, String name, String surname, String password, String cpf, byte[] photo) {
 		this.id = id;
 		this.name = name;
+		this.surname = surname;
 		this.password = password;
 		this.cpf = cpf;
 		this.createdProjects = new ArrayList<>();
 		this.contributedProjects = new ArrayList<>();
+		this.photo = photo;
 	}
 
 	public Long getId() {
@@ -69,6 +79,14 @@ public class User {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 
 	public String getPassword() {
@@ -110,4 +128,13 @@ public class User {
 	public void removeContributedProject(Project project) {
 		this.contributedProjects.remove(project);
 	}
+
+	public byte[] getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(byte[] photo) {
+		this.photo = photo;
+	}
+	
 }

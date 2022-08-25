@@ -18,4 +18,5 @@ public interface AddressService {
 	AddressProjection findById(Long id);
 	
 	List<AddressProjection> findAll();
+	
 }

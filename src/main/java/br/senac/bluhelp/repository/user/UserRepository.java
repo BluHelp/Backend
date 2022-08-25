@@ -20,6 +20,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 	Optional<UserWithContactProjection> findUserWithContactById(Long id);
 	
-	@Query(value = "SELECT u.id AS id, u.name AS name, u.password AS password, u.cpf AS cpf FROM User as u")
+	@Query(value = "SELECT u.id AS id, u.name AS name, u.surname AS surname, u.password AS password, u.cpf AS cpf FROM User as u")
 	List<UserProjection> findUsers();
 }
