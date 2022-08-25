@@ -12,60 +12,87 @@ import br.senac.bluhelp.model.user.User;
 
 public interface ProjectProjection {
 
-	Long getId ();
+	Long getId();
+
 	User getCreator();
+
 	String getTitle();
+
 	String getObjective();
+
 	Address getAddress();
+
 	String getProjectDescription();
+
 	List<User> getContributors();
+
 	List<Comment> getComments();
+
 	List<Review> getReview();
+
 	Progress getProgress();
+
 	Category getCategory();
 
-	
-	interface ProjectCreatorProjection{
-	
+	interface ProjectCreatorProjection {
+
 		Long getId();
+
 		String getName();
+
 		String getSurname();
-		
+
 	}
-	
-	interface ProjectCommentsProjection{
-		
+
+	interface ProjectCommentsProjection {
+
 		Long getId();
+
 		String getContents();
+
 		User getUser();
+
 		LocalDateTime getDate();
+
 		Comment getReferenceComment();
-		
+
 	}
-	
-	interface ProjectAddressProjection{
-		
+
+	interface ProjectAddressProjection {
+
 		Long getId();
+
 		String getRoadType();
+
 		String getStreet();
+
 		Short getNumber();
-		String getNeighborhood();
+
+		String getDistrict();
 		
+		String getComplement();
+
 	}
-	
-	interface ProjectReviewProjection{
-		
+
+	interface ProjectReviewProjection {
+
 		Long getId();
+
 		byte getNote();
+
 		User getUser();
+
 		LocalDateTime getDate();
-		
-		interface UserReviewProjectProjection{
-			
+
+		interface UserReviewProjectProjection {
+
 			Long getId();
+
 			String getName();
+
 			String getSurname();
-			
+
 		}
 	}
+
 }

@@ -4,18 +4,34 @@ import br.senac.bluhelp.enumeration.progress.Progress;
 import br.senac.bluhelp.model.address.Address;
 import br.senac.bluhelp.model.user.User;
 
-public interface ProjectWithDistrict {
+public interface ProjectWithAddressProjection {
 
-	Long getId ();
+	Long getId();
+
 	User getCreator();
+
 	String getTitle();
+
 	Address getAddress();
+
 	Progress getProgress();
-	
-interface Districtrojection{
-		
+
+	interface AddressProjection {
+
 		Long getId();
+
+		String getRoadType();
+
+		String getStreet();
+
+		Short getNumber();
+
 		String getDistrict();
+		
+		String getComplement();
+		
+		
+
 	}
-	
+
 }

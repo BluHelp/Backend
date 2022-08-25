@@ -8,8 +8,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import br.senac.bluhelp.model.project.Project;
+import br.senac.bluhelp.projection.project.ProjectByUserProjection;
 import br.senac.bluhelp.projection.project.ProjectProjection;
 import br.senac.bluhelp.projection.project.ProjectWithAddressProjection;
+import br.senac.bluhelp.projection.project.ProjectWithDistrictProjection;
 import br.senac.bluhelp.projection.project.ProjectWithReviewsProjection;
 import br.senac.bluhelp.repository.project.ProjectRepository;
 
@@ -19,6 +21,10 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 	boolean existsById(Long id);
 	
 	Optional <ProjectProjection> findProjectById(Long id);
+	
+	Optional <ProjectByUserProjection>  findProjectWithUserById(Long id);
+	
+	Optional <ProjectWithDistrictProjection> findProjectWithDistrictById(Long id);
 	
 	Optional <ProjectWithAddressProjection> findProjectWithAddressById(Long id);
 	

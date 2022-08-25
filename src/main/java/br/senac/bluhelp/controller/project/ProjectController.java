@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.bluhelp.dto.project.ProjectDTO;
+import br.senac.bluhelp.projection.project.ProjectByUserProjection;
 import br.senac.bluhelp.projection.project.ProjectProjection;
 import br.senac.bluhelp.projection.project.ProjectWithAddressProjection;
+import br.senac.bluhelp.projection.project.ProjectWithDistrictProjection;
 import br.senac.bluhelp.projection.project.ProjectWithReviewsProjection;
 import br.senac.bluhelp.service.project.ProjectService;
 
@@ -53,6 +55,16 @@ public class ProjectController {
 	@GetMapping("/{id}")
 	public ResponseEntity<ProjectProjection> getUser(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findById(id));
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<ProjectByUserProjection> getProjectByUser(@PathVariable(value = "id") Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(projectService.findByIdWithUser(id));
+	}
+	
+	@GetMapping("/{id")
+	public ResponseEntity<ProjectWithDistrictProjection> getProjectWithDistrict(@PathVariable(value = "id") Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(projectService.findByIdWithDistrict(id));
 	}
 
 	@GetMapping("/{id}/address")
