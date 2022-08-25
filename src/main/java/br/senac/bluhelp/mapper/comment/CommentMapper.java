@@ -12,7 +12,7 @@ import br.senac.bluhelp.model.comment.Comment;
 public class CommentMapper {
 	
 	public CommentDTO toDTO(Comment comment) {
-		return new CommentDTO(comment.getId(), comment.getContents(), comment.getUser(), comment.getProject(), comment.getDate(), comment.getReferenceComment());
+		return new CommentDTO(comment.getId(), comment.getContent(), comment.getUser(), comment.getProject(), comment.getDate(), comment.getReferencedComment());
 	}
 	
 	public List<CommentDTO> toDTO(List<Comment> comments){
@@ -27,7 +27,7 @@ public class CommentMapper {
 	}
 	
 	public Comment toEntity(CommentDTO commentDTO) {
-		return new Comment(commentDTO.id(), commentDTO.contents(), commentDTO.user(), commentDTO.project(), commentDTO.date(), commentDTO.referenceComment());
+		return new Comment(commentDTO.id(), commentDTO.content(), commentDTO.user(), commentDTO.project(), commentDTO.date(), commentDTO.referencedComment());
 	}
 
 }

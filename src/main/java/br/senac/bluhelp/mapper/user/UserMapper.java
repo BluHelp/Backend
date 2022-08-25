@@ -12,7 +12,7 @@ import br.senac.bluhelp.model.user.User;
 public class UserMapper {
 	
 	public UserDTO toDTO(User user) {
-		return new UserDTO(user.getId(), user.getName(), user.getPassword(), user.getCpf());
+		return new UserDTO(user.getId(), user.getName(), user.getSurname(), user.getPassword(), user.getCpf(), user.getPhoto());
 	}
 	
 	public List<UserDTO> toDTO(List<User> users){
@@ -27,7 +27,7 @@ public class UserMapper {
 	}
 
 	public User toEntity(UserDTO userDTO) {
-		return new User(userDTO.id(), userDTO.name(), userDTO.password(), userDTO.cpf());
+		return new User(userDTO.id(), userDTO.name(), userDTO.surname(), userDTO.password(), userDTO.cpf(), userDTO.photo());
 	}
 
 }

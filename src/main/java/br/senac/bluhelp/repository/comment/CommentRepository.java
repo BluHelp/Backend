@@ -10,11 +10,8 @@ import org.springframework.stereotype.Repository;
 import br.senac.bluhelp.model.comment.Comment;
 import br.senac.bluhelp.projection.comment.CommentProjection;
 
-
-
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-
 	
 	boolean existsById(Long id);
 	

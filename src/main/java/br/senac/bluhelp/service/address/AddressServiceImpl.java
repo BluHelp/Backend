@@ -35,10 +35,10 @@ public class AddressServiceImpl implements AddressService {
 		Address address = addressRepository.findById(id)
 				.orElseThrow(() -> new AddressNotFoundException("Project " + id + " was not found"));
 
-		address.setComplement(addressDTO.complement());
-		address.setNeighborhood(addressDTO.neighborhood());
+		address.setReference(addressDTO.reference());
+		address.setDistrict(addressDTO.district());
 		address.setNumber(addressDTO.number());
-		address.setRoadType(address.getRoadType());
+		address.setStreetType(address.getStreetType());
 		address.setStreet(addressDTO.street());
 
 		addressRepository.save(address);

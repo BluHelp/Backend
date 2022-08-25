@@ -18,8 +18,8 @@ public class Address {
 	@Column(name = "address_id")
 	private Long id;
 
-	@Column(name = "address_road_type", length = 15, nullable = false)
-	private String roadType;
+	@Column(name = "address_street_type", length = 15, nullable = false)
+	private String streetType;
 
 	@Column(name = "address_street", length = 60, nullable = false)
 	private String street;
@@ -27,23 +27,25 @@ public class Address {
 	@Column(name = "address_number", nullable = false)
 	private short number;
 
-	@Column(name = "address_neighborhood", length = 60, nullable = false)
-	private String neighborhood;
+	@Column(name = "address_district", length = 60, nullable = false)
+	private String district;
 	
 	@Column(name = "address_cep", length = 9, nullable = false)
 	private String cep;
 
-	@Column(name = "address_complement", length = 60, nullable = true)
-	private String complement;
+	@Column(name = "address_reference", length = 60, nullable = true)
+	private String reference;
+	
+	public Address() {}
 
-	public Address(Long id, String roadType, String street, short number, String neighborhood, String cep, String complement) {
+	public Address(Long id, String streetType, String street, short number, String district, String cep, String reference) {
 		this.id = id;
-		this.roadType = roadType;
+		this.streetType = streetType;
 		this.street = street;
 		this.number = number;
-		this.neighborhood = neighborhood;
+		this.district = district;
 		this.cep = cep;
-		this.complement = complement;
+		this.reference = reference;
 	}
 
 	public Long getId() {
@@ -53,13 +55,13 @@ public class Address {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public String getRoadType() {
-		return roadType;
+	
+	public String getStreetType() {
+		return streetType;
 	}
 
-	public void setRoadType(String roadType) {
-		this.roadType = roadType;
+	public void setStreetType(String streetType) {
+		this.streetType = streetType;
 	}
 
 	public String getStreet() {
@@ -77,13 +79,13 @@ public class Address {
 	public void setNumber(short number) {
 		this.number = number;
 	}
-
-	public String getNeighborhood() {
-		return neighborhood;
+	
+	public String getDistrict() {
+		return district;
 	}
 
-	public void setNeighborhood(String neighborhood) {
-		this.neighborhood = neighborhood;
+	public void setDistrict(String district) {
+		this.district = district;
 	}
 
 	public String getCep() {
@@ -93,12 +95,13 @@ public class Address {
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
-
-	public String getComplement() {
-		return complement;
+	
+	public String getReference() {
+		return reference;
 	}
 
-	public void setComplement(String complement) {
-		this.complement = complement;
+	public void setReference(String reference) {
+		this.reference = reference;
 	}
+
 }

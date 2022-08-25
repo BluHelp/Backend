@@ -34,11 +34,11 @@ public class CommentServiceImpl implements CommentService {
 		
 		Comment comment = commentRepository.findById(id).orElseThrow(() -> new CommentNotFoundException("Comment " + id + " was not found"));
 		
-		comment.setContents(commentDTO.contents());
+		comment.setContent(commentDTO.content());
 		comment.setUser(commentDTO.user());
 		comment.setProject(commentDTO.project());
 		comment.setDate(commentDTO.date());
-		comment.setReferenceComment(commentDTO.referenceComment());
+		comment.setReferencedComment(commentDTO.referencedComment());
 		
 		commentRepository.save(comment);
 	}

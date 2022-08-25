@@ -44,8 +44,10 @@ public class UserServiceImpl implements UserService {
 			throw new UserCpfRegisteredException("CPF " + userDTO.cpf() + " is already registered");
 		
 		user.setName(userDTO.name());
+		user.setSurname(userDTO.surname());
 		user.setPassword(userDTO.password());
 		user.setCpf(userDTO.cpf());
+		user.setPhoto(userDTO.photo());
 		
 		userRepository.save(user);
 	}

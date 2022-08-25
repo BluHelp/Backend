@@ -34,7 +34,7 @@ public class ReviewServiceImpl implements ReviewService {
 		
 		Review review = reviewRepository.findById(id).orElseThrow(() -> new ReviewNotFoundException("Review " + id + " was not found"));
 		
-		review.setGrade(reviewDTO.grade());
+		review.setRating(reviewDTO.rating());
 		review.setUser(reviewDTO.user());
 		review.setProject(reviewDTO.project());
 		review.setDate(reviewDTO.date());

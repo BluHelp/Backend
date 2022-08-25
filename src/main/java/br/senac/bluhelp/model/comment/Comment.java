@@ -25,8 +25,8 @@ public class Comment {
 	@Column(name = "comment_id")
 	private Long id;
 
-	@Column(name = "comment_contents", length = 300, nullable = false, unique = false)
-	private String contents;
+	@Column(name = "comment_content", length = 300, nullable = false, unique = false)
+	private String content;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
@@ -40,19 +40,19 @@ public class Comment {
 	private LocalDateTime date;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "reference_comment_id")
-	private Comment referenceComment;
+	@JoinColumn(name = "referenced_comment_id")
+	private Comment referencedComment;
 
 	public Comment() {
 	}
 
-	public Comment(Long id, String contents, User user, Project project, LocalDateTime date, Comment referenceComment) {
+	public Comment(Long id, String content, User user, Project project, LocalDateTime date, Comment referencedComment) {
 		this.id = id;
-		this.contents = contents;
+		this.content = content;
 		this.user = user;
 		this.project = project;
 		this.date = date;
-		this.referenceComment = referenceComment;
+		this.referencedComment = referencedComment;
 	}
 
 	public Long getId() {
@@ -63,12 +63,12 @@ public class Comment {
 		this.id = id;
 	}
 
-	public String getContents() {
-		return contents;
+	public String getContent() {
+		return content;
 	}
 
-	public void setContents(String contents) {
-		this.contents = contents;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	public User getUser() {
@@ -95,11 +95,11 @@ public class Comment {
 		this.date = date;
 	}
 
-	public Comment getReferenceComment() {
-		return referenceComment;
+	public Comment getReferencedComment() {
+		return referencedComment;
 	}
 
-	public void setReferenceComment(Comment referenceComment) {
-		this.referenceComment = referenceComment;
+	public void setReferencedComment(Comment referencedComment) {
+		this.referencedComment = referencedComment;
 	}
 }

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import br.senac.bluhelp.dto.contact.ContactDTO;
 import br.senac.bluhelp.model.contact.Contact;
 
-
 @Service
 public class ContactMapper {
 	

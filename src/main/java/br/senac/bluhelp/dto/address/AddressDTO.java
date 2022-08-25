@@ -1,5 +1,5 @@
 package br.senac.bluhelp.dto.address;
 
-public record AddressDTO (Long id, String roadType, String street, short number, String neighborhood, String cep, String complement){
+public record AddressDTO (Long id, String streetType, String street, short number, String district, String cep, String reference){
 
 }
