@@ -8,9 +8,9 @@ import br.senac.bluhelp.model.user.User;
 public interface CommentProjection {
 
 	Long getId();
-	String getContents();
+	String getContent();
 	User getUser();
 	LocalDateTime getDate();
-	Comment getReferenceComment();
+	Comment getReferencedComment();
 	
 }

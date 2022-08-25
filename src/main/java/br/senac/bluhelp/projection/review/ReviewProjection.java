@@ -7,7 +7,7 @@ import br.senac.bluhelp.model.user.User;
 public interface ReviewProjection {
 	
 	Long getId();
-	byte getGrade();
+	byte getRating();
 	User getUser();
 	LocalDateTime getDate();
 		

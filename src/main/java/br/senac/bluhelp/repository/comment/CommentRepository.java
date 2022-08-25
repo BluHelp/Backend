@@ -17,7 +17,7 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 	
 	Optional <CommentProjection> findCommentById(Long id);
 	
-	@Query(value= "SELECT c.id AS id, c.user AS user, c.project AS project, c.referenceComment AS referenceComment FROM Comment as c")
+	@Query(value= "SELECT c.id AS id, c.user AS user, c.project AS project, c.referencedComment AS referencedComment FROM Comment as c")
 	List<CommentProjection> findComments();
 	
 }
