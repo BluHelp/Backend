@@ -57,12 +57,12 @@ public class ProjectController {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findById(id));
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("/{id}/creator")
 	public ResponseEntity<ProjectByUserProjection> getProjectByUser(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findByIdWithUser(id));
 	}
 	
-	@GetMapping("/{id")
+	@GetMapping("/{id}/address/district")
 	public ResponseEntity<ProjectWithDistrictProjection> getProjectWithDistrict(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findByIdWithDistrict(id));
 	}

@@ -16,6 +16,8 @@ public interface ProjectWithAddressProjection {
 
 	Progress getProgress();
 
+	byte[] getPhoto();
+
 	interface AddressProjection {
 
 		Long getId();
@@ -27,10 +29,8 @@ public interface ProjectWithAddressProjection {
 		Short getNumber();
 
 		String getDistrict();
-		
+
 		String getComplement();
-		
-		
 
 	}
 

@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -49,7 +50,7 @@ public class Project {
 	private Address address;
 
 	@Column(name = "project_description", length = 500, nullable = false, unique = false)
-	private String projectDescription;
+	private String description;
 
 	@ManyToMany(mappedBy = "contributedProjects")
 	private List<User> contributors;
@@ -65,23 +66,28 @@ public class Project {
 	
 	@Enumerated(EnumType.ORDINAL)
 	private Category category;
+	
+	@Lob
+	@Column(name = "project_photo")
+	private byte[] photo;
 
 	public Project() {
 	}
 
-	public Project(Long id, User creator, String title, String objective, Address address, String projectDescription,
-			Progress progress, Category category) {
+	public Project(Long id, User creator, String title, String objective, Address address, String description,
+			Progress progress, Category category, byte[] photo) {
 		this.id = id;
 		this.creator = creator;
 		this.title = title;
 		this.objective = objective;
 		this.address = address;
-		this.projectDescription = projectDescription;
+		this.description = description;
 		this.contributors = new ArrayList<>();
 		this.comments = new ArrayList<>();
 		this.reviews = new ArrayList<>();
 		this.progress = progress;
 		this.category = category;
+		this.photo = photo;
 	}
 
 	public Long getId() {
@@ -124,12 +130,12 @@ public class Project {
 		this.address = address;
 	}
 
-	public String getProjectDescription() {
-		return projectDescription;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setProjectDescription(String projectDescription) {
-		this.projectDescription = projectDescription;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public List<User> getContributors() {
@@ -184,4 +190,12 @@ public class Project {
 		this.category = category;
 	}
 
+	public byte[] getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(byte[] photo) {
+		this.photo = photo;
+	}
+	
 }

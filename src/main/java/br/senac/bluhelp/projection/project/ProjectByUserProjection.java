@@ -15,6 +15,8 @@ public interface ProjectByUserProjection {
 	Address getAddress();
 
 	Progress getProgress();
+	
+	byte[] getPhoto();
 
 	interface DistrictProjection {
 
