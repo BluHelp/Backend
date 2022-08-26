@@ -46,7 +46,7 @@ public class UserController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteAddress(@PathVariable(value = "id") Long id) {
 		userService.delete(id);
-		return ResponseEntity.status(HttpStatus.OK).body("Endereço deletado");
+		return ResponseEntity.status(HttpStatus.OK).body("Usuário deletado");
 	}
 
 	@GetMapping("/{id}")

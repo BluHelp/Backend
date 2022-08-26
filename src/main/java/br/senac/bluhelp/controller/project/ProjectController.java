@@ -30,16 +30,16 @@ public class ProjectController {
 
 	@Autowired
 	private final ProjectService projectService;
-	
+
 	public ProjectController(ProjectService projectService) {
 		this.projectService = projectService;
 	}
-	
+
 	@PostMapping
-	public ResponseEntity<ProjectDTO> addProject(@RequestBody ProjectDTO projectDTO){
+	public ResponseEntity<ProjectDTO> addProject(@RequestBody ProjectDTO projectDTO) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(projectService.save(projectDTO));
 	}
-	
+
 	@PutMapping("/{id}")
 	public ResponseEntity<String> updateProject(@RequestBody ProjectDTO projectDTO, @PathVariable(value = "id") Long id) {
 		projectService.update(id, projectDTO);
@@ -56,12 +56,12 @@ public class ProjectController {
 	public ResponseEntity<ProjectProjection> getUser(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findById(id));
 	}
-	
+
 	@GetMapping("/{id}/creator")
 	public ResponseEntity<ProjectByUserProjection> getProjectByUser(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findByIdWithUser(id));
 	}
-	
+
 	@GetMapping("/{id}/address/district")
 	public ResponseEntity<ProjectWithDistrictProjection> getProjectWithDistrict(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findByIdWithDistrict(id));
@@ -71,9 +71,9 @@ public class ProjectController {
 	public ResponseEntity<ProjectWithAddressProjection> getProjectWithAddress(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findByIdWithAddress(id));
 	}
-	
+
 	@GetMapping("/{id}/reviews")
-	public ResponseEntity<ProjectWithReviewsProjection> getProjecctWithReviews(@PathVariable(value = "id") Long id){
+	public ResponseEntity<ProjectWithReviewsProjection> getProjecctWithReviews(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findByIdWithReview(id));
 	}
 
@@ -81,6 +81,5 @@ public class ProjectController {
 	public ResponseEntity<List<ProjectProjection>> getAllProjects() {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findAll());
 	}
-	
-}
 
+}

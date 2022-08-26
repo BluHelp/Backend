@@ -28,8 +28,8 @@ public class ReviewController {
 	private final ReviewService reviewService;
 
 	public ReviewController(ReviewService reviewService) {
-			this.reviewService = reviewService;
-		}
+		this.reviewService = reviewService;
+	}
 
 	@PostMapping
 	public ResponseEntity<ReviewDTO> addReview(@RequestBody ReviewDTO reviewDTO) {
@@ -37,8 +37,7 @@ public class ReviewController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<String> updateReview(@RequestBody ReviewDTO reviewDTO,
-			@PathVariable(value = "id") Long id) {
+	public ResponseEntity<String> updateReview(@RequestBody ReviewDTO reviewDTO, @PathVariable(value = "id") Long id) {
 		reviewService.update(id, reviewDTO);
 		return ResponseEntity.status(HttpStatus.OK).body("Avaliação atualizada");
 	}

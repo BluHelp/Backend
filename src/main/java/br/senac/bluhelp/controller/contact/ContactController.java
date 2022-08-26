@@ -26,16 +26,16 @@ public class ContactController {
 
 	@Autowired
 	private final ContactService contactService;
-	
+
 	public ContactController(ContactService contactService) {
 		this.contactService = contactService;
 	}
-	
+
 	@PostMapping
-	public ResponseEntity<ContactDTO> addContact(@RequestBody ContactDTO contactDTO){
+	public ResponseEntity<ContactDTO> addContact(@RequestBody ContactDTO contactDTO) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(contactService.save(contactDTO));
 	}
-	
+
 	@PutMapping("/{id}")
 	public ResponseEntity<String> updateContact(@RequestBody ContactDTO contactDTO, @PathVariable(value = "id") Long id) {
 		contactService.update(id, contactDTO);
@@ -57,5 +57,5 @@ public class ContactController {
 	public ResponseEntity<List<ContactProjection>> getAllContacts() {
 		return ResponseEntity.status(HttpStatus.OK).body(contactService.findAll());
 	}
-	
+
 }
