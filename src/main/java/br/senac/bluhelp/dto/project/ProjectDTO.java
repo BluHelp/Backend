@@ -6,6 +6,6 @@ import br.senac.bluhelp.model.address.Address;
 import br.senac.bluhelp.model.user.User;
 
 public record ProjectDTO(Long id, User creator, String title, String objective, Address address,
-		String projectDescription, Progress progress, Category category) {
+		String description, Progress progress, Category category, byte[] photo) {
 
 }

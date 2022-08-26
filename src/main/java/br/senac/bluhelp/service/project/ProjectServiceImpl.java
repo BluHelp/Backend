@@ -43,9 +43,10 @@ public class ProjectServiceImpl implements ProjectService {
 		project.setCreator(projectDTO.creator());
 		project.setObjective(projectDTO.objective());
 		project.setProgress(projectDTO.progress());
-		project.setProjectDescription(projectDTO.projectDescription());
+		project.setDescription(projectDTO.description());
 		project.setTitle(projectDTO.title());
 		project.setCategory(projectDTO.category());
+		project.setPhoto(projectDTO.photo());
 
 		projectRepository.save(project);
 

@@ -34,6 +34,8 @@ public interface ProjectProjection {
 
 	Category getCategory();
 
+	byte[] getPhoto();
+
 	interface ProjectCreatorProjection {
 
 		Long getId();
@@ -69,7 +71,7 @@ public interface ProjectProjection {
 		Short getNumber();
 
 		String getDistrict();
-		
+
 		String getComplement();
 
 	}
