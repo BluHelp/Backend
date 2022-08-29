@@ -12,7 +12,7 @@ import br.senac.bluhelp.model.comment.Comment;
 public class CommentMapper {
 	
 	public CommentDTO toDTO(Comment comment) {
-		return new CommentDTO(comment.getId(), comment.getContent(), comment.getUser(), comment.getProject(), comment.getDate(), comment.getReferencedComment());
+		return new CommentDTO(comment.getId(), comment.getContent(), comment.getUser().getId(), comment.getProject().getId(), comment.getDate(), comment.getReferencedComment().getId());
 	}
 	
 	public List<CommentDTO> toDTO(List<Comment> comments){

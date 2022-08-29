@@ -12,7 +12,7 @@ import br.senac.bluhelp.model.review.Review;
 public class ReviewMapper {
 	
 	public ReviewDTO toDTO(Review review) {
-		return new ReviewDTO(review.getId(), review.getRating(), review.getUser(), review.getProject(), review.getDate());
+		return new ReviewDTO(review.getId(), review.getRating(), review.getUser().getId(), review.getProject().getId(), review.getDate());
 	}
 	
 	public List<ReviewDTO> toDTO(List<Review> reviews){

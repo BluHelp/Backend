@@ -13,7 +13,7 @@ public class ContactMapper {
 	
 	public ContactDTO toDTO(Contact contact) {
 		
-		return new ContactDTO(contact.getId(), contact.getEmail(), contact.getPhone(), contact.getUser());
+		return new ContactDTO(contact.getId(), contact.getEmail(), contact.getPhone(), contact.getUser().getId());
 	}
 	
 	public List<ContactDTO> toDTO(List<Contact> contacts) {
