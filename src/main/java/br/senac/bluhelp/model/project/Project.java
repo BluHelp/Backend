@@ -1,5 +1,6 @@
 package br.senac.bluhelp.model.project;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +52,9 @@ public class Project {
 
 	@Column(name = "project_description", length = 500, nullable = false, unique = false)
 	private String description;
+	
+	@Column(name = "project_date", nullable = false)
+	private LocalDateTime date;
 
 	@ManyToMany(mappedBy = "contributedProjects")
 	private List<User> contributors;
@@ -74,7 +78,7 @@ public class Project {
 	public Project() {
 	}
 
-	public Project(Long id, User creator, String title, String objective, Address address, String description,
+	public Project(Long id, User creator, String title, String objective, Address address, String description, LocalDateTime date,
 			Progress progress, Category category, byte[] photo) {
 		this.id = id;
 		this.creator = creator;
@@ -82,6 +86,7 @@ public class Project {
 		this.objective = objective;
 		this.address = address;
 		this.description = description;
+		this.date = date;
 		this.contributors = new ArrayList<>();
 		this.comments = new ArrayList<>();
 		this.reviews = new ArrayList<>();
@@ -136,6 +141,14 @@ public class Project {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public LocalDateTime getDate() {
+		return date;
+	}
+	
+	public void setDate(LocalDateTime date) {
+		this.date = date;
 	}
 
 	public List<User> getContributors() {

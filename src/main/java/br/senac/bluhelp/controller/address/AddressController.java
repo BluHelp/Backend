@@ -21,11 +21,12 @@ import br.senac.bluhelp.service.address.AddressService;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/Address")
+@RequestMapping("/address")
 public class AddressController {
 
 	@Autowired
 	private final AddressService addressService;
+	
 	public AddressController(AddressService addressService) {
 		this.addressService = addressService;
 	}

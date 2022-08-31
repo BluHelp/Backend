@@ -1,11 +1,7 @@
 package br.senac.bluhelp.dto.project;
 
-import br.senac.bluhelp.enumeration.category.Category;
-import br.senac.bluhelp.enumeration.progress.Progress;
-import br.senac.bluhelp.model.address.Address;
-import br.senac.bluhelp.model.user.User;
+import java.time.LocalDateTime;
 
-public record ProjectDTO(Long id, User creator, String title, String objective, Address address,
-		String description, Progress progress, Category category, byte[] photo) {
-
+public record ProjectDTO(Long id, Long creator, String title, String objective, Long address, String description,
+		LocalDateTime date, int progress, int category, byte[] photo) {
 }
