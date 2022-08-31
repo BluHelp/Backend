@@ -30,7 +30,7 @@ public class ProjectMapper {
 	public ProjectDTO toDTO(Project project) {
 
 		return new ProjectDTO(project.getId(), project.getCreator().getId(), project.getTitle(), project.getObjective(),
-				project.getAddress().getId(), project.getDescription(), project.getProgress().ordinal(),
+				project.getAddress().getId(), project.getDescription(), project.getDate(), project.getProgress().ordinal(),
 				project.getCategory().ordinal(), project.getPhoto());
 	}
 
@@ -58,6 +58,6 @@ public class ProjectMapper {
 		Category category = Category.values()[projectDTO.category()];
 
 		return new Project(projectDTO.id(), creator, projectDTO.title(), projectDTO.objective(), address,
-				projectDTO.description(), progress, category, projectDTO.photo());
+				projectDTO.description(), projectDTO.date(), progress, category, projectDTO.photo());
 	}
 }

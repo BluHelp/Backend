@@ -31,7 +31,8 @@ public class ProjectServiceImpl implements ProjectService {
 	private final UserRepository userRepository;
 	private final AddressRepository addressRepository;
 
-	public ProjectServiceImpl(ProjectRepository projectRepository, ProjectMapper projectMapper, UserRepository userRepository, AddressRepository addressRepository) {
+	public ProjectServiceImpl(ProjectRepository projectRepository, ProjectMapper projectMapper,
+			UserRepository userRepository, AddressRepository addressRepository) {
 		this.projectRepository = projectRepository;
 		this.projectMapper = projectMapper;
 		this.userRepository = userRepository;
@@ -50,20 +51,23 @@ public class ProjectServiceImpl implements ProjectService {
 	public void update(Long id, ProjectDTO projectDTO) {
 		Project project = projectRepository.findById(id)
 				.orElseThrow(() -> new ProjectNotFoundException("Project " + id + " was not found"));
-		
-		User creator = userRepository.findById(projectDTO.creator()).orElseThrow(() -> new UserNotFoundException("User " + projectDTO.creator() + " was not found"));
 
-		Address address = addressRepository.findById(projectDTO.address()).orElseThrow(() -> new AddressNotFoundException("Address " + projectDTO.address() + " was not found"));
-		
+		User creator = userRepository.findById(projectDTO.creator())
+				.orElseThrow(() -> new UserNotFoundException("User " + projectDTO.creator() + " was not found"));
+
+		Address address = addressRepository.findById(projectDTO.address())
+				.orElseThrow(() -> new AddressNotFoundException("Address " + projectDTO.address() + " was not found"));
+
 		Progress progress = Progress.values()[projectDTO.progress()];
-		
+
 		Category category = Category.values()[projectDTO.category()];
-		
+
 		project.setAddress(address);
 		project.setCreator(creator);
 		project.setObjective(projectDTO.objective());
 		project.setProgress(progress);
 		project.setDescription(projectDTO.description());
+		project.setDate(projectDTO.date());
 		project.setTitle(projectDTO.title());
 		project.setCategory(category);
 		project.setPhoto(projectDTO.photo());
