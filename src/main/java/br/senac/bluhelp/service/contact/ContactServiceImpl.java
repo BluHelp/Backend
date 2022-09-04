@@ -46,15 +46,21 @@ public class ContactServiceImpl implements ContactService {
 	public void update(Long id, ContactDTO contactDTO) {
 		Contact contact = contactRepository.findById(id)
 				.orElseThrow(() -> new UserNotFoundException("Contact " + id + " was not found"));
-
-		if (contactRepository.existsByEmail(contactDTO.email()))
-			throw new ContactEmailRegisteredException("Email " + contactDTO.email() + " is already registered");
-
-		if (contactRepository.existsByPhone(contactDTO.phone()))
-			throw new ContactPhoneRegisteredException("Phone " + contactDTO.phone() + " is already registered");
-
+		
 		User user = userRepository.findById(contactDTO.user())
 				.orElseThrow(() -> new ContactNotFoundException("Contact " + contactDTO.user() + " was not found"));
+
+		if (!contactDTO.email().equals(contact.getEmail())) {
+			if (contactRepository.existsByEmail(contactDTO.email())) {
+				throw new ContactEmailRegisteredException("Email " + contactDTO.email() + " is already registered");
+			}
+		}
+
+		if (!contactDTO.phone().equals(contact.getPhone())) {
+			if (contactRepository.existsByPhone(contactDTO.phone())) {
+				throw new ContactPhoneRegisteredException("Phone " + contactDTO.phone() + " is already registered");
+			}
+		}
 
 		contact.setEmail(contactDTO.email());
 		contact.setPhone(contactDTO.phone());
