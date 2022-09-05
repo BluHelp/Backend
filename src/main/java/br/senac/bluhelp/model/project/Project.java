@@ -68,8 +68,8 @@ public class Project {
 	@Enumerated(EnumType.ORDINAL)
 	private Progress progress;
 	
-	@Enumerated(EnumType.ORDINAL)
-	private Category category;
+	@ManyToMany(mappedBy = "projects")
+	private List<Category> categories;
 	
 	@Lob
 	@Column(name = "project_photo")
@@ -79,7 +79,7 @@ public class Project {
 	}
 
 	public Project(Long id, User creator, String title, String objective, Address address, String description, LocalDateTime date,
-			Progress progress, Category category, byte[] photo) {
+			Progress progress, byte[] photo) {
 		this.id = id;
 		this.creator = creator;
 		this.title = title;
@@ -91,7 +91,7 @@ public class Project {
 		this.comments = new ArrayList<>();
 		this.reviews = new ArrayList<>();
 		this.progress = progress;
-		this.category = category;
+		this.categories = new ArrayList<>();
 		this.photo = photo;
 	}
 
@@ -195,12 +195,16 @@ public class Project {
 		this.progress = progress;
 	}
 	
-	public Category getCategory() {
-		return category;
+	public List<Category> getCategories() {
+		return categories;
 	}
-
-	public void setCategory(Category category) {
-		this.category = category;
+	
+	public void addCategory(Category category) {
+		this.categories.add(category);
+	}
+	
+	public void removeCategory(Category category) {
+		this.categories.remove(category);
 	}
 
 	public byte[] getPhoto() {
