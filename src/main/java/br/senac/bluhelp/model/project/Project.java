@@ -20,9 +20,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import br.senac.bluhelp.enumeration.category.Category;
 import br.senac.bluhelp.enumeration.progress.Progress;
 import br.senac.bluhelp.model.address.Address;
+import br.senac.bluhelp.model.category.Category;
 import br.senac.bluhelp.model.comment.Comment;
 import br.senac.bluhelp.model.review.Review;
 import br.senac.bluhelp.model.user.User;
@@ -79,7 +79,7 @@ public class Project {
 	}
 
 	public Project(Long id, User creator, String title, String objective, Address address, String description, LocalDateTime date,
-			Progress progress, byte[] photo) {
+			List<Category> categories, Progress progress, byte[] photo) {
 		this.id = id;
 		this.creator = creator;
 		this.title = title;
@@ -197,6 +197,10 @@ public class Project {
 	
 	public List<Category> getCategories() {
 		return categories;
+	}
+	
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
 	}
 	
 	public void addCategory(Category category) {
