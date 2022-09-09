@@ -1,5 +1,6 @@
 package br.senac.bluhelp.service.comment;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -36,6 +37,9 @@ public class CommentServiceImpl implements CommentService {
 	public CommentDTO save(CommentDTO commentDTO) {
 		
 		Comment comment = commentMapper.toEntity(commentDTO);
+		
+		comment.setDate(LocalDateTime.now());
+		
 		Comment commentSaved = commentRepository.save(comment);
 		
 		return commentMapper.toDTO(commentSaved);

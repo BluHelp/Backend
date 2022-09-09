@@ -40,7 +40,7 @@ public class Project {
 	@JoinColumn(name = "user_id")
 	private User creator;
 
-	@Column(name = "project_title", length = 45, nullable = false, unique = true)
+	@Column(name = "project_title", length = 45, nullable = false, unique = false)
 	private String title;
 
 	@Column(name = "project_objective", length = 150, nullable = false, unique = false)
@@ -53,7 +53,7 @@ public class Project {
 	@Column(name = "project_description", length = 500, nullable = false, unique = false)
 	private String description;
 	
-	@Column(name = "project_date", nullable = false)
+	@Column(name = "project_date")
 	private LocalDateTime date;
 
 	@ManyToMany(mappedBy = "contributedProjects")

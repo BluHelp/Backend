@@ -1,5 +1,6 @@
 package br.senac.bluhelp.service.project;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -45,7 +46,11 @@ public class ProjectServiceImpl implements ProjectService {
 	public ProjectDTO save(ProjectDTO projectDTO) {
 
 		Project project = projectMapper.toEntity(projectDTO);
+		
+		project.setDate(LocalDateTime.now());
+		
 		Project projectSaved = projectRepository.save(project);
+		
 
 		return projectMapper.toDTO(projectSaved);
 

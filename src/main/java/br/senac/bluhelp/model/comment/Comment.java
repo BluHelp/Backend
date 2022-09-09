@@ -36,7 +36,7 @@ public class Comment {
 	@JoinColumn(name = "project_id")
 	private Project project;
 
-	@Column(name = "comment_date", nullable = false)
+	@Column(name = "comment_date")
 	private LocalDateTime date;
 
 	@OneToOne(fetch = FetchType.LAZY)
