@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import br.senac.bluhelp.exception.address.AddressNotFoundException;
+import br.senac.bluhelp.exception.category.CategoryNotFoundException;
 import br.senac.bluhelp.exception.comment.CommentNotFoundException;
 import br.senac.bluhelp.exception.contact.ContactEmailRegisteredException;
 import br.senac.bluhelp.exception.contact.ContactNotFoundException;
@@ -25,6 +26,12 @@ public class CustomControllerAdvice {
 				.body(new ErrorResponse(HttpStatus.NOT_FOUND, exception.getMessage()));
 	}
 
+	@ExceptionHandler(CategoryNotFoundException.class)
+	public ResponseEntity<ErrorResponse> handleCategoryNotFoundException(Exception exception) {
+		return ResponseEntity.status(HttpStatus.NOT_FOUND)
+				.body(new ErrorResponse(HttpStatus.NOT_FOUND, exception.getMessage()));
+	}
+	
 	@ExceptionHandler(CommentNotFoundException.class)
 	public ResponseEntity<ErrorResponse> handleCommentNotFoundException(Exception exception) {
 
