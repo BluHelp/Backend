@@ -87,9 +87,9 @@ public class Project {
 		this.address = address;
 		this.description = description;
 		this.date = date;
-		this.contributors = new ArrayList<>();
-		this.comments = new ArrayList<>();
-		this.reviews = new ArrayList<>();
+		contributors = new ArrayList<>();
+		comments = new ArrayList<>();
+		reviews = new ArrayList<>();
 		this.progress = progress;
 		this.categories = new ArrayList<>();
 		this.photo = photo;
@@ -197,10 +197,6 @@ public class Project {
 	
 	public List<Category> getCategories() {
 		return categories;
-	}
-	
-	public void setCategories(List<Category> categories) {
-		this.categories = categories;
 	}
 	
 	public void addCategory(Category category) {
