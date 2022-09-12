@@ -49,6 +49,13 @@ public class ProjectServiceImpl implements ProjectService {
 		
 		project.setDate(LocalDateTime.now());
 		
+		List<Category> categories = categoryRepository.findAllById(projectDTO.categories());
+		
+		for(Category category : categories) {
+			project.addCategory(category);
+			category.addProject(project);
+		}
+		
 		Project projectSaved = projectRepository.save(project);
 		
 
