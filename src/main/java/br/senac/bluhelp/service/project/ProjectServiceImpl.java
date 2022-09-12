@@ -1,27 +1,29 @@
 package br.senac.bluhelp.service.project;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import br.senac.bluhelp.dto.project.ProjectDTO;
-import br.senac.bluhelp.enumeration.category.Category;
 import br.senac.bluhelp.enumeration.progress.Progress;
 import br.senac.bluhelp.exception.address.AddressNotFoundException;
 import br.senac.bluhelp.exception.project.ProjectNotFoundException;
 import br.senac.bluhelp.exception.user.UserNotFoundException;
+import br.senac.bluhelp.mapper.project.ProjectMapper;
+import br.senac.bluhelp.model.address.Address;
+import br.senac.bluhelp.model.category.Category;
+import br.senac.bluhelp.model.project.Project;
+import br.senac.bluhelp.model.user.User;
 import br.senac.bluhelp.projection.project.ProjectByUserProjection;
 import br.senac.bluhelp.projection.project.ProjectProjection;
 import br.senac.bluhelp.projection.project.ProjectWithAddressProjection;
 import br.senac.bluhelp.projection.project.ProjectWithDistrictProjection;
 import br.senac.bluhelp.projection.project.ProjectWithReviewsProjection;
 import br.senac.bluhelp.repository.address.AddressRepository;
+import br.senac.bluhelp.repository.category.CategoryRepository;
 import br.senac.bluhelp.repository.project.ProjectRepository;
 import br.senac.bluhelp.repository.user.UserRepository;
-import br.senac.bluhelp.mapper.project.ProjectMapper;
-import br.senac.bluhelp.model.address.Address;
-import br.senac.bluhelp.model.project.Project;
-import br.senac.bluhelp.model.user.User;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
@@ -30,19 +32,32 @@ public class ProjectServiceImpl implements ProjectService {
 	private final ProjectMapper projectMapper;
 	private final UserRepository userRepository;
 	private final AddressRepository addressRepository;
+	private final CategoryRepository categoryRepository;
 
 	public ProjectServiceImpl(ProjectRepository projectRepository, ProjectMapper projectMapper,
-			UserRepository userRepository, AddressRepository addressRepository) {
+			UserRepository userRepository, AddressRepository addressRepository, CategoryRepository categoryRepository) {
 		this.projectRepository = projectRepository;
 		this.projectMapper = projectMapper;
 		this.userRepository = userRepository;
 		this.addressRepository = addressRepository;
+		this.categoryRepository = categoryRepository;
 	}
 
 	public ProjectDTO save(ProjectDTO projectDTO) {
 
 		Project project = projectMapper.toEntity(projectDTO);
+		
+		project.setDate(LocalDateTime.now());
+		
+		List<Category> categories = categoryRepository.findAllById(projectDTO.categories());
+		
+		for(Category category : categories) {
+			project.addCategory(category);
+			category.addProject(project);
+		}
+		
 		Project projectSaved = projectRepository.save(project);
+		
 
 		return projectMapper.toDTO(projectSaved);
 
@@ -60,7 +75,7 @@ public class ProjectServiceImpl implements ProjectService {
 
 		Progress progress = Progress.values()[projectDTO.progress()];
 
-		Category category = Category.values()[projectDTO.category()];
+		List<Category> categories = categoryRepository.findAllById(projectDTO.categories());
 
 		project.setAddress(address);
 		project.setCreator(creator);
@@ -69,7 +84,7 @@ public class ProjectServiceImpl implements ProjectService {
 		project.setDescription(projectDTO.description());
 		project.setDate(projectDTO.date());
 		project.setTitle(projectDTO.title());
-		project.setCategory(category);
+		project.setCategories(categories);
 		project.setPhoto(projectDTO.photo());
 
 		projectRepository.save(project);

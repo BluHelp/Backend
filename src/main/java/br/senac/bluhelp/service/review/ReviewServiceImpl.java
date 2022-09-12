@@ -1,5 +1,6 @@
 package br.senac.bluhelp.service.review;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -36,6 +37,9 @@ public class ReviewServiceImpl implements ReviewService {
 	public ReviewDTO save(ReviewDTO reviewDTO) {
 
 		Review review = reviewMapper.toEntity(reviewDTO);
+		
+		review.setDate(LocalDateTime.now());
+		
 		Review reviewSaved = reviewRepository.save(review);
 
 		return reviewMapper.toDTO(reviewSaved);

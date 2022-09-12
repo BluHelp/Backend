@@ -20,9 +20,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import br.senac.bluhelp.enumeration.category.Category;
 import br.senac.bluhelp.enumeration.progress.Progress;
 import br.senac.bluhelp.model.address.Address;
+import br.senac.bluhelp.model.category.Category;
 import br.senac.bluhelp.model.comment.Comment;
 import br.senac.bluhelp.model.review.Review;
 import br.senac.bluhelp.model.user.User;
@@ -40,7 +40,7 @@ public class Project {
 	@JoinColumn(name = "user_id")
 	private User creator;
 
-	@Column(name = "project_title", length = 45, nullable = false, unique = true)
+	@Column(name = "project_title", length = 45, nullable = false, unique = false)
 	private String title;
 
 	@Column(name = "project_objective", length = 150, nullable = false, unique = false)
@@ -53,7 +53,7 @@ public class Project {
 	@Column(name = "project_description", length = 500, nullable = false, unique = false)
 	private String description;
 	
-	@Column(name = "project_date", nullable = false)
+	@Column(name = "project_date")
 	private LocalDateTime date;
 
 	@ManyToMany(mappedBy = "contributedProjects")
@@ -68,8 +68,8 @@ public class Project {
 	@Enumerated(EnumType.ORDINAL)
 	private Progress progress;
 	
-	@Enumerated(EnumType.ORDINAL)
-	private Category category;
+	@ManyToMany(mappedBy = "projects")
+	private List<Category> categories;
 	
 	@Lob
 	@Column(name = "project_photo")
@@ -79,7 +79,7 @@ public class Project {
 	}
 
 	public Project(Long id, User creator, String title, String objective, Address address, String description, LocalDateTime date,
-			Progress progress, Category category, byte[] photo) {
+			List<Category> categories, Progress progress, byte[] photo) {
 		this.id = id;
 		this.creator = creator;
 		this.title = title;
@@ -91,7 +91,7 @@ public class Project {
 		this.comments = new ArrayList<>();
 		this.reviews = new ArrayList<>();
 		this.progress = progress;
-		this.category = category;
+		this.categories = new ArrayList<>();
 		this.photo = photo;
 	}
 
@@ -195,12 +195,20 @@ public class Project {
 		this.progress = progress;
 	}
 	
-	public Category getCategory() {
-		return category;
+	public List<Category> getCategories() {
+		return categories;
 	}
-
-	public void setCategory(Category category) {
-		this.category = category;
+	
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
+	}
+	
+	public void addCategory(Category category) {
+		this.categories.add(category);
+	}
+	
+	public void removeCategory(Category category) {
+		this.categories.remove(category);
 	}
 
 	public byte[] getPhoto() {

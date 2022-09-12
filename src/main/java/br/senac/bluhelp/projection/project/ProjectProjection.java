@@ -3,9 +3,9 @@ package br.senac.bluhelp.projection.project;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import br.senac.bluhelp.enumeration.category.Category;
 import br.senac.bluhelp.enumeration.progress.Progress;
 import br.senac.bluhelp.model.address.Address;
+import br.senac.bluhelp.model.category.Category;
 import br.senac.bluhelp.model.comment.Comment;
 import br.senac.bluhelp.model.review.Review;
 import br.senac.bluhelp.model.user.User;
@@ -32,7 +32,7 @@ public interface ProjectProjection {
 
 	Progress getProgress();
 
-	Category getCategory();
+	List<Category> getCategories();
 
 	byte[] getPhoto();
 

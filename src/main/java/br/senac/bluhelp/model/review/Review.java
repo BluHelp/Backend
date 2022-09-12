@@ -35,7 +35,7 @@ public class Review {
 	@JoinColumn(name = "project_id")
 	private Project project;
 
-	@Column(name = "review_date", nullable = false)
+	@Column(name = "review_date")
 	private LocalDateTime date;
 
 	public Review() {
