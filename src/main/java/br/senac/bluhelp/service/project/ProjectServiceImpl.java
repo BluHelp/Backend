@@ -75,7 +75,6 @@ public class ProjectServiceImpl implements ProjectService {
 		
 		Project projectSaved = projectRepository.save(project);
 		
-
 		return projectMapper.toDTO(projectSaved);
 	}
 
