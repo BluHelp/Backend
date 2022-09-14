@@ -44,10 +44,27 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	public ProjectDTO save(ProjectDTO projectDTO) {
+		
+		User creator = userRepository.findById(projectDTO.creator())
+				.orElseThrow(() -> new UserNotFoundException("User " + projectDTO.creator() + " was not found"));
 
-		Project project = projectMapper.toEntity(projectDTO);
+		Address address = addressRepository.findById(projectDTO.address())
+				.orElseThrow(() -> new AddressNotFoundException("Address " + projectDTO.address() + " was not found"));
+
+		Progress progress = Progress.values()[projectDTO.progress()];
+
+		Project project = new Project();
 		
 		project.setDate(LocalDateTime.now());
+		project.setAddress(address);
+		project.setCreator(creator);
+		project.setProgress(progress);
+		project.setDescription(projectDTO.description());
+		project.setTitle(projectDTO.title());
+		project.setObjective(projectDTO.objective());
+		project.setPhoto(projectDTO.photo());
+		
+		creator.addCreatedProject(project);
 		
 		List<Category> categories = categoryRepository.findAllById(projectDTO.categories());
 		
@@ -58,17 +75,13 @@ public class ProjectServiceImpl implements ProjectService {
 		
 		Project projectSaved = projectRepository.save(project);
 		
-
 		return projectMapper.toDTO(projectSaved);
-
 	}
 
 	public void update(Long id, ProjectDTO projectDTO) {
+		
 		Project project = projectRepository.findById(id)
 				.orElseThrow(() -> new ProjectNotFoundException("Project " + id + " was not found"));
-
-		User creator = userRepository.findById(projectDTO.creator())
-				.orElseThrow(() -> new UserNotFoundException("User " + projectDTO.creator() + " was not found"));
 
 		Address address = addressRepository.findById(projectDTO.address())
 				.orElseThrow(() -> new AddressNotFoundException("Address " + projectDTO.address() + " was not found"));
@@ -76,15 +89,17 @@ public class ProjectServiceImpl implements ProjectService {
 		Progress progress = Progress.values()[projectDTO.progress()];
 
 		List<Category> categories = categoryRepository.findAllById(projectDTO.categories());
+		
+		for(Category category : categories) {
+			project.addCategory(category);
+			category.addProject(project);
+		}
 
 		project.setAddress(address);
-		project.setCreator(creator);
 		project.setObjective(projectDTO.objective());
 		project.setProgress(progress);
 		project.setDescription(projectDTO.description());
-		project.setDate(projectDTO.date());
 		project.setTitle(projectDTO.title());
-		project.setCategories(categories);
 		project.setPhoto(projectDTO.photo());
 
 		projectRepository.save(project);

@@ -69,7 +69,7 @@ public class Project {
 	private Progress progress;
 	
 	@ManyToMany(mappedBy = "projects")
-	private List<Category> categories;
+	private List<Category> categories = new ArrayList<>();
 	
 	@Lob
 	@Column(name = "project_photo")
@@ -79,7 +79,7 @@ public class Project {
 	}
 
 	public Project(Long id, User creator, String title, String objective, Address address, String description, LocalDateTime date,
-			List<Category> categories, Progress progress, byte[] photo) {
+			 Progress progress, byte[] photo) {
 		this.id = id;
 		this.creator = creator;
 		this.title = title;
@@ -87,11 +87,10 @@ public class Project {
 		this.address = address;
 		this.description = description;
 		this.date = date;
-		this.contributors = new ArrayList<>();
-		this.comments = new ArrayList<>();
-		this.reviews = new ArrayList<>();
+		contributors = new ArrayList<>();
+		comments = new ArrayList<>();
+		reviews = new ArrayList<>();
 		this.progress = progress;
-		this.categories = new ArrayList<>();
 		this.photo = photo;
 	}
 
@@ -197,10 +196,6 @@ public class Project {
 	
 	public List<Category> getCategories() {
 		return categories;
-	}
-	
-	public void setCategories(List<Category> categories) {
-		this.categories = categories;
 	}
 	
 	public void addCategory(Category category) {
