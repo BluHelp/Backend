@@ -7,25 +7,10 @@ import br.senac.bluhelp.model.user.User;
 public interface ProjectByUserProjection {
 
 	Long getId();
-
-	User getCreator();
-
-	String getTitle();
-
-	Address getAddress();
-
-	Progress getProgress();
 	
-	byte[] getPhoto();
-
-	interface DistrictProjection {
-
-		Long getId();
-
-		String getDistrict();
-	}
-
-	interface ProjectCreatorProjection {
+	User getCreator();
+	
+	interface CreatorProjection {
 
 		Long getId();
 
@@ -33,4 +18,20 @@ public interface ProjectByUserProjection {
 
 		String getSurname();
 	}
+
+	String getTitle();
+
+	Address getAddress();
+	
+	interface AddressProjection {
+
+		Long getId();
+
+		String getDistrict();
+	}
+
+	Progress getProgress();
+	
+	byte[] getPhoto();
+
 }
