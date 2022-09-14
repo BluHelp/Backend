@@ -35,10 +35,19 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	public ReviewDTO save(ReviewDTO reviewDTO) {
+		
+		Review review = new Review();
+		
+		User user = userRepository.findById(reviewDTO.user())
+				.orElseThrow(() -> new UserNotFoundException("User " + reviewDTO.user() + " was not found"));
 
-		Review review = reviewMapper.toEntity(reviewDTO);
+		Project project = projectRepository.findById(reviewDTO.project())
+				.orElseThrow(() -> new ProjectNotFoundException("Project " + reviewDTO.project() + " was not found"));
 		
 		review.setDate(LocalDateTime.now());
+		review.setProject(project);
+		review.setUser(user);
+		review.setRating(reviewDTO.rating());
 		
 		Review reviewSaved = reviewRepository.save(review);
 
@@ -50,15 +59,7 @@ public class ReviewServiceImpl implements ReviewService {
 		Review review = reviewRepository.findById(id)
 				.orElseThrow(() -> new ReviewNotFoundException("Review " + id + " was not found"));
 
-		User user = userRepository.findById(reviewDTO.user())
-				.orElseThrow(() -> new UserNotFoundException("User " + reviewDTO.user() + " was not found"));
-
-		Project project = projectRepository.findById(reviewDTO.project())
-				.orElseThrow(() -> new ProjectNotFoundException("Project " + reviewDTO.project() + " was not found"));
-
 		review.setRating(reviewDTO.rating());
-		review.setUser(user);
-		review.setProject(project);
 		review.setDate(reviewDTO.date());
 
 		reviewRepository.save(review);
