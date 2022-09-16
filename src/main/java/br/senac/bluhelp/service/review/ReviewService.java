@@ -16,4 +16,6 @@ public interface ReviewService {
 	ReviewProjection findById(Long id);
 	
 	List<ReviewProjection> findAll();
+	
+	byte averageReview(Long project_id);
 }

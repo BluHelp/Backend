@@ -10,7 +10,7 @@ import br.senac.bluhelp.exception.user.UserNotFoundException;
 import br.senac.bluhelp.mapper.user.UserMapper;
 import br.senac.bluhelp.model.user.User;
 import br.senac.bluhelp.projection.user.UserProjection;
-import br.senac.bluhelp.projection.user.UserWithContactProjection;
+import br.senac.bluhelp.projection.user.UserWithCreatedProjectsProjection;
 import br.senac.bluhelp.repository.user.UserRepository;
 
 @Service
@@ -72,9 +72,9 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 
-	public UserWithContactProjection findByIdWithContact(Long id) {
+	public UserWithCreatedProjectsProjection findByIdWithCreatedProjects(Long id) {
 
-		UserWithContactProjection user = userRepository.findUserWithContactById(id)
+		UserWithCreatedProjectsProjection user = userRepository.findUserWithCreatedProjectsById(id)
 				.orElseThrow(() -> new UserNotFoundException("User " + id + " was not found"));
 
 		return user;

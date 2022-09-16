@@ -32,4 +32,5 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 	
 	@Query(value= "SELECT p.title AS title, p.id AS id, p.creator AS creator, p.address AS address, p.categories AS categories, p.reviews AS reviews, p.progress AS progress FROM Project as p")
 	List<ProjectProjection> findProjects();
+
 }

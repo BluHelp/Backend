@@ -2,9 +2,7 @@ package br.senac.bluhelp.projection.user;
 
 import java.util.List;
 
-import br.senac.bluhelp.enumeration.progress.Progress;
-
-public interface UserWithProjectProjection {
+public interface UserWithCreatedProjectsProjection {
 	
 	Long getId();
 	
@@ -12,15 +10,27 @@ public interface UserWithProjectProjection {
 	
 	String getSurname();
 	
+	String getCpf();
+	
+	interface contactProjection {
+		
+		Long getId();
+		
+		String getEmail();
+		
+		String getPhone();	
+		
+	}
+	
 	List<ProjectProjection> getCreatedProjects();
 	
-	interface ProjectProjection{
+	interface ProjectProjection {
 		
 		Long getId();
 		
 		String getTitle();
 		
-		Progress getProgress();
+		byte getProgress();
 		
 	}
 

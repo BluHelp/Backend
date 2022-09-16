@@ -86,4 +86,11 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewRepository.findReviews();
 	}
 
+	public byte averageReview(Long project_id) {
+		
+		
+
+		return 0;
+	}
+
 }
