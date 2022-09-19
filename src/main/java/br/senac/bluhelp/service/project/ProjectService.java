@@ -3,11 +3,8 @@ package br.senac.bluhelp.service.project;
 import java.util.List;
 
 import br.senac.bluhelp.dto.project.ProjectDTO;
-import br.senac.bluhelp.projection.project.ProjectByUserProjection;
 import br.senac.bluhelp.projection.project.ProjectProjection;
-import br.senac.bluhelp.projection.project.ProjectWithAddressProjection;
-import br.senac.bluhelp.projection.project.ProjectWithDistrictProjection;
-import br.senac.bluhelp.projection.project.ProjectWithReviewsProjection;
+import br.senac.bluhelp.projection.project.ProjectWithProgressProjection;
 
 public interface ProjectService {
 
@@ -18,15 +15,11 @@ public interface ProjectService {
 	void delete(Long id);
 
 	ProjectProjection findById(Long id);
-
-	ProjectByUserProjection findByIdWithUser(Long id);
 	
-	ProjectWithDistrictProjection findByIdWithDistrict(Long id);
+	ProjectWithProgressProjection findByIdWithProgress(Long id);
+	
+	//byte findByIdWithAverageReview(Long id);
 
-	ProjectWithAddressProjection findByIdWithAddress(Long id);
-
-	ProjectWithReviewsProjection findByIdWithReview(Long id);
-
-	List<ProjectProjection> findAll();
+	List<ProjectWithProgressProjection> findAll();
 
 }

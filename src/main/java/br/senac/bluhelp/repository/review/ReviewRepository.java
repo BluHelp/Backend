@@ -21,8 +21,5 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 	
 	@Query(value ="SELECT r.id AS id, r.rating AS rating, r.project AS project, r.user AS user FROM Review as r")
 	List<ReviewProjection> findReviews();
-	
-	@Query(value = "SELECT avg(r.rating) FROM Review as r WHERE r.project = ?1")
-	byte getAverageReview(Long project_id);
-	
+
 }

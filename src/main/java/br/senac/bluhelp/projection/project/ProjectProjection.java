@@ -1,7 +1,9 @@
 package br.senac.bluhelp.projection.project;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
+import br.senac.bluhelp.enumeration.progress.Progress;
 import br.senac.bluhelp.projection.category.CategoryProjection;
 
 public interface ProjectProjection {
@@ -34,14 +36,16 @@ public interface ProjectProjection {
 		
 	}
 	
-	byte getProgress();
+	Progress getProgress();
 
-	String getProjectDescription();
+	String getDescription();
 
 	List<CategoryProjection> getCategories();
 
 	byte[] getPhoto();
 	
-	String getDate();
+	LocalDateTime getDate();
+	
+	//byte getAverageReview();
 
 }

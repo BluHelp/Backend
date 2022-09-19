@@ -16,11 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.bluhelp.dto.project.ProjectDTO;
-import br.senac.bluhelp.projection.project.ProjectByUserProjection;
 import br.senac.bluhelp.projection.project.ProjectProjection;
-import br.senac.bluhelp.projection.project.ProjectWithAddressProjection;
-import br.senac.bluhelp.projection.project.ProjectWithDistrictProjection;
-import br.senac.bluhelp.projection.project.ProjectWithReviewsProjection;
+import br.senac.bluhelp.projection.project.ProjectWithProgressProjection;
 import br.senac.bluhelp.service.project.ProjectService;
 
 @RestController
@@ -57,28 +54,8 @@ public class ProjectController {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findById(id));
 	}
 
-	@GetMapping("/{id}/creator")
-	public ResponseEntity<ProjectByUserProjection> getProjectByUser(@PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(projectService.findByIdWithUser(id));
-	}
-
-	@GetMapping("/{id}/address/district")
-	public ResponseEntity<ProjectWithDistrictProjection> getProjectWithDistrict(@PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(projectService.findByIdWithDistrict(id));
-	}
-
-	@GetMapping("/{id}/address")
-	public ResponseEntity<ProjectWithAddressProjection> getProjectWithAddress(@PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(projectService.findByIdWithAddress(id));
-	}
-
-	@GetMapping("/{id}/reviews")
-	public ResponseEntity<ProjectWithReviewsProjection> getProjecctWithReviews(@PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(projectService.findByIdWithReview(id));
-	}
-
 	@GetMapping()
-	public ResponseEntity<List<ProjectProjection>> getAllProjects() {
+	public ResponseEntity<List<ProjectWithProgressProjection>> getAllProjects() {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findAll());
 	}
 

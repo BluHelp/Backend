@@ -4,7 +4,7 @@ import java.util.List;
 
 import br.senac.bluhelp.projection.project.ProjectWithProgressProjection;
 
-public interface UserWithCreatedProjectsProjection {
+public interface UserWithProjectsProjection {
 	
 	Long getId();
 	
@@ -12,6 +12,10 @@ public interface UserWithCreatedProjectsProjection {
 	
 	String getSurname();
 	
-	List<ProjectWithProgressProjection> getCreatedProjects();
+	String getCpf();
 
+	List<ProjectWithProgressProjection> getCreatedProjects();
+	
+	List<ProjectWithProgressProjection> getContributedProjects();
+	
 }

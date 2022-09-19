@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import br.senac.bluhelp.model.category.Category;
 import br.senac.bluhelp.projection.category.CategoryProjection;
+import br.senac.bluhelp.projection.category.CategoryWithProjectsProjection;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long>{
@@ -16,6 +17,8 @@ public interface CategoryRepository extends JpaRepository<Category, Long>{
 	boolean existsById(Long id);
 	
 	Optional <CategoryProjection> findCategoryById(Long id);
+	
+	Optional <CategoryWithProjectsProjection> findCategoryWithProjectsById(Long id);
 	
 	@Query(value="SELECT ca.id AS id, ca.name AS name FROM Category AS ca")
 	List<CategoryProjection> findCategories();

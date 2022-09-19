@@ -1,5 +1,7 @@
 package br.senac.bluhelp.projection.project;
 
+import br.senac.bluhelp.enumeration.progress.Progress;
+
 public interface ProjectWithProgressProjection {
 	
 	Long getId();
@@ -8,6 +10,8 @@ public interface ProjectWithProgressProjection {
 	
 	byte[] getPhoto();
 	
-	byte getProgress();
+	Progress getProgress();
+	
+	//float getAverage();
 
 }

@@ -1,5 +1,7 @@
 package br.senac.bluhelp.projection.comment;
 
+import java.time.LocalDateTime;
+
 public interface CommentProjection {
 
 	Long getId();
@@ -20,6 +22,6 @@ public interface CommentProjection {
 		
 	}
 	
-	String getDate();
+	LocalDateTime getDate();
 	
 }
