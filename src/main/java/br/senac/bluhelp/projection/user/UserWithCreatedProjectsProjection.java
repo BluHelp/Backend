@@ -10,18 +10,6 @@ public interface UserWithCreatedProjectsProjection {
 	
 	String getSurname();
 	
-	String getCpf();
-	
-	interface contactProjection {
-		
-		Long getId();
-		
-		String getEmail();
-		
-		String getPhone();	
-		
-	}
-	
 	List<ProjectProjection> getCreatedProjects();
 	
 	interface ProjectProjection {
@@ -31,6 +19,8 @@ public interface UserWithCreatedProjectsProjection {
 		String getTitle();
 		
 		byte getProgress();
+		
+		byte getAverageReview();
 		
 	}
 

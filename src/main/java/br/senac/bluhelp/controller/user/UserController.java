@@ -55,7 +55,7 @@ public class UserController {
 	}
 
 	@GetMapping("/{id}/createdProjects")
-	public ResponseEntity<UserWithCreatedProjectsProjection> getUserWithContact(@PathVariable(value = "id") Long id) {
+	public ResponseEntity<UserWithCreatedProjectsProjection> getUserWithCreatedProjects(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(userService.findByIdWithCreatedProjects(id));
 	}
 	
