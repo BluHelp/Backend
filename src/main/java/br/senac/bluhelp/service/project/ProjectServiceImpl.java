@@ -128,11 +128,5 @@ public class ProjectServiceImpl implements ProjectService {
 	public List<ProjectWithProgressProjection> findAll() {
 		return projectRepository.findProjects();
 	}
-
-	//public byte findByIdWithAverageReview(Long id) {
-		
-	//	return projectRepository.findProjectWithAverageReviewById(id);	
-	
-	//}
 	
 }

@@ -19,7 +19,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 	
 	Optional <ReviewProjection> findReviewById(Long id);
 	
-	@Query(value ="SELECT r.id AS id, r.rating AS rating, r.project AS project, r.user AS user FROM Review as r")
+	@Query(value ="SELECT r.id AS id, r.rating AS rating, r.project AS project, r.user AS user, r.date AS date FROM Review as r")
 	List<ReviewProjection> findReviews();
 
 }

@@ -17,8 +17,6 @@ public interface ProjectService {
 	ProjectProjection findById(Long id);
 	
 	ProjectWithProgressProjection findByIdWithProgress(Long id);
-	
-	//byte findByIdWithAverageReview(Long id);
 
 	List<ProjectWithProgressProjection> findAll();
 

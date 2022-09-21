@@ -20,10 +20,7 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 	
 	Optional <ProjectWithProgressProjection> findProjectWithProgressById(Long id);
 	
-	@Query(value= "SELECT p.title AS title, p.id AS id, p.creator AS creator, p.address AS address, p.categories AS categories, p.reviews AS reviews, p.progress AS progress FROM Project as p")
+	@Query(value= "SELECT p.title AS title, p.id AS id, p.photo AS photo, p.progress AS progress FROM Project as p")
 	List<ProjectWithProgressProjection> findProjects();
-	
-	//@Query(value = "SELECT avg(r.rating) as average FROM Review as r WHERE r.project = ?1")
-	//byte findProjectWithAverageReviewById(Long id);
 
 }

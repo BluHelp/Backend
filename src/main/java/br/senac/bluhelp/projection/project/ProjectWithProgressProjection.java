@@ -11,7 +11,5 @@ public interface ProjectWithProgressProjection {
 	byte[] getPhoto();
 	
 	Progress getProgress();
-	
-	//float getAverage();
 
 }
