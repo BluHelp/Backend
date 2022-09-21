@@ -8,12 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import br.senac.bluhelp.model.project.Project;
-import br.senac.bluhelp.projection.project.ProjectByUserProjection;
 import br.senac.bluhelp.projection.project.ProjectProjection;
-import br.senac.bluhelp.projection.project.ProjectWithAddressProjection;
-import br.senac.bluhelp.projection.project.ProjectWithDistrictProjection;
-import br.senac.bluhelp.projection.project.ProjectWithReviewsProjection;
-import br.senac.bluhelp.repository.project.ProjectRepository;
+import br.senac.bluhelp.projection.project.ProjectWithProgressProjection;
 
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Long> {
@@ -22,14 +18,9 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 	
 	Optional <ProjectProjection> findProjectById(Long id);
 	
-	Optional <ProjectByUserProjection>  findProjectWithUserById(Long id);
+	Optional <ProjectWithProgressProjection> findProjectWithProgressById(Long id);
 	
-	Optional <ProjectWithDistrictProjection> findProjectWithDistrictById(Long id);
-	
-	Optional <ProjectWithAddressProjection> findProjectWithAddressById(Long id);
-	
-	Optional <ProjectWithReviewsProjection> findProjectWithReviewsById(Long id);
-	
-	@Query(value= "SELECT p.title AS title, p.id AS id, p.creator AS creator, p.address AS address, p.categories AS categories, p.reviews AS reviews, p.progress AS progress FROM Project as p")
-	List<ProjectProjection> findProjects();
+	@Query(value= "SELECT p.title AS title, p.id AS id, p.photo AS photo, p.progress AS progress FROM Project as p")
+	List<ProjectWithProgressProjection> findProjects();
+
 }

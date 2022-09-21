@@ -4,7 +4,8 @@ import java.util.List;
 
 import br.senac.bluhelp.dto.user.UserDTO;
 import br.senac.bluhelp.projection.user.UserProjection;
-import br.senac.bluhelp.projection.user.UserWithContactProjection;
+import br.senac.bluhelp.projection.user.UserWithCreatedProjectsProjection;
+import br.senac.bluhelp.projection.user.UserWithProjectsProjection;
 
 public interface UserService {
 
@@ -16,7 +17,9 @@ public interface UserService {
 	
 	UserProjection findById(Long id);
 	
-	UserWithContactProjection findByIdWithContact(Long id);
+	UserWithCreatedProjectsProjection findByIdWithCreatedProjects(Long id);
+	
+	UserWithProjectsProjection findByIdWithProjects(Long id);
 	
 	List<UserProjection> findAll();
 

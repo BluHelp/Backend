@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.bluhelp.dto.category.CategoryDTO;
 import br.senac.bluhelp.projection.category.CategoryProjection;
+import br.senac.bluhelp.projection.category.CategoryWithProjectsProjection;
 import br.senac.bluhelp.service.category.CategoryService;
 
 @RestController
@@ -49,8 +50,8 @@ public class CategoryController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<CategoryProjection> getCategory(@PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(categoryService.findById(id));
+	public ResponseEntity<CategoryWithProjectsProjection> getCategoryWithProjects(@PathVariable(value = "id") Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(categoryService.findByIdWithProjects(id));
 	}
 
 	@GetMapping()

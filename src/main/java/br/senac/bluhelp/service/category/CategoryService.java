@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.senac.bluhelp.dto.category.CategoryDTO;
 import br.senac.bluhelp.projection.category.CategoryProjection;
+import br.senac.bluhelp.projection.category.CategoryWithProjectsProjection;
 
 public interface CategoryService {
 	
@@ -14,6 +15,8 @@ public interface CategoryService {
 	void delete(Long id);
 	
 	CategoryProjection findById(Long id);
+	
+	CategoryWithProjectsProjection findByIdWithProjects(Long id);
 	
 	List<CategoryProjection> findAll();
 

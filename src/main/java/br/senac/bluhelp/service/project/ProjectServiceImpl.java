@@ -15,11 +15,8 @@ import br.senac.bluhelp.model.address.Address;
 import br.senac.bluhelp.model.category.Category;
 import br.senac.bluhelp.model.project.Project;
 import br.senac.bluhelp.model.user.User;
-import br.senac.bluhelp.projection.project.ProjectByUserProjection;
 import br.senac.bluhelp.projection.project.ProjectProjection;
-import br.senac.bluhelp.projection.project.ProjectWithAddressProjection;
-import br.senac.bluhelp.projection.project.ProjectWithDistrictProjection;
-import br.senac.bluhelp.projection.project.ProjectWithReviewsProjection;
+import br.senac.bluhelp.projection.project.ProjectWithProgressProjection;
 import br.senac.bluhelp.repository.address.AddressRepository;
 import br.senac.bluhelp.repository.category.CategoryRepository;
 import br.senac.bluhelp.repository.project.ProjectRepository;
@@ -120,37 +117,16 @@ public class ProjectServiceImpl implements ProjectService {
 
 		return project;
 	}
-
-	public ProjectWithAddressProjection findByIdWithAddress(Long id) {
-		ProjectWithAddressProjection project = projectRepository.findProjectWithAddressById(id)
+	
+	public ProjectWithProgressProjection findByIdWithProgress(Long id) {
+		ProjectWithProgressProjection project = projectRepository.findProjectWithProgressById(id)
 				.orElseThrow(() -> new ProjectNotFoundException("Project " + id + " was not found"));
-
+		
 		return project;
 	}
 
-	public ProjectWithReviewsProjection findByIdWithReview(Long id) {
-		ProjectWithReviewsProjection project = projectRepository.findProjectWithReviewsById(id)
-				.orElseThrow(() -> new ProjectNotFoundException("Project " + id + " was not found"));
-
-		return project;
-	}
-
-	public ProjectByUserProjection findByIdWithUser(Long id) {
-		ProjectByUserProjection project = projectRepository.findProjectWithUserById(id)
-				.orElseThrow(() -> new ProjectNotFoundException("Project" + id + " was not found"));
-
-		return project;
-	}
-
-	public ProjectWithDistrictProjection findByIdWithDistrict(Long id) {
-		ProjectWithDistrictProjection project = projectRepository.findProjectWithDistrictById(id)
-				.orElseThrow(() -> new ProjectNotFoundException("Project" + id + " was not found"));
-
-		return project;
-	}
-
-	public List<ProjectProjection> findAll() {
+	public List<ProjectWithProgressProjection> findAll() {
 		return projectRepository.findProjects();
 	}
-
+	
 }
