@@ -2,6 +2,7 @@ package br.senac.bluhelp.service.address;
 
 
 import br.senac.bluhelp.projection.address.AddressProjection;
+import br.senac.bluhelp.projection.address.AddressWithProjectsProjection;
 
 import java.util.List;
 
@@ -16,6 +17,8 @@ public interface AddressService {
 	void delete(Long id);
 	
 	AddressProjection findById(Long id);
+	
+	AddressWithProjectsProjection findWithProjectsById(Long id);
 	
 	List<AddressProjection> findAll();
 	

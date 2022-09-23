@@ -16,8 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.bluhelp.dto.project.ProjectDTO;
+import br.senac.bluhelp.exception.address.AddressNotFoundException;
+import br.senac.bluhelp.model.address.Address;
 import br.senac.bluhelp.projection.project.ProjectProjection;
 import br.senac.bluhelp.projection.project.ProjectWithProgressProjection;
+import br.senac.bluhelp.repository.address.AddressRepository;
+import br.senac.bluhelp.repository.project.ProjectRepository;
 import br.senac.bluhelp.service.project.ProjectService;
 
 @RestController
@@ -53,7 +57,7 @@ public class ProjectController {
 	public ResponseEntity<ProjectProjection> getProject(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findById(id));
 	}
-
+	
 	@GetMapping()
 	public ResponseEntity<List<ProjectWithProgressProjection>> getAllProjects() {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findAll());

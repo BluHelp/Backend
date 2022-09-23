@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import br.senac.bluhelp.model.address.Address;
 
 import br.senac.bluhelp.projection.address.AddressProjection;
+import br.senac.bluhelp.projection.address.AddressWithProjectsProjection;
 
 @Repository
 public interface AddressRepository extends JpaRepository<Address, Long> {
@@ -18,6 +19,8 @@ public interface AddressRepository extends JpaRepository<Address, Long> {
 	boolean existsById(Long id);
 	
 	Optional <AddressProjection> findAddressById(Long id);
+	
+	Optional <AddressWithProjectsProjection> findAddressWithProjectsById(Long id);
 	
 	@Query(value="SELECT a.id AS id, a.street AS street, a.number AS number, a.district AS district, a.cep AS cep FROM Address AS a")
 	List<AddressProjection> findAddresses();
