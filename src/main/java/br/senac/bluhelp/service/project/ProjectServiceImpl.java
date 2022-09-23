@@ -118,11 +118,9 @@ public class ProjectServiceImpl implements ProjectService {
 		return project;
 	}
 	
-	public ProjectWithProgressProjection findByIdWithProgress(Long id) {
-		ProjectWithProgressProjection project = projectRepository.findProjectWithProgressById(id)
-				.orElseThrow(() -> new ProjectNotFoundException("Project " + id + " was not found"));
+	public List <ProjectWithProgressProjection> findByProgress(Progress progress) {
 		
-		return project;
+		return projectRepository.findProjectsByProgress(progress);
 	}
 
 	public List<ProjectWithProgressProjection> findAll() {
