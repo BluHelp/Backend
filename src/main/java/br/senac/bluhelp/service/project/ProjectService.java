@@ -4,7 +4,7 @@ import java.util.List;
 
 import br.senac.bluhelp.dto.project.ProjectDTO;
 import br.senac.bluhelp.projection.project.ProjectProjection;
-import br.senac.bluhelp.projection.project.ProjectWithProgressProjection;
+import br.senac.bluhelp.projection.project.ProjectQueryProjection;
 
 public interface ProjectService {
 
@@ -16,8 +16,8 @@ public interface ProjectService {
 
 	ProjectProjection findById(Long id);
 	
-	ProjectWithProgressProjection findByIdWithProgress(Long id);
+	ProjectQueryProjection findByIdWithProgress(Long id);
 
-	List<ProjectWithProgressProjection> findAll();
+	List<ProjectQueryProjection> findAll();
 
 }

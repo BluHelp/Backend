@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.bluhelp.dto.project.ProjectDTO;
 import br.senac.bluhelp.projection.project.ProjectProjection;
-import br.senac.bluhelp.projection.project.ProjectWithProgressProjection;
+import br.senac.bluhelp.projection.project.ProjectQueryProjection;
 import br.senac.bluhelp.service.project.ProjectService;
 
 @RestController
@@ -55,7 +55,7 @@ public class ProjectController {
 	}
 
 	@GetMapping()
-	public ResponseEntity<List<ProjectWithProgressProjection>> getAllProjects() {
+	public ResponseEntity<List<ProjectQueryProjection>> getAllProjects() {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findAll());
 	}
 

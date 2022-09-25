@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import br.senac.bluhelp.model.project.Project;
 import br.senac.bluhelp.projection.project.ProjectProjection;
-import br.senac.bluhelp.projection.project.ProjectWithProgressProjection;
+import br.senac.bluhelp.projection.project.ProjectQueryProjection;
 
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Long> {
@@ -18,9 +18,12 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 	
 	Optional <ProjectProjection> findProjectById(Long id);
 	
-	Optional <ProjectWithProgressProjection> findProjectWithProgressById(Long id);
+	@Query(value= "SELECT p.title AS title, p.id AS id, p.photo AS photo, p.progress AS progress, AVG(r.rating) AS averageReview "
+			+ "FROM Project as p INNER JOIN p.reviews r WHERE r.project.id = ?1")
+	Optional<ProjectQueryProjection> findProjectWithProgressById(Long id);
 	
-	@Query(value= "SELECT p.title AS title, p.id AS id, p.photo AS photo, p.progress AS progress FROM Project as p")
-	List<ProjectWithProgressProjection> findProjects();
+	@Query(value= "SELECT p.title AS title, p.id AS id, p.photo AS photo, p.progress AS progress, AVG(r.rating) AS averageReview "
+			+ "FROM Project as p INNER JOIN p.reviews r GROUP BY p.id")
+	List<ProjectQueryProjection> findProjects();
 
 }

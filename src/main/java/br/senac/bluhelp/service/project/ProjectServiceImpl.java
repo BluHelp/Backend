@@ -16,7 +16,7 @@ import br.senac.bluhelp.model.category.Category;
 import br.senac.bluhelp.model.project.Project;
 import br.senac.bluhelp.model.user.User;
 import br.senac.bluhelp.projection.project.ProjectProjection;
-import br.senac.bluhelp.projection.project.ProjectWithProgressProjection;
+import br.senac.bluhelp.projection.project.ProjectQueryProjection;
 import br.senac.bluhelp.repository.address.AddressRepository;
 import br.senac.bluhelp.repository.category.CategoryRepository;
 import br.senac.bluhelp.repository.project.ProjectRepository;
@@ -118,14 +118,14 @@ public class ProjectServiceImpl implements ProjectService {
 		return project;
 	}
 	
-	public ProjectWithProgressProjection findByIdWithProgress(Long id) {
-		ProjectWithProgressProjection project = projectRepository.findProjectWithProgressById(id)
+	public ProjectQueryProjection findByIdWithProgress(Long id) {
+		ProjectQueryProjection project = projectRepository.findProjectWithProgressById(id)
 				.orElseThrow(() -> new ProjectNotFoundException("Project " + id + " was not found"));
 		
 		return project;
 	}
 
-	public List<ProjectWithProgressProjection> findAll() {
+	public List<ProjectQueryProjection> findAll() {
 		return projectRepository.findProjects();
 	}
 	

@@ -2,7 +2,7 @@ package br.senac.bluhelp.projection.user;
 
 import java.util.List;
 
-import br.senac.bluhelp.projection.project.ProjectWithProgressProjection;
+import br.senac.bluhelp.projection.project.ProjectQueryProjection;
 
 public interface UserWithProjectsProjection {
 	
@@ -14,8 +14,8 @@ public interface UserWithProjectsProjection {
 	
 	String getCpf();
 
-	List<ProjectWithProgressProjection> getCreatedProjects();
+	List<ProjectQueryProjection> getCreatedProjects();
 	
-	List<ProjectWithProgressProjection> getContributedProjects();
+	List<ProjectQueryProjection> getContributedProjects();
 	
 }
