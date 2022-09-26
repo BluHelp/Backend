@@ -14,7 +14,7 @@ public interface ProjectService {
 
 	void delete(Long id);
 
-	ProjectProjection findById(Long id);
+	ProjectProjection findProjectWithAverageReviewById(Long id);
 	
 	ProjectQueryProjection findByIdWithProgress(Long id);
 

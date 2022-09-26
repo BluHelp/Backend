@@ -16,14 +16,15 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 
 	boolean existsById(Long id);
 	
-	Optional <ProjectProjection> findProjectById(Long id);
+	Optional<ProjectProjection> findProjectById(Long id);
 	
-	@Query(value= "SELECT p.title AS title, p.id AS id, p.photo AS photo, p.progress AS progress, AVG(r.rating) AS averageReview "
-			+ "FROM Project as p INNER JOIN p.reviews r WHERE r.project.id = ?1")
+	@Query(value= "SELECT AVG(r.rating) AS averageReview FROM Project as p INNER JOIN p.reviews r WHERE r.project.id = ?1")
+	ProjectProjection getAverageReviewById(Long id);
+	
+	@Query(value= "SELECT p.title AS title, p.id AS id, p.photo AS photo, p.progress AS progress, AVG(r.rating) AS averageReview FROM Project as p INNER JOIN p.reviews r WHERE r.project.id = ?1")
 	Optional<ProjectQueryProjection> findProjectWithProgressById(Long id);
 	
-	@Query(value= "SELECT p.title AS title, p.id AS id, p.photo AS photo, p.progress AS progress, AVG(r.rating) AS averageReview "
-			+ "FROM Project as p INNER JOIN p.reviews r GROUP BY p.id")
+	@Query(value= "SELECT p.title AS title, p.id AS id, p.photo AS photo, p.progress AS progress, AVG(r.rating) AS averageReview FROM Project as p INNER JOIN p.reviews r GROUP BY p.id")
 	List<ProjectQueryProjection> findProjects();
 
 }

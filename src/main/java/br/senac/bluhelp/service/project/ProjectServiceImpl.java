@@ -110,11 +110,13 @@ public class ProjectServiceImpl implements ProjectService {
 
 		projectRepository.deleteById(id);
 	}
-
-	public ProjectProjection findById(Long id) {
+	
+	public ProjectProjection findProjectWithAverageReviewById(Long id) {
 		ProjectProjection project = projectRepository.findProjectById(id)
 				.orElseThrow(() -> new ProjectNotFoundException("Project " + id + " was not found"));
-
+		
+		
+		
 		return project;
 	}
 	

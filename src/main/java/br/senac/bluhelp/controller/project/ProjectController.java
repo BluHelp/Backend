@@ -51,7 +51,7 @@ public class ProjectController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<ProjectProjection> getProject(@PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(projectService.findById(id));
+		return ResponseEntity.status(HttpStatus.OK).body(projectService.findProjectWithAverageReviewById(id));
 	}
 
 	@GetMapping()

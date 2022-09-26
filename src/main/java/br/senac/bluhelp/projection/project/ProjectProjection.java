@@ -45,5 +45,7 @@ public interface ProjectProjection {
 	byte[] getPhoto();
 	
 	LocalDateTime getDate();
+	
+	Double getAverageReview();
 
 }
