@@ -16,14 +16,12 @@ import br.senac.bluhelp.projection.project.ProjectWithProgressProjection;
 public interface ProjectRepository extends JpaRepository<Project, Long> {
 
 	boolean existsById(Long id);
-	
-	Optional <ProjectProjection> findProjectById(Long id);
-	
-	List <ProjectWithProgressProjection> findProjectsByProgress(Progress progress);
-	
-	
-	
-	@Query(value= "SELECT p.title AS title, p.id AS id, p.photo AS photo, p.progress AS progress FROM Project as p")
+
+	Optional<ProjectProjection> findProjectById(Long id);
+
+	List<ProjectWithProgressProjection> findProjectsByProgress(Progress progress);
+
+	@Query(value = "SELECT p.title AS title, p.id AS id, p.photo AS photo, p.progress AS progress FROM Project as p")
 	List<ProjectWithProgressProjection> findProjects();
 
 }

@@ -16,8 +16,8 @@ public interface ProjectService {
 	void delete(Long id);
 
 	ProjectProjection findById(Long id);
-	
-	List <ProjectWithProgressProjection> findByProgress(Progress progress);
+
+	List<ProjectWithProgressProjection> findByProgress(Progress progress);
 
 	List<ProjectWithProgressProjection> findAll();
 

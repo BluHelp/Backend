@@ -16,13 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.bluhelp.dto.project.ProjectDTO;
-import br.senac.bluhelp.exception.address.AddressNotFoundException;
-import br.senac.bluhelp.model.address.Address;
 import br.senac.bluhelp.enumeration.progress.Progress;
 import br.senac.bluhelp.projection.project.ProjectProjection;
 import br.senac.bluhelp.projection.project.ProjectWithProgressProjection;
-import br.senac.bluhelp.repository.address.AddressRepository;
-import br.senac.bluhelp.repository.project.ProjectRepository;
 import br.senac.bluhelp.service.project.ProjectService;
 
 @RestController
@@ -43,7 +39,8 @@ public class ProjectController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<String> updateProject(@RequestBody ProjectDTO projectDTO, @PathVariable(value = "id") Long id) {
+	public ResponseEntity<String> updateProject(@RequestBody ProjectDTO projectDTO,
+			@PathVariable(value = "id") Long id) {
 		projectService.update(id, projectDTO);
 		return ResponseEntity.status(HttpStatus.OK).body("Projeto atualizado");
 	}
@@ -58,14 +55,15 @@ public class ProjectController {
 	public ResponseEntity<ProjectProjection> getProject(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findById(id));
 	}
-	
+
 	@GetMapping()
 	public ResponseEntity<List<ProjectWithProgressProjection>> getAllProjects() {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findAll());
 	}
-	
+
 	@GetMapping("/progress/{progress}")
-	public ResponseEntity<List<ProjectWithProgressProjection>> getProjectWithProgress(@PathVariable(value = "progress")Progress progress){
+	public ResponseEntity<List<ProjectWithProgressProjection>> getProjectWithProgress(
+			@PathVariable(value = "progress") Progress progress) {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findByProgress(progress));
 	}
 

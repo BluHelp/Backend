@@ -27,18 +27,19 @@ public class AddressController {
 
 	@Autowired
 	private final AddressService addressService;
-	
+
 	public AddressController(AddressService addressService) {
 		this.addressService = addressService;
 	}
-	
+
 	@PostMapping
-	public ResponseEntity<AddressDTO> addAddress(@RequestBody AddressDTO addressDTO){
+	public ResponseEntity<AddressDTO> addAddress(@RequestBody AddressDTO addressDTO) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(addressService.save(addressDTO));
 	}
-	
+
 	@PutMapping("/{id}")
-	public ResponseEntity<String> updateAddress(@RequestBody AddressDTO addressDTO, @PathVariable(value = "id") Long id) {
+	public ResponseEntity<String> updateAddress(@RequestBody AddressDTO addressDTO,
+			@PathVariable(value = "id") Long id) {
 		addressService.update(id, addressDTO);
 		return ResponseEntity.status(HttpStatus.OK).body("Endereço atualizado");
 	}
@@ -53,10 +54,11 @@ public class AddressController {
 	public ResponseEntity<AddressProjection> getAddress(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(addressService.findById(id));
 	}
-	
-	@GetMapping("/project/{id}")
-	public ResponseEntity <AddressWithProjectsProjection> getProjectWithAddress(@PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(addressService.findWithProjectsById(id));
+
+	@GetMapping("/district/{district}")
+	public ResponseEntity<AddressWithProjectsProjection> getProjectWithDistrict(
+			@PathVariable(value = "district") String district) {
+		return ResponseEntity.status(HttpStatus.OK).body(addressService.findByDistrict(district));
 	}
 
 	@GetMapping()

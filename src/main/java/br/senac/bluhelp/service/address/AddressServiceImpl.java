@@ -61,15 +61,14 @@ public class AddressServiceImpl implements AddressService {
 		return address;
 	}
 
-	public List<AddressProjection> findAll() {
-		return addressRepository.findAddresses();
+	public AddressWithProjectsProjection findByDistrict(String district) {
+		AddressWithProjectsProjection address = addressRepository.findProjectsByDistrict(district)
+				.orElseThrow(() -> new AddressNotFoundException("District" + district + " was not found"));
+		return address;
 	}
 
-	public AddressWithProjectsProjection findWithProjectsById(Long id) {
-		AddressWithProjectsProjection address = addressRepository.findAddressWithProjectsById(id)
-				.orElseThrow(() -> new AddressNotFoundException("Address " + id + " was not found"));
-
-		return address;
+	public List<AddressProjection> findAll() {
+		return addressRepository.findAddresses();
 	}
 
 }
