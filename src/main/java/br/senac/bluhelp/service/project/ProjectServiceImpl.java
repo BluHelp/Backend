@@ -41,7 +41,7 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	public ProjectDTO save(ProjectDTO projectDTO) {
-		
+
 		User creator = userRepository.findById(projectDTO.creator())
 				.orElseThrow(() -> new UserNotFoundException("User " + projectDTO.creator() + " was not found"));
 
@@ -51,7 +51,7 @@ public class ProjectServiceImpl implements ProjectService {
 		Progress progress = Progress.values()[projectDTO.progress()];
 
 		Project project = new Project();
-		
+
 		project.setDate(LocalDateTime.now());
 		project.setAddress(address);
 		project.setCreator(creator);
@@ -60,23 +60,23 @@ public class ProjectServiceImpl implements ProjectService {
 		project.setTitle(projectDTO.title());
 		project.setObjective(projectDTO.objective());
 		project.setPhoto(projectDTO.photo());
-		
+
 		creator.addCreatedProject(project);
-		
+
 		List<Category> categories = categoryRepository.findAllById(projectDTO.categories());
-		
-		for(Category category : categories) {
+
+		for (Category category : categories) {
 			project.addCategory(category);
 			category.addProject(project);
 		}
-		
+
 		Project projectSaved = projectRepository.save(project);
-		
+
 		return projectMapper.toDTO(projectSaved);
 	}
 
 	public void update(Long id, ProjectDTO projectDTO) {
-		
+
 		Project project = projectRepository.findById(id)
 				.orElseThrow(() -> new ProjectNotFoundException("Project " + id + " was not found"));
 
@@ -86,8 +86,8 @@ public class ProjectServiceImpl implements ProjectService {
 		Progress progress = Progress.values()[projectDTO.progress()];
 
 		List<Category> categories = categoryRepository.findAllById(projectDTO.categories());
-		
-		for(Category category : categories) {
+
+		for (Category category : categories) {
 			project.addCategory(category);
 			category.addProject(project);
 		}
@@ -117,14 +117,14 @@ public class ProjectServiceImpl implements ProjectService {
 
 		return project;
 	}
-	
-	public List <ProjectWithProgressProjection> findByProgress(Progress progress) {
-		
+
+	public List<ProjectWithProgressProjection> findByProgress(Progress progress) {
+
 		return projectRepository.findProjectsByProgress(progress);
 	}
 
 	public List<ProjectWithProgressProjection> findAll() {
 		return projectRepository.findProjects();
 	}
-	
+
 }
