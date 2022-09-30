@@ -17,5 +17,5 @@ public interface UserWithProjectsProjection {
 	List<ProjectQueryProjection> getCreatedProjects();
 	
 	List<ProjectQueryProjection> getContributedProjects();
-	
+
 }

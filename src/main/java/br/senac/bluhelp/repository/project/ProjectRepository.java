@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import br.senac.bluhelp.enumeration.progress.Progress;
 import br.senac.bluhelp.model.project.Project;
 import br.senac.bluhelp.projection.project.ProjectProjection;
 import br.senac.bluhelp.projection.project.ProjectQueryProjection;
@@ -15,6 +16,8 @@ import br.senac.bluhelp.projection.project.ProjectQueryProjection;
 public interface ProjectRepository extends JpaRepository<Project, Long> {
 
 	boolean existsById(Long id);
+  
+	List<ProjectQueryProjection> findProjectsByProgress(Progress progress);
 
 	Optional<ProjectProjection> findProjectById(Long id);
 

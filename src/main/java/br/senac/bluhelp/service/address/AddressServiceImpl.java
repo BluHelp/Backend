@@ -10,6 +10,7 @@ import br.senac.bluhelp.exception.user.UserNotFoundException;
 import br.senac.bluhelp.mapper.address.AddressMapper;
 import br.senac.bluhelp.model.address.Address;
 import br.senac.bluhelp.projection.address.AddressProjection;
+import br.senac.bluhelp.projection.address.AddressWithProjectsProjection;
 import br.senac.bluhelp.repository.address.AddressRepository;
 
 @Service
@@ -57,6 +58,12 @@ public class AddressServiceImpl implements AddressService {
 		AddressProjection address = addressRepository.findAddressById(id)
 				.orElseThrow(() -> new AddressNotFoundException("Address " + id + " was not found"));
 
+		return address;
+	}
+
+	public AddressWithProjectsProjection findByDistrict(String district) {
+		AddressWithProjectsProjection address = addressRepository.findProjectsByDistrict(district)
+				.orElseThrow(() -> new AddressNotFoundException("District" + district + " was not found"));
 		return address;
 	}
 

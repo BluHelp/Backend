@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import br.senac.bluhelp.dto.project.ProjectDTO;
 import br.senac.bluhelp.dto.project.ProjectProjectionDTO;
 import br.senac.bluhelp.projection.project.ProjectQueryProjection;
+import br.senac.bluhelp.enumeration.progress.Progress;
+import br.senac.bluhelp.projection.project.ProjectProjection;
+
 import br.senac.bluhelp.service.project.ProjectService;
 
 @RestController
@@ -38,7 +41,8 @@ public class ProjectController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<String> updateProject(@RequestBody ProjectDTO projectDTO, @PathVariable(value = "id") Long id) {
+	public ResponseEntity<String> updateProject(@RequestBody ProjectDTO projectDTO,
+			@PathVariable(value = "id") Long id) {
 		projectService.update(id, projectDTO);
 		return ResponseEntity.status(HttpStatus.OK).body("Projeto atualizado");
 	}
@@ -57,6 +61,12 @@ public class ProjectController {
 	@GetMapping()
 	public ResponseEntity<List<ProjectQueryProjection>> getAllProjects() {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findAll());
+	}
+
+	@GetMapping("/progress/{progress}")
+	public ResponseEntity<List<ProjectWithProgressProjection>> getProjectWithProgress(
+			@PathVariable(value = "progress") Progress progress) {
+		return ResponseEntity.status(HttpStatus.OK).body(projectService.findByProgress(progress));
 	}
 
 }

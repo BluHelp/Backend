@@ -19,10 +19,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 	Optional<UserProjection> findUserById(Long id);
 
-	Optional<UserWithCreatedProjectsProjection> findUserWithCreatedProjectsById(Long id);
-	
-	Optional<UserWithProjectsProjection> findUserWithProjectsById(Long id);
-	
+	Optional<UserWithProjectsProjection> findProjetsByNameAndSurname(String name, String surname);
+
 	@Query(value = "SELECT u.id AS id, u.name AS name, u.surname AS surname, u.password AS password, u.cpf AS cpf FROM User as u")
 	List<UserProjection> findUsers();
 }
