@@ -28,16 +28,16 @@ public class UserController {
 
 	@Autowired
 	private final UserService userService;
-	
+
 	public UserController(UserService userService) {
 		this.userService = userService;
 	}
-	
+
 	@PostMapping
-	public ResponseEntity<UserDTO> addUser(@RequestBody UserDTO userDTO){
+	public ResponseEntity<UserDTO> addUser(@RequestBody UserDTO userDTO) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(userDTO));
 	}
-	
+
 	@PutMapping("/{id}")
 	public ResponseEntity<String> updateUser(@RequestBody UserDTO userDTO, @PathVariable(value = "id") Long id) {
 		userService.update(id, userDTO);
@@ -51,18 +51,19 @@ public class UserController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<UserWithProjectsProjection> getUserWithContactAndProjects(@PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(userService.findByIdWithProjects(id));
+	public ResponseEntity<UserProjection> getUser(@PathVariable(value = "id") Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(userService.findById(id));
 	}
 
-	@GetMapping("/{id}/createdProjects")
-	public ResponseEntity<UserWithCreatedProjectsProjection> getUserWithCreatedProjects(@PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(userService.findByIdWithCreatedProjects(id));
+	@GetMapping("/name/{name}/surname/{surname}")
+	public ResponseEntity<UserWithProjectsProjection> getProjectsWithName(
+			@PathVariable(value = "name") String name, @PathVariable(value = "surname")String surname) {
+		return ResponseEntity.status(HttpStatus.OK).body(userService.findByNameAndSurname(name, surname));
 	}
-	
+
 	@GetMapping()
 	public ResponseEntity<List<UserProjection>> getAllUsers() {
 		return ResponseEntity.status(HttpStatus.OK).body(userService.findAll());
 	}
-	
+
 }
