@@ -3,9 +3,9 @@ package br.senac.bluhelp.service.project;
 import java.util.List;
 
 import br.senac.bluhelp.dto.project.ProjectDTO;
-
-import br.senac.bluhelp.enumeration.progress.Progress;
 import br.senac.bluhelp.dto.project.ProjectProjectionDTO;
+import br.senac.bluhelp.dto.project.ProjectQueryDTO;
+import br.senac.bluhelp.enumeration.progress.Progress;
 import br.senac.bluhelp.projection.project.ProjectQueryProjection;
 
 
@@ -19,7 +19,13 @@ public interface ProjectService {
 
 	ProjectProjectionDTO findProjectWithAverageReviewById(Long id);
 
-	List<ProjectWithProgressProjection> findByProgress(Progress progress);
+	List<ProjectQueryProjection> findByProgress(Progress progress);
+	
+	List<ProjectQueryDTO> findByCategory(Long category);
+	
+	List<ProjectQueryProjection> findByDistrict(String district);
+	
+	List<ProjectQueryProjection> findByCreator(String name, String surname);
 
 	List<ProjectQueryProjection> findAll();
 

@@ -9,7 +9,6 @@ import br.senac.bluhelp.exception.category.CategoryNotFoundException;
 import br.senac.bluhelp.mapper.category.CategoryMapper;
 import br.senac.bluhelp.model.category.Category;
 import br.senac.bluhelp.projection.category.CategoryProjection;
-import br.senac.bluhelp.projection.category.CategoryWithProjectsProjection;
 import br.senac.bluhelp.repository.category.CategoryRepository;
 
 @Service
@@ -54,13 +53,6 @@ public class CategoryServiceImpl implements CategoryService {
 
 	public List<CategoryProjection> findAll() {
 		return categoryRepository.findCategories();
-	}
-
-	public CategoryWithProjectsProjection findByIdWithProjects(Long id) {
-		CategoryWithProjectsProjection category = categoryRepository.findCategoryWithProjectsById(id)
-				.orElseThrow(() -> new CategoryNotFoundException("Category " + id + " was not found"));
-		
-		return category;
 	}
 
 }

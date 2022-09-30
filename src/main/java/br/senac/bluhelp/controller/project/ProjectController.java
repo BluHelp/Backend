@@ -17,10 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.bluhelp.dto.project.ProjectDTO;
 import br.senac.bluhelp.dto.project.ProjectProjectionDTO;
-import br.senac.bluhelp.projection.project.ProjectQueryProjection;
+import br.senac.bluhelp.dto.project.ProjectQueryDTO;
 import br.senac.bluhelp.enumeration.progress.Progress;
-import br.senac.bluhelp.projection.project.ProjectProjection;
-
+import br.senac.bluhelp.projection.project.ProjectQueryProjection;
 import br.senac.bluhelp.service.project.ProjectService;
 
 @RestController
@@ -64,9 +63,27 @@ public class ProjectController {
 	}
 
 	@GetMapping("/progress/{progress}")
-	public ResponseEntity<List<ProjectWithProgressProjection>> getProjectWithProgress(
+	public ResponseEntity<List<ProjectQueryProjection>> getProjectWithProgress(
 			@PathVariable(value = "progress") Progress progress) {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findByProgress(progress));
+	}
+	
+	@GetMapping("/category/{id}")
+	public ResponseEntity<List<ProjectQueryDTO>> getProjectWithCategory(
+			@PathVariable(value = "id") Long category) {
+		return ResponseEntity.status(HttpStatus.OK).body(projectService.findByCategory(category));
+	}
+
+	@GetMapping("/address/district/{district}")
+	public ResponseEntity<List<ProjectQueryProjection>> getProjectWithDistrict(
+			@PathVariable(value = "district") String district) {
+		return ResponseEntity.status(HttpStatus.OK).body(projectService.findByDistrict(district));
+	}
+	
+	@GetMapping("/creator/name/{name}/surname/{surname}")
+	public ResponseEntity<List<ProjectQueryProjection>> getProjectWithCreator(
+			@PathVariable(value = "name") String name, @PathVariable(value = "surname") String surname) {
+		return ResponseEntity.status(HttpStatus.OK).body(projectService.findByCreator(name, surname));
 	}
 
 }

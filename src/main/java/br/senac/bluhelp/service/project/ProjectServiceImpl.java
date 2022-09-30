@@ -1,6 +1,7 @@
 package br.senac.bluhelp.service.project;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import br.senac.bluhelp.dto.project.ProjectDTO;
 import br.senac.bluhelp.dto.project.ProjectProjectionDTO;
+import br.senac.bluhelp.dto.project.ProjectQueryDTO;
 import br.senac.bluhelp.enumeration.progress.Progress;
 import br.senac.bluhelp.exception.address.AddressNotFoundException;
 import br.senac.bluhelp.exception.project.ProjectNotFoundException;
@@ -121,7 +123,7 @@ public class ProjectServiceImpl implements ProjectService {
 	public ProjectProjectionDTO findProjectWithAverageReviewById(Long id) {
 		
 		ProjectProjection project = projectRepository.findProjectById(id).orElseThrow(() -> new ProjectNotFoundException("Project " + id + " was not found"));
-		float average = projectRepository.findAverageReviewById(id);
+		Double average = projectRepository.findAverageReviewById(id);
 		
 		ProjectProjectionDTO dto = new ProjectProjectionDTO(project.getId(), project.getCreator().getId(), project.getCreator().getName(), project.getCreator().getSurname(), 
 				project.getTitle(), project.getObjective(), project.getAddress().getId(), project.getAddress().getDistrict(), project.getDescription(), project.getCategories(), 
@@ -129,11 +131,41 @@ public class ProjectServiceImpl implements ProjectService {
 		
 		
 		return dto;
+	}
 
-	public List<ProjectWithProgressProjection> findByProgress(Progress progress) {
+	public List<ProjectQueryProjection> findByProgress(Progress progress) {
 
 		return projectRepository.findProjectsByProgress(progress);
 
+	}
+	
+	public List<ProjectQueryDTO> findByCategory(Long category) {
+		
+		List<ProjectQueryProjection> projects = projectRepository.findProjectsByCategory(category);
+		
+		List<ProjectQueryDTO> dtos = new ArrayList<>();
+		
+		for(ProjectQueryProjection project : projects) {
+			
+			Double average = projectRepository.findAverageReviewById(project.getId());
+			
+			ProjectQueryDTO dto = new ProjectQueryDTO(project.getId(), project.getTitle(), project.getPhoto(), project.getProgress(), average);
+			
+			dtos.add(dto);
+			
+		}
+		
+		return dtos;
+	}
+	
+	public List<ProjectQueryProjection> findByDistrict(String district) {
+		
+		return projectRepository.findProjectsByDistrict(district);
+	}
+	
+	public List<ProjectQueryProjection> findByCreator(String name, String surname) {
+		
+		return projectRepository.findProjectsByNameAndSurname(name, surname);
 	}
 	
 	public List<ProjectQueryProjection> findAll() {

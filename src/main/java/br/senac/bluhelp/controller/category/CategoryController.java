@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.bluhelp.dto.category.CategoryDTO;
 import br.senac.bluhelp.projection.category.CategoryProjection;
-import br.senac.bluhelp.projection.category.CategoryWithProjectsProjection;
 import br.senac.bluhelp.service.category.CategoryService;
 
 @RestController
@@ -47,11 +46,6 @@ public class CategoryController {
 	public ResponseEntity<String> deleteCategory(@PathVariable(value = "id") Long id) {
 		categoryService.delete(id);
 		return ResponseEntity.status(HttpStatus.OK).body("Categoria deletada");
-	}
-
-	@GetMapping("/{id}")
-	public ResponseEntity<CategoryWithProjectsProjection> getCategoryWithProjects(@PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(categoryService.findByIdWithProjects(id));
 	}
 
 	@GetMapping()
