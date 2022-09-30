@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.bluhelp.dto.project.ProjectDTO;
-import br.senac.bluhelp.projection.project.ProjectProjection;
+import br.senac.bluhelp.dto.project.ProjectProjectionDTO;
 import br.senac.bluhelp.projection.project.ProjectQueryProjection;
 import br.senac.bluhelp.service.project.ProjectService;
 
@@ -50,7 +50,7 @@ public class ProjectController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<ProjectProjection> getProject(@PathVariable(value = "id") Long id) {
+	public ResponseEntity<ProjectProjectionDTO> getProject(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findProjectWithAverageReviewById(id));
 	}
 

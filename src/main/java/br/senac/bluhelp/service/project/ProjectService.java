@@ -3,7 +3,7 @@ package br.senac.bluhelp.service.project;
 import java.util.List;
 
 import br.senac.bluhelp.dto.project.ProjectDTO;
-import br.senac.bluhelp.projection.project.ProjectProjection;
+import br.senac.bluhelp.dto.project.ProjectProjectionDTO;
 import br.senac.bluhelp.projection.project.ProjectQueryProjection;
 
 public interface ProjectService {
@@ -14,9 +14,7 @@ public interface ProjectService {
 
 	void delete(Long id);
 
-	ProjectProjection findProjectWithAverageReviewById(Long id);
-	
-	ProjectQueryProjection findByIdWithProgress(Long id);
+	ProjectProjectionDTO findProjectWithAverageReviewById(Long id);
 
 	List<ProjectQueryProjection> findAll();
 
