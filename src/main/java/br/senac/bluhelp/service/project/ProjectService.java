@@ -20,6 +20,8 @@ public interface ProjectService {
 	ProjectProjectionDTO findProjectWithAverageReviewById(Long id);
 
 	List<ProjectWithProgressProjection> findByProgress(Progress progress);
+	
+	List<ProjectWithProgressProjection> findByTitle(String title);
 
 	List<ProjectQueryProjection> findAll();
 
