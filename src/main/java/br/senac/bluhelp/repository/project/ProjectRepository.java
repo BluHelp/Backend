@@ -20,6 +20,8 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 	Optional<ProjectProjection> findProjectById(Long id);
 
 	List<ProjectWithProgressProjection> findProjectsByProgress(Progress progress);
+	
+	List<ProjectWithProgressProjection> findProjectsByTitle(String title);
 
 	@Query(value = "SELECT p.title AS title, p.id AS id, p.photo AS photo, p.progress AS progress FROM Project as p")
 	List<ProjectWithProgressProjection> findProjects();

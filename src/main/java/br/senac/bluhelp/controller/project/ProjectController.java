@@ -66,5 +66,11 @@ public class ProjectController {
 			@PathVariable(value = "progress") Progress progress) {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findByProgress(progress));
 	}
+	
+	@GetMapping("/title/{title}")
+	public ResponseEntity<List<ProjectWithProgressProjection>> getProjectsWithTitle(
+			@PathVariable(value = "title") String title) {
+		return ResponseEntity.status(HttpStatus.OK).body(projectService.findByTitle(title));
+	}
 
 }

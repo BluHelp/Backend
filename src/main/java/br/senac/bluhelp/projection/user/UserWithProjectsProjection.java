@@ -9,6 +9,6 @@ public interface UserWithProjectsProjection {
 	Long getId();
 	
 	List<ProjectWithProgressProjection> getCreatedProjects();
-	;
+	
 	
 }

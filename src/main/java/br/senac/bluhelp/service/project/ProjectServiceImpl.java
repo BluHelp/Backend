@@ -127,4 +127,9 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectRepository.findProjects();
 	}
 
+	public List<ProjectWithProgressProjection> findByTitle(String title) {
+
+		return projectRepository.findProjectsByTitle(title);
+	}
+
 }

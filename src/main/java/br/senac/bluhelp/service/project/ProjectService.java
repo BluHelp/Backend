@@ -18,6 +18,8 @@ public interface ProjectService {
 	ProjectProjection findById(Long id);
 
 	List<ProjectWithProgressProjection> findByProgress(Progress progress);
+	
+	List<ProjectWithProgressProjection> findByTitle(String title);
 
 	List<ProjectWithProgressProjection> findAll();
 
