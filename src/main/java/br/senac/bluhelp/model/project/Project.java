@@ -74,7 +74,7 @@ public class Project {
 	@Lob
 	@Column(name = "project_photo")
 	private byte[] photo;
-
+	
 	public Project() {
 	}
 

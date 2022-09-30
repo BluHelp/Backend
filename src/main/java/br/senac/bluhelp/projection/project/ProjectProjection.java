@@ -41,7 +41,7 @@ public interface ProjectProjection {
 	String getDescription();
 
 	List<CategoryProjection> getCategories();
-
+	
 	byte[] getPhoto();
 	
 	LocalDateTime getDate();

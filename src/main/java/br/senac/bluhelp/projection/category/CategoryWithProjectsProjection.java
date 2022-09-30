@@ -2,7 +2,7 @@ package br.senac.bluhelp.projection.category;
 
 import java.util.List;
 
-import br.senac.bluhelp.projection.project.ProjectWithProgressProjection;
+import br.senac.bluhelp.projection.project.ProjectQueryProjection;
 
 public interface CategoryWithProjectsProjection {
 	
@@ -10,6 +10,6 @@ public interface CategoryWithProjectsProjection {
 	
 	String getName();
 	
-	List<ProjectWithProgressProjection> getProjects();
+	List<ProjectQueryProjection> getProjects();
 
 }
