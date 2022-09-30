@@ -73,25 +73,20 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 
-	public UserWithCreatedProjectsProjection findByIdWithCreatedProjects(Long id) {
 
-		UserWithCreatedProjectsProjection user = userRepository.findUserWithCreatedProjectsById(id)
-				.orElseThrow(() -> new UserNotFoundException("User " + id + " was not found"));
+	public UserWithProjectsProjection findByNameAndSurname(String name, String surname) {
 
-		return user;
-	}
-	
-	public UserWithProjectsProjection findByIdWithProjects(Long id) {
-		
-		UserWithProjectsProjection user = userRepository.findUserWithProjectsById(id)
-				.orElseThrow(() -> new UserNotFoundException("User " + id + " was not found"));
+		UserWithProjectsProjection user = userRepository.findProjetsByNameAndSurname(name, surname)
+				.orElseThrow(() -> new UserNotFoundException("Name " + name + " was not found"));
 
-		return user;
+		return (UserWithProjectsProjection) user;
 	}
 
 	public List<UserProjection> findAll() {
 
 		return userRepository.findUsers();
 	}
+
+	
 
 }

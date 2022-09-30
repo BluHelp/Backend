@@ -8,14 +8,7 @@ public interface UserWithProjectsProjection {
 	
 	Long getId();
 	
-	String getName();
-	
-	String getSurname();
-	
-	String getCpf();
-
 	List<ProjectWithProgressProjection> getCreatedProjects();
-	
-	List<ProjectWithProgressProjection> getContributedProjects();
+	;
 	
 }

@@ -2,7 +2,7 @@ package br.senac.bluhelp.projection.user;
 
 import java.util.List;
 
-import br.senac.bluhelp.projection.project.ProjectWithProgressProjection;
+import br.senac.bluhelp.projection.project.ProjectProjection;
 
 public interface UserWithCreatedProjectsProjection {
 	
@@ -12,6 +12,6 @@ public interface UserWithCreatedProjectsProjection {
 	
 	String getSurname();
 	
-	List<ProjectWithProgressProjection> getCreatedProjects();
+	List<ProjectProjection> getCreatedProjects();
 
 }
