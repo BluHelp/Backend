@@ -32,6 +32,10 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 
 	Optional<ProjectProjection> findProjectById(Long id);
 
+	List<ProjectQueryProjection> findProjectsByProgress(Progress progress);
+	
+	List<ProjectQueryProjection> findProjectsByTitle(String title);
+
 	@Query(value = "SELECT AVG(r.rating) AS averageReview FROM Project as p INNER JOIN p.reviews r WHERE r.project.id = ?1")
 	Double findAverageReviewById(Long id);
 

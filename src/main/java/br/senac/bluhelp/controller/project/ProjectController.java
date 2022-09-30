@@ -68,6 +68,7 @@ public class ProjectController {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findByProgress(progress));
 	}
 	
+
 	@GetMapping("/category/{id}")
 	public ResponseEntity<List<ProjectQueryDTO>> getProjectWithCategory(
 			@PathVariable(value = "id") Long category) {
@@ -84,6 +85,12 @@ public class ProjectController {
 	public ResponseEntity<List<ProjectQueryProjection>> getProjectWithCreator(
 			@PathVariable(value = "name") String name, @PathVariable(value = "surname") String surname) {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findByCreator(name, surname));
+
+	@GetMapping("/title/{title}")
+	public ResponseEntity<List<ProjectWithProgressProjection>> getProjectsWithTitle(
+			@PathVariable(value = "title") String title) {
+		return ResponseEntity.status(HttpStatus.OK).body(projectService.findByTitle(title));
+
 	}
 
 }

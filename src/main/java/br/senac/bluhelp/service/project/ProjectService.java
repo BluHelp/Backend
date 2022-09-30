@@ -27,6 +27,8 @@ public interface ProjectService {
 	
 	List<ProjectQueryProjection> findByCreator(String name, String surname);
 
+	List<ProjectQueryProjection> findByTitle(String title);
+
 	List<ProjectQueryProjection> findAll();
 
 }
