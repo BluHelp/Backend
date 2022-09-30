@@ -8,10 +8,6 @@ public interface UserWithCreatedProjectsProjection {
 
 	Long getId();
 	
-	String getName();
-	
-	String getSurname();
-	
 	List<ProjectQueryProjection> getCreatedProjects();
 
 }

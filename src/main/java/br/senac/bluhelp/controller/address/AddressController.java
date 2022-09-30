@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.bluhelp.dto.address.AddressDTO;
 import br.senac.bluhelp.projection.address.AddressProjection;
-import br.senac.bluhelp.projection.address.AddressWithProjectsProjection;
 import br.senac.bluhelp.service.address.AddressService;
 
 @RestController
@@ -53,12 +52,6 @@ public class AddressController {
 	@GetMapping("/{id}")
 	public ResponseEntity<AddressProjection> getAddress(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(addressService.findById(id));
-	}
-
-	@GetMapping("/district/{district}")
-	public ResponseEntity<AddressWithProjectsProjection> getProjectWithDistrict(
-			@PathVariable(value = "district") String district) {
-		return ResponseEntity.status(HttpStatus.OK).body(addressService.findByDistrict(district));
 	}
 
 	@GetMapping()
