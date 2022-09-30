@@ -10,18 +10,21 @@ import org.springframework.stereotype.Repository;
 import br.senac.bluhelp.enumeration.progress.Progress;
 import br.senac.bluhelp.model.project.Project;
 import br.senac.bluhelp.projection.project.ProjectProjection;
-import br.senac.bluhelp.projection.project.ProjectWithProgressProjection;
+import br.senac.bluhelp.projection.project.ProjectQueryProjection;
 
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Long> {
 
 	boolean existsById(Long id);
+  
+	List<ProjectQueryProjection> findProjectsByProgress(Progress progress);
 
 	Optional<ProjectProjection> findProjectById(Long id);
 
-	List<ProjectWithProgressProjection> findProjectsByProgress(Progress progress);
+	@Query(value = "SELECT AVG(r.rating) AS averageReview FROM Project as p INNER JOIN p.reviews r WHERE r.project.id = ?1")
+	float findAverageReviewById(Long id);
 
-	@Query(value = "SELECT p.title AS title, p.id AS id, p.photo AS photo, p.progress AS progress FROM Project as p")
-	List<ProjectWithProgressProjection> findProjects();
+	@Query(value = "SELECT p.title AS title, p.id AS id, p.photo AS photo, p.progress AS progress, AVG(r.rating) AS averageReview FROM Project as p INNER JOIN p.reviews r GROUP BY p.id")
+	List<ProjectQueryProjection> findProjects();
 
 }

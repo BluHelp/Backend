@@ -2,7 +2,7 @@ package br.senac.bluhelp.projection.project;
 
 import br.senac.bluhelp.enumeration.progress.Progress;
 
-public interface ProjectWithProgressProjection {
+public interface ProjectQueryProjection {
 	
 	Long getId();
 	
@@ -11,5 +11,6 @@ public interface ProjectWithProgressProjection {
 	byte[] getPhoto();
 	
 	Progress getProgress();
-
+	
+	Double getAverageReview();
 }

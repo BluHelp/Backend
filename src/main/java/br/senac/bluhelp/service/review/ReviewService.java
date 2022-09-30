@@ -16,5 +16,5 @@ public interface ReviewService {
 	ReviewProjection findById(Long id);
 	
 	List<ReviewProjection> findAll();
-
+	
 }
