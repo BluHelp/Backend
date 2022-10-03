@@ -16,6 +16,8 @@ public interface ProjectService {
 	void update(Long id, ProjectDTO projectDTO);
 
 	void delete(Long id);
+	
+	List<ProjectQueryProjection> findTop4();
 
 	ProjectProjectionDTO findProjectWithAverageReviewById(Long id);
 

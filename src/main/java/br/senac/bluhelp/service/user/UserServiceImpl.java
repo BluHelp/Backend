@@ -10,6 +10,8 @@ import br.senac.bluhelp.exception.user.UserNotFoundException;
 import br.senac.bluhelp.mapper.user.UserMapper;
 import br.senac.bluhelp.model.user.User;
 import br.senac.bluhelp.projection.user.UserProjection;
+import br.senac.bluhelp.repository.contact.ContactRepository;
+import br.senac.bluhelp.repository.project.ProjectRepository;
 import br.senac.bluhelp.repository.user.UserRepository;
 
 @Service
@@ -17,10 +19,14 @@ public class UserServiceImpl implements UserService {
 
 	private final UserRepository userRepository;
 	private final UserMapper userMapper;
+	private final ProjectRepository projectRepository;
+	private final ContactRepository contactRepository;
 
-	public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
+	public UserServiceImpl(UserRepository userRepository, UserMapper userMapper, ProjectRepository projectRepository, ContactRepository contactRepository) {
 		this.userRepository = userRepository;
 		this.userMapper = userMapper;
+		this.projectRepository = projectRepository;
+		this.contactRepository = contactRepository;
 	}
 
 	public UserDTO save(UserDTO userDTO) {

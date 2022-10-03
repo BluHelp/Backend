@@ -4,9 +4,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.senac.bluhelp.dto.project.ProjectDTO;
@@ -31,17 +30,14 @@ import br.senac.bluhelp.repository.user.UserRepository;
 @Service
 public class ProjectServiceImpl implements ProjectService {
 	
-	@PersistenceContext
-	private final EntityManager entityManager;
 	private final ProjectRepository projectRepository;
 	private final ProjectMapper projectMapper;
 	private final UserRepository userRepository;
 	private final AddressRepository addressRepository;
 	private final CategoryRepository categoryRepository;
 
-	public ProjectServiceImpl(EntityManager entityManager, ProjectRepository projectRepository, ProjectMapper projectMapper,
+	public ProjectServiceImpl(ProjectRepository projectRepository, ProjectMapper projectMapper,
 			UserRepository userRepository, AddressRepository addressRepository, CategoryRepository categoryRepository) {
-		this.entityManager = entityManager;
 		this.projectRepository = projectRepository;
 		this.projectMapper = projectMapper;
 		this.userRepository = userRepository;
@@ -120,6 +116,13 @@ public class ProjectServiceImpl implements ProjectService {
 		projectRepository.deleteById(id);
 	}
 	
+	public List<ProjectQueryProjection> findTop4() {
+		
+		Pageable topFour = PageRequest.of(0, 4);
+		
+		return projectRepository.findTop4ByAverageReview(topFour);
+	}
+	
 	public ProjectProjectionDTO findProjectWithAverageReviewById(Long id) {
 		
 		ProjectProjection project = projectRepository.findProjectById(id).orElseThrow(() -> new ProjectNotFoundException("Project " + id + " was not found"));
@@ -169,10 +172,11 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 	
 	public List<ProjectQueryProjection> findAll() {
+		
 		return projectRepository.findProjects();
 	}
 
-	public List<ProjectWithProgressProjection> findByTitle(String title) {
+	public List<ProjectQueryProjection> findByTitle(String title) {
 
 		return projectRepository.findProjectsByTitle(title);
 	}
