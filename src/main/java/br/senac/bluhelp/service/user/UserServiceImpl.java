@@ -1,14 +1,20 @@
 package br.senac.bluhelp.service.user;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import br.senac.bluhelp.dto.project.ProjectQueryDTO;
 import br.senac.bluhelp.dto.user.UserDTO;
+import br.senac.bluhelp.dto.user.UserProjectionDTO;
+import br.senac.bluhelp.exception.contact.ContactNotFoundException;
 import br.senac.bluhelp.exception.user.UserCpfRegisteredException;
 import br.senac.bluhelp.exception.user.UserNotFoundException;
 import br.senac.bluhelp.mapper.user.UserMapper;
 import br.senac.bluhelp.model.user.User;
+import br.senac.bluhelp.projection.contact.ContactProjection;
+import br.senac.bluhelp.projection.project.ProjectQueryProjection;
 import br.senac.bluhelp.projection.user.UserProjection;
 import br.senac.bluhelp.repository.contact.ContactRepository;
 import br.senac.bluhelp.repository.project.ProjectRepository;
@@ -69,12 +75,43 @@ public class UserServiceImpl implements UserService {
 		userRepository.deleteById(id);
 	}
 
-	public UserProjection findById(Long id) {
+	public UserProjectionDTO findByIdWithCreatedProjects(Long id) {
 
 		UserProjection user = userRepository.findUserById(id)
 				.orElseThrow(() -> new UserNotFoundException("User " + id + " was not found"));
-
-		return user;
+		
+		List<ProjectQueryDTO> projects = projectRepository.findCreatedProjectsByUser(id);
+		
+		ContactProjection contact = contactRepository.findContactById(id).orElseThrow(() -> new ContactNotFoundException("Contact " + id + " was not found"));
+		
+		UserProjectionDTO dto = new UserProjectionDTO(id, user.getName(), user.getSurname(), user.getCpf(), user.getPhoto(), contact.getPhone(), contact.getEmail(), projects);
+		
+		return dto;
+	}
+	
+	public UserProjectionDTO findByIdWithContributedProjects(Long id) {
+		
+		UserProjection user = userRepository.findUserById(id)
+				.orElseThrow(() -> new UserNotFoundException("User " + id + " was not found"));
+		
+		ContactProjection contact = contactRepository.findContactById(id).orElseThrow(() -> new ContactNotFoundException("Contact " + id + " was not found"));
+		
+		List<ProjectQueryProjection> projects = projectRepository.findContributedProjectsByUser(id);
+		
+		List<ProjectQueryDTO> projectsDTO = new ArrayList<>();
+		
+		for (ProjectQueryProjection project : projects) {
+			
+			Double average = projectRepository.findAverageReviewById(project.getId());
+			
+			ProjectQueryDTO dto = new ProjectQueryDTO(project.getId(), project.getTitle(), project.getPhoto(), project.getProgress(), average);
+			
+			projectsDTO.add(dto);
+		}
+				
+		UserProjectionDTO dto = new UserProjectionDTO(id, user.getName(), user.getSurname(), user.getCpf(), user.getPhoto(), contact.getPhone(), contact.getEmail(), projectsDTO);
+		
+		return dto;
 	}
 
 	public List<UserProjection> findAll() {

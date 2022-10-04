@@ -2,8 +2,8 @@ package br.senac.bluhelp.dto.user;
 
 import java.util.List;
 
-import br.senac.bluhelp.projection.project.ProjectQueryProjection;
+import br.senac.bluhelp.dto.project.ProjectQueryDTO;
 
-public record UserProjectionDTO(Long id, String name, String surname, String password, String cpf, byte[] photo, String phone, String email, List<ProjectQueryProjection> createdProjects, List<ProjectQueryProjection> coontributedProjects ) {
+public record UserProjectionDTO(Long id, String name, String surname, String cpf, byte[] photo, String phone, String email, List<ProjectQueryDTO> projects) {
 
 }
