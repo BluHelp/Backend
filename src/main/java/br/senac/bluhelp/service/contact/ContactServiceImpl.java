@@ -11,23 +11,18 @@ import br.senac.bluhelp.exception.contact.ContactPhoneRegisteredException;
 import br.senac.bluhelp.exception.user.UserNotFoundException;
 import br.senac.bluhelp.mapper.contact.ContactMapper;
 import br.senac.bluhelp.model.contact.Contact;
-import br.senac.bluhelp.model.user.User;
 import br.senac.bluhelp.projection.contact.ContactProjection;
 import br.senac.bluhelp.repository.contact.ContactRepository;
-import br.senac.bluhelp.repository.user.UserRepository;
 
 @Service
 public class ContactServiceImpl implements ContactService {
 
 	private final ContactRepository contactRepository;
 	private final ContactMapper contactMapper;
-	private final UserRepository userRepository;
 
-	public ContactServiceImpl(ContactRepository contactRepository, ContactMapper contactMapper,
-			UserRepository userRepository) {
+	public ContactServiceImpl(ContactRepository contactRepository, ContactMapper contactMapper) {
 		this.contactRepository = contactRepository;
 		this.contactMapper = contactMapper;
-		this.userRepository = userRepository;
 	}
 
 	public ContactDTO save(ContactDTO contactDTO) {
@@ -46,9 +41,6 @@ public class ContactServiceImpl implements ContactService {
 	public void update(Long id, ContactDTO contactDTO) {
 		Contact contact = contactRepository.findById(id)
 				.orElseThrow(() -> new UserNotFoundException("Contact " + id + " was not found"));
-		
-		User user = userRepository.findById(contactDTO.user())
-				.orElseThrow(() -> new ContactNotFoundException("Contact " + contactDTO.user() + " was not found"));
 
 		if (!contactDTO.email().equals(contact.getEmail())) {
 			if (contactRepository.existsByEmail(contactDTO.email())) {
@@ -64,7 +56,6 @@ public class ContactServiceImpl implements ContactService {
 
 		contact.setEmail(contactDTO.email());
 		contact.setPhone(contactDTO.phone());
-		contact.setUser(user);
 
 		contactRepository.save(contact);
 
