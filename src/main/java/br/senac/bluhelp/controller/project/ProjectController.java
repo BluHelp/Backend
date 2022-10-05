@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.bluhelp.dto.project.ProjectDTO;
+import br.senac.bluhelp.dto.project.ProjectDescriptionDTO;
+import br.senac.bluhelp.dto.project.ProjectInformationDTO;
+import br.senac.bluhelp.dto.project.ProjectPhotoDTO;
 import br.senac.bluhelp.dto.project.ProjectProjectionDTO;
 import br.senac.bluhelp.dto.project.ProjectQueryDTO;
 import br.senac.bluhelp.enumeration.progress.Progress;
@@ -39,11 +42,25 @@ public class ProjectController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(projectService.save(projectDTO));
 	}
 
-	@PutMapping("/{id}")
-	public ResponseEntity<String> updateProject(@RequestBody ProjectDTO projectDTO,
+	@PutMapping("/{id}/photo")
+	public ResponseEntity<String> updateProjectPhoto(@RequestBody ProjectPhotoDTO dto,
 			@PathVariable(value = "id") Long id) {
-		projectService.update(id, projectDTO);
-		return ResponseEntity.status(HttpStatus.OK).body("Projeto atualizado");
+		projectService.updatePhoto(id, dto);
+		return ResponseEntity.status(HttpStatus.OK).body("Foto do projeto atualizada");
+	}
+	
+	@PutMapping("/{id}/information")
+	public ResponseEntity<String> updateProjectInformation(@RequestBody ProjectInformationDTO dto,
+			@PathVariable(value = "id") Long id) {
+		projectService.updateInformation(id, dto);
+		return ResponseEntity.status(HttpStatus.OK).body("Informações do projeto atualizadas");
+	}
+	
+	@PutMapping("/{id}/description")
+	public ResponseEntity<String> updateProjectDescription(@RequestBody ProjectDescriptionDTO dto,
+			@PathVariable(value = "id") Long id) {
+		projectService.updateDescription(id, dto);
+		return ResponseEntity.status(HttpStatus.OK).body("Informações do projeto atualizadas");
 	}
 
 	@DeleteMapping("/{id}")
@@ -63,34 +80,40 @@ public class ProjectController {
 	}
 
 	@GetMapping("/progress/{progress}")
-	public ResponseEntity<List<ProjectQueryProjection>> getProjectWithProgress(
+	public ResponseEntity<List<ProjectQueryProjection>> getProjectsWithProgress(
 			@PathVariable(value = "progress") Progress progress) {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findByProgress(progress));
 	}
 	
 
 	@GetMapping("/category/{id}")
-	public ResponseEntity<List<ProjectQueryDTO>> getProjectWithCategory(
+	public ResponseEntity<List<ProjectQueryDTO>> getProjectsWithCategory(
 			@PathVariable(value = "id") Long category) {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findByCategory(category));
 	}
 
 	@GetMapping("/address/district/{district}")
-	public ResponseEntity<List<ProjectQueryProjection>> getProjectWithDistrict(
+	public ResponseEntity<List<ProjectQueryProjection>> getProjectsWithDistrict(
 			@PathVariable(value = "district") String district) {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findByDistrict(district));
 	}
 	
 	@GetMapping("/creator/name/{name}/surname/{surname}")
-	public ResponseEntity<List<ProjectQueryProjection>> getProjectWithCreator(
+	public ResponseEntity<List<ProjectQueryProjection>> getProjectsWithCreator(
 			@PathVariable(value = "name") String name, @PathVariable(value = "surname") String surname) {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findByCreator(name, surname));
+	}
 
 	@GetMapping("/title/{title}")
-	public ResponseEntity<List<ProjectWithProgressProjection>> getProjectsWithTitle(
+	public ResponseEntity<List<ProjectQueryProjection>> getProjectsWithTitle(
 			@PathVariable(value = "title") String title) {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findByTitle(title));
 
+	}
+	
+	@GetMapping("/default")
+	public ResponseEntity<List<ProjectQueryProjection>> getTop4Projects() {
+	return ResponseEntity.status(HttpStatus.OK).body(projectService.findTop4());
 	}
 
 }

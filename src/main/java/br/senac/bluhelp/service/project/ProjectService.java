@@ -3,6 +3,9 @@ package br.senac.bluhelp.service.project;
 import java.util.List;
 
 import br.senac.bluhelp.dto.project.ProjectDTO;
+import br.senac.bluhelp.dto.project.ProjectDescriptionDTO;
+import br.senac.bluhelp.dto.project.ProjectInformationDTO;
+import br.senac.bluhelp.dto.project.ProjectPhotoDTO;
 import br.senac.bluhelp.dto.project.ProjectProjectionDTO;
 import br.senac.bluhelp.dto.project.ProjectQueryDTO;
 import br.senac.bluhelp.enumeration.progress.Progress;
@@ -13,9 +16,15 @@ public interface ProjectService {
 
 	ProjectDTO save(ProjectDTO projectDTO);
 
-	void update(Long id, ProjectDTO projectDTO);
+	void updatePhoto(Long id, ProjectPhotoDTO dto);
+	
+	void updateInformation(Long id, ProjectInformationDTO dto);
+	
+	void updateDescription(Long id, ProjectDescriptionDTO dto);
 
 	void delete(Long id);
+	
+	List<ProjectQueryProjection> findTop4();
 
 	ProjectProjectionDTO findProjectWithAverageReviewById(Long id);
 

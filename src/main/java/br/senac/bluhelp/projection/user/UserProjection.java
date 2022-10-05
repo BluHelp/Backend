@@ -9,5 +9,7 @@ public interface UserProjection {
 	String getSurname();
 	
 	String getCpf();
+	
+	byte[] getPhoto();
 
 }

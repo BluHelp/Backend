@@ -14,7 +14,7 @@ import br.senac.bluhelp.projection.user.UserProjection;
 public interface UserRepository extends JpaRepository<User, Long> {
 
 	boolean existsByCpf(String cpf);
-
+	
 	Optional<UserProjection> findUserById(Long id);
 
 	@Query(value = "SELECT u.id AS id, u.name AS name, u.surname AS surname, u.password AS password, u.cpf AS cpf FROM User as u")

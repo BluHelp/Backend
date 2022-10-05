@@ -4,12 +4,14 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.senac.bluhelp.dto.project.ProjectDTO;
+import br.senac.bluhelp.dto.project.ProjectDescriptionDTO;
+import br.senac.bluhelp.dto.project.ProjectInformationDTO;
+import br.senac.bluhelp.dto.project.ProjectPhotoDTO;
 import br.senac.bluhelp.dto.project.ProjectProjectionDTO;
 import br.senac.bluhelp.dto.project.ProjectQueryDTO;
 import br.senac.bluhelp.enumeration.progress.Progress;
@@ -31,17 +33,14 @@ import br.senac.bluhelp.repository.user.UserRepository;
 @Service
 public class ProjectServiceImpl implements ProjectService {
 	
-	@PersistenceContext
-	private final EntityManager entityManager;
 	private final ProjectRepository projectRepository;
 	private final ProjectMapper projectMapper;
 	private final UserRepository userRepository;
 	private final AddressRepository addressRepository;
 	private final CategoryRepository categoryRepository;
 
-	public ProjectServiceImpl(EntityManager entityManager, ProjectRepository projectRepository, ProjectMapper projectMapper,
+	public ProjectServiceImpl(ProjectRepository projectRepository, ProjectMapper projectMapper,
 			UserRepository userRepository, AddressRepository addressRepository, CategoryRepository categoryRepository) {
-		this.entityManager = entityManager;
 		this.projectRepository = projectRepository;
 		this.projectMapper = projectMapper;
 		this.userRepository = userRepository;
@@ -57,7 +56,7 @@ public class ProjectServiceImpl implements ProjectService {
 		Address address = addressRepository.findById(projectDTO.address())
 				.orElseThrow(() -> new AddressNotFoundException("Address " + projectDTO.address() + " was not found"));
 
-		Progress progress = Progress.values()[projectDTO.progress()];
+		Progress progress = Progress.values()[0];
 
 		Project project = new Project();
 
@@ -83,34 +82,53 @@ public class ProjectServiceImpl implements ProjectService {
 
 		return projectMapper.toDTO(projectSaved);
 	}
-
-	public void update(Long id, ProjectDTO projectDTO) {
-
+	
+	public void updatePhoto(Long id, ProjectPhotoDTO dto) {
+		
 		Project project = projectRepository.findById(id)
 				.orElseThrow(() -> new ProjectNotFoundException("Project " + id + " was not found"));
-
-		Address address = addressRepository.findById(projectDTO.address())
-				.orElseThrow(() -> new AddressNotFoundException("Address " + projectDTO.address() + " was not found"));
-
-		Progress progress = Progress.values()[projectDTO.progress()];
-
-		List<Category> categories = categoryRepository.findAllById(projectDTO.categories());
+		
+		Progress progress = Progress.values()[dto.progress()];
+		
+		project.setPhoto(dto.photo());
+		project.setProgress(progress);
+		
+		projectRepository.save(project);	
+	}
+	
+	public void updateInformation(Long id, ProjectInformationDTO dto) {
+		
+		Project project = projectRepository.findById(id)
+				.orElseThrow(() -> new ProjectNotFoundException("Project " + id + " was not found"));
+		
+		List<Category> categories = categoryRepository.findAllById(dto.categories());
+		
+		for (Category category : project.getCategories()) {
+			project.removeCategory(category);
+			category.removeProject(project);
+		}
 
 		for (Category category : categories) {
 			project.addCategory(category);
 			category.addProject(project);
 		}
-
-		project.setAddress(address);
-		project.setObjective(projectDTO.objective());
-		project.setProgress(progress);
-		project.setDescription(projectDTO.description());
-		project.setTitle(projectDTO.title());
-		project.setPhoto(projectDTO.photo());
-
-		projectRepository.save(project);
-
+		
+		project.setTitle(dto.title());
+		
+		projectRepository.save(project);		
 	}
+	
+	public void updateDescription(Long id, ProjectDescriptionDTO dto) {
+		
+		Project project = projectRepository.findById(id)
+				.orElseThrow(() -> new ProjectNotFoundException("Project " + id + " was not found"));
+		
+		project.setDescription(dto.description());
+		project.setObjective(dto.objective());
+		
+		projectRepository.save(project);
+	}
+
 
 	public void delete(Long id) {
 		if (!projectRepository.existsById(id)) {
@@ -118,6 +136,13 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 
 		projectRepository.deleteById(id);
+	}
+	
+	public List<ProjectQueryProjection> findTop4() {
+		
+		Pageable topFour = PageRequest.of(0, 4);
+		
+		return projectRepository.findTop4ByAverageReview(topFour);
 	}
 	
 	public ProjectProjectionDTO findProjectWithAverageReviewById(Long id) {
@@ -169,10 +194,11 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 	
 	public List<ProjectQueryProjection> findAll() {
+		
 		return projectRepository.findProjects();
 	}
 
-	public List<ProjectWithProgressProjection> findByTitle(String title) {
+	public List<ProjectQueryProjection> findByTitle(String title) {
 
 		return projectRepository.findProjectsByTitle(title);
 	}

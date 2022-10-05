@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.bluhelp.dto.user.UserDTO;
+import br.senac.bluhelp.dto.user.UserProjectionDTO;
 import br.senac.bluhelp.projection.user.UserProjection;
 import br.senac.bluhelp.service.user.UserService;
 
@@ -48,9 +49,14 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body("Usuário deletado");
 	}
 
-	@GetMapping("/{id}")
-	public ResponseEntity<UserProjection> getUser(@PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(userService.findById(id));
+	@GetMapping("/{id}/createdProjects")
+	public ResponseEntity<UserProjectionDTO> getUserWithCreatedProjects(@PathVariable(value = "id") Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(userService.findByIdWithCreatedProjects(id));
+	}
+	
+	@GetMapping("/{id}/contributedProjects")
+	public ResponseEntity<UserProjectionDTO> getUserWithContributedProjects(@PathVariable(value = "id") Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(userService.findByIdWithContributedProjects(id));
 	}
 
 	@GetMapping()
