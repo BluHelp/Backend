@@ -37,7 +37,8 @@ public class CommentController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<String> updateComment(@RequestBody CommentDTO commentDTO, @PathVariable(value = "id") Long id) {
+	public ResponseEntity<String> updateComment(@RequestBody CommentDTO commentDTO,
+			@PathVariable(value = "id") Long id) {
 		commentService.update(id, commentDTO);
 		return ResponseEntity.status(HttpStatus.OK).body("Comentário atualizado");
 	}
@@ -46,11 +47,6 @@ public class CommentController {
 	public ResponseEntity<String> deleteComment(@PathVariable(value = "id") Long id) {
 		commentService.delete(id);
 		return ResponseEntity.status(HttpStatus.OK).body("Comentário deletado");
-	}
-
-	@GetMapping("/{id}")
-	public ResponseEntity<CommentProjection> getComment(@PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(commentService.findById(id));
 	}
 
 	@GetMapping()

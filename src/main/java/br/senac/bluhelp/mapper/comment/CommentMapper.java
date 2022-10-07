@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import br.senac.bluhelp.dto.comment.CommentDTO;
-import br.senac.bluhelp.dto.comment.CommentReplyDTO;
 import br.senac.bluhelp.model.comment.Comment;
 
 @Service
@@ -15,11 +14,6 @@ public class CommentMapper {
 	public CommentDTO toDTO(Comment comment) {
 		return new CommentDTO(comment.getId(), comment.getContent(), comment.getUser().getId(),
 				comment.getProject().getId());
-	}
-	
-	public CommentReplyDTO toReplyDTO(Comment comment) {
-		return new CommentReplyDTO(comment.getId(), comment.getContent(), comment.getUser().getId(),
-				comment.getProject().getId(), comment.getReferencedComment().getId());
 	}
 
 	public List<CommentDTO> toDTO(List<Comment> comments) {

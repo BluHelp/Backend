@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import br.senac.bluhelp.dto.comment.CommentDTO;
-import br.senac.bluhelp.dto.comment.CommentReplyDTO;
 import br.senac.bluhelp.exception.comment.CommentNotFoundException;
 import br.senac.bluhelp.exception.project.ProjectNotFoundException;
 import br.senac.bluhelp.exception.user.UserNotFoundException;
@@ -39,7 +38,7 @@ public class CommentServiceImpl implements CommentService {
 
 		User user = userRepository.findById(commentDTO.user())
 				.orElseThrow(() -> new UserNotFoundException("User " + commentDTO.user() + " was not found"));
-		
+
 		Project project = projectRepository.findById(commentDTO.project())
 				.orElseThrow(() -> new ProjectNotFoundException("Project " + commentDTO.project() + " was not found"));
 
@@ -49,42 +48,14 @@ public class CommentServiceImpl implements CommentService {
 		comment.setUser(user);
 		comment.setProject(project);
 		comment.setDate(LocalDateTime.now());
-		
+
 		user.addContributedProject(project);
 		project.addContributors(user);
 		project.addComment(comment);
 
 		Comment commentSaved = commentRepository.save(comment);
-		
+
 		return commentMapper.toDTO(commentSaved);
-	}
-
-	public CommentReplyDTO save(CommentReplyDTO commentReplyDTO) {
-
-		User user = userRepository.findById(commentReplyDTO.user())
-				.orElseThrow(() -> new UserNotFoundException("User " + commentReplyDTO.user() + " was not found"));
-		
-		Project project = projectRepository.findById(commentReplyDTO.project()).orElseThrow(
-				() -> new ProjectNotFoundException("Project " + commentReplyDTO.project() + " was not found"));
-		
-		Comment referencedComment = commentRepository.findById(commentReplyDTO.referencedComment())
-				.orElseThrow(() -> new CommentNotFoundException("Comment " + commentReplyDTO.referencedComment() + " was not found"));
-
-		Comment comment = new Comment();
-
-		comment.setContent(commentReplyDTO.content());
-		comment.setUser(user);
-		comment.setProject(project);
-		comment.setDate(LocalDateTime.now());
-		comment.setReferencedComment(referencedComment);
-		
-		user.addContributedProject(project);
-		project.addContributors(user);
-		project.addComment(comment);
-
-		Comment commentSaved = commentRepository.save(comment);
-
-		return commentMapper.toReplyDTO(commentSaved);
 	}
 
 	public void update(Long id, CommentDTO commentDTO) {
@@ -93,16 +64,6 @@ public class CommentServiceImpl implements CommentService {
 				.orElseThrow(() -> new CommentNotFoundException("Comment " + id + " was not found"));
 
 		comment.setContent(commentDTO.content());
-
-		commentRepository.save(comment);
-	}
-	
-	public void update(Long id, CommentReplyDTO commentReplyDTO) {
-		
-		Comment comment = commentRepository.findById(id)
-				.orElseThrow(() -> new CommentNotFoundException("Comment " + id + " was not found"));
-
-		comment.setContent(commentReplyDTO.content());
 
 		commentRepository.save(comment);
 	}

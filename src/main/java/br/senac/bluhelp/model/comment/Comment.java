@@ -39,20 +39,16 @@ public class Comment {
 	@Column(name = "comment_date")
 	private LocalDateTime date;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "referenced_comment_id")
-	private Comment referencedComment;
-
 	public Comment() {
 	}
 
-	public Comment(Long id, String content, User user, Project project, LocalDateTime date, Comment referencedComment) {
+	public Comment(Long id, String content, User user, Project project, LocalDateTime date) {
 		this.id = id;
 		this.content = content;
 		this.user = user;
 		this.project = project;
 		this.date = date;
-		this.referencedComment = referencedComment;
+
 	}
 
 	public Long getId() {
@@ -95,11 +91,4 @@ public class Comment {
 		this.date = date;
 	}
 
-	public Comment getReferencedComment() {
-		return referencedComment;
-	}
-
-	public void setReferencedComment(Comment referencedComment) {
-		this.referencedComment = referencedComment;
-	}
 }
