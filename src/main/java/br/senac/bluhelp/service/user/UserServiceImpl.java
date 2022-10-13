@@ -12,7 +12,6 @@ import br.senac.bluhelp.dto.user.UserProjectionDTO;
 import br.senac.bluhelp.exception.contact.ContactNotFoundException;
 import br.senac.bluhelp.exception.user.UserCpfRegisteredException;
 import br.senac.bluhelp.exception.user.UserNotFoundException;
-import br.senac.bluhelp.mapper.contact.ContactMapper;
 import br.senac.bluhelp.mapper.user.UserMapper;
 import br.senac.bluhelp.model.contact.Contact;
 import br.senac.bluhelp.model.user.User;
@@ -32,16 +31,14 @@ public class UserServiceImpl implements UserService {
 	private final ProjectRepository projectRepository;
 	private final ContactRepository contactRepository;
 	private final ContactService contactService;
-	private final ContactMapper contactMapper;
 
 	public UserServiceImpl(UserRepository userRepository, UserMapper userMapper, ProjectRepository projectRepository, 
-			ContactRepository contactRepository, ContactService contactService, ContactMapper contactMapper) {
+			ContactRepository contactRepository, ContactService contactService) {
 		this.userRepository = userRepository;
 		this.userMapper = userMapper;
 		this.projectRepository = projectRepository;
 		this.contactRepository = contactRepository;
 		this.contactService = contactService;
-		this.contactMapper = contactMapper;
 	}
 
 	public UserDTO save(UserDTO userDTO) {
@@ -52,12 +49,11 @@ public class UserServiceImpl implements UserService {
 		User user = userMapper.toEntity(userDTO);
 		User userSaved = userRepository.save(user);
 		
-		ContactDTO contact = new ContactDTO(userDTO.id(), userDTO.email(), userDTO.phone(), userDTO.id());
+		Contact contact = new Contact(userDTO.id(), userDTO.email(), userDTO.phone(), userSaved);
 		
 		contactService.save(contact);
-		Contact contactSaved = contactMapper.toEntity(contact);
 
-		return userMapper.toDTO(userSaved, contactSaved);
+		return userMapper.toDTO(userSaved, contact);
 
 	}
 
@@ -71,6 +67,10 @@ public class UserServiceImpl implements UserService {
 				throw new UserCpfRegisteredException("CPF " + userDTO.cpf() + " is already registered");
 			}
 		}
+		
+		ContactDTO contact = new ContactDTO(id, userDTO.email(), userDTO.phone(), id);
+
+		contactService.update(id, contact);
 
 		user.setName(userDTO.name());
 		user.setSurname(userDTO.surname());
@@ -85,7 +85,8 @@ public class UserServiceImpl implements UserService {
 
 		if (!userRepository.existsById(id))
 			throw new UserNotFoundException("User " + id + " was not found");
-
+		
+		contactService.delete(id);
 		userRepository.deleteById(id);
 	}
 

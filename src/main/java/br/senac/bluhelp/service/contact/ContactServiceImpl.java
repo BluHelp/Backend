@@ -25,14 +25,13 @@ public class ContactServiceImpl implements ContactService {
 		this.contactMapper = contactMapper;
 	}
 
-	public ContactDTO save(ContactDTO contactDTO) {
-		if (contactRepository.existsByEmail(contactDTO.email()))
-			throw new ContactEmailRegisteredException("Email " + contactDTO.email() + " is already registered");
+	public ContactDTO save(Contact contact) {
+		if (contactRepository.existsByEmail(contact.getEmail()))
+			throw new ContactEmailRegisteredException("Email " + contact.getEmail() + " is already registered");
 
-		if (contactRepository.existsByPhone(contactDTO.phone()))
-			throw new ContactPhoneRegisteredException("Phone " + contactDTO.phone() + " is already registered");
-
-		Contact contact = contactMapper.toEntity(contactDTO);
+		if (contactRepository.existsByPhone(contact.getPhone()))
+			throw new ContactPhoneRegisteredException("Phone " + contact.getPhone() + " is already registered");
+		
 		Contact contactSaved = contactRepository.save(contact);
 
 		return contactMapper.toDTO(contactSaved);

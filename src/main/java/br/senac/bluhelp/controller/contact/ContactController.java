@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.bluhelp.dto.contact.ContactDTO;
+import br.senac.bluhelp.model.contact.Contact;
 import br.senac.bluhelp.service.contact.ContactService;
 
 @RestController
@@ -28,8 +29,8 @@ public class ContactController {
 	}
 
 	@PostMapping
-	public ResponseEntity<ContactDTO> addContact(@RequestBody ContactDTO contactDTO) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(contactService.save(contactDTO));
+	public ResponseEntity<ContactDTO> addContact(@RequestBody Contact contact) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(contactService.save(contact));
 	}
 
 	@PutMapping("/{id}")
