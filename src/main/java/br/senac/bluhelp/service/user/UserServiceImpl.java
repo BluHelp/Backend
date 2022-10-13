@@ -5,13 +5,16 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import br.senac.bluhelp.dto.contact.ContactDTO;
 import br.senac.bluhelp.dto.project.ProjectQueryDTO;
 import br.senac.bluhelp.dto.user.UserDTO;
 import br.senac.bluhelp.dto.user.UserProjectionDTO;
 import br.senac.bluhelp.exception.contact.ContactNotFoundException;
 import br.senac.bluhelp.exception.user.UserCpfRegisteredException;
 import br.senac.bluhelp.exception.user.UserNotFoundException;
+import br.senac.bluhelp.mapper.contact.ContactMapper;
 import br.senac.bluhelp.mapper.user.UserMapper;
+import br.senac.bluhelp.model.contact.Contact;
 import br.senac.bluhelp.model.user.User;
 import br.senac.bluhelp.projection.contact.ContactProjection;
 import br.senac.bluhelp.projection.project.ProjectQueryProjection;
@@ -19,6 +22,7 @@ import br.senac.bluhelp.projection.user.UserProjection;
 import br.senac.bluhelp.repository.contact.ContactRepository;
 import br.senac.bluhelp.repository.project.ProjectRepository;
 import br.senac.bluhelp.repository.user.UserRepository;
+import br.senac.bluhelp.service.contact.ContactService;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -27,23 +31,33 @@ public class UserServiceImpl implements UserService {
 	private final UserMapper userMapper;
 	private final ProjectRepository projectRepository;
 	private final ContactRepository contactRepository;
+	private final ContactService contactService;
+	private final ContactMapper contactMapper;
 
-	public UserServiceImpl(UserRepository userRepository, UserMapper userMapper, ProjectRepository projectRepository, ContactRepository contactRepository) {
+	public UserServiceImpl(UserRepository userRepository, UserMapper userMapper, ProjectRepository projectRepository, 
+			ContactRepository contactRepository, ContactService contactService, ContactMapper contactMapper) {
 		this.userRepository = userRepository;
 		this.userMapper = userMapper;
 		this.projectRepository = projectRepository;
 		this.contactRepository = contactRepository;
+		this.contactService = contactService;
+		this.contactMapper = contactMapper;
 	}
 
 	public UserDTO save(UserDTO userDTO) {
 
 		if (userRepository.existsByCpf(userDTO.cpf()))
 			throw new UserCpfRegisteredException("CPF " + userDTO.cpf() + " is already registered");
-
+	
 		User user = userMapper.toEntity(userDTO);
 		User userSaved = userRepository.save(user);
+		
+		ContactDTO contact = new ContactDTO(userDTO.id(), userDTO.email(), userDTO.phone(), userDTO.id());
+		
+		contactService.save(contact);
+		Contact contactSaved = contactMapper.toEntity(contact);
 
-		return userMapper.toDTO(userSaved);
+		return userMapper.toDTO(userSaved, contactSaved);
 
 	}
 
