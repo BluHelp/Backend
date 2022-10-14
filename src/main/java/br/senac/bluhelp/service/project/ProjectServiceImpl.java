@@ -15,7 +15,6 @@ import br.senac.bluhelp.dto.project.ProjectPhotoDTO;
 import br.senac.bluhelp.dto.project.ProjectProjectionDTO;
 import br.senac.bluhelp.dto.project.ProjectQueryDTO;
 import br.senac.bluhelp.enumeration.progress.Progress;
-import br.senac.bluhelp.exception.address.AddressNotFoundException;
 import br.senac.bluhelp.exception.project.ProjectNotFoundException;
 import br.senac.bluhelp.exception.user.UserNotFoundException;
 import br.senac.bluhelp.mapper.project.ProjectMapper;
@@ -25,10 +24,10 @@ import br.senac.bluhelp.model.project.Project;
 import br.senac.bluhelp.model.user.User;
 import br.senac.bluhelp.projection.project.ProjectProjection;
 import br.senac.bluhelp.projection.project.ProjectQueryProjection;
-import br.senac.bluhelp.repository.address.AddressRepository;
 import br.senac.bluhelp.repository.category.CategoryRepository;
 import br.senac.bluhelp.repository.project.ProjectRepository;
 import br.senac.bluhelp.repository.user.UserRepository;
+import br.senac.bluhelp.service.address.AddressService;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
@@ -36,15 +35,15 @@ public class ProjectServiceImpl implements ProjectService {
 	private final ProjectRepository projectRepository;
 	private final ProjectMapper projectMapper;
 	private final UserRepository userRepository;
-	private final AddressRepository addressRepository;
+	private final AddressService addressService;
 	private final CategoryRepository categoryRepository;
 
 	public ProjectServiceImpl(ProjectRepository projectRepository, ProjectMapper projectMapper,
-			UserRepository userRepository, AddressRepository addressRepository, CategoryRepository categoryRepository) {
+			UserRepository userRepository, AddressService addressService, CategoryRepository categoryRepository) {
 		this.projectRepository = projectRepository;
 		this.projectMapper = projectMapper;
 		this.userRepository = userRepository;
-		this.addressRepository = addressRepository;
+		this.addressService = addressService;
 		this.categoryRepository = categoryRepository;
 	}
 
@@ -52,10 +51,12 @@ public class ProjectServiceImpl implements ProjectService {
 
 		User creator = userRepository.findById(projectDTO.creator())
 				.orElseThrow(() -> new UserNotFoundException("User " + projectDTO.creator() + " was not found"));
-
-		Address address = addressRepository.findById(projectDTO.address())
-				.orElseThrow(() -> new AddressNotFoundException("Address " + projectDTO.address() + " was not found"));
-
+		
+		Address address = new Address(projectDTO.address(), projectDTO.streetType(), projectDTO.street(), projectDTO.number(), 
+				projectDTO.district(), projectDTO.cep(), projectDTO.reference());
+		
+		addressService.save(address);
+		
 		Progress progress = Progress.values()[0];
 
 		Project project = new Project();

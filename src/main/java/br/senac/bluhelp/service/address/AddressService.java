@@ -3,11 +3,12 @@ package br.senac.bluhelp.service.address;
 import java.util.List;
 
 import br.senac.bluhelp.dto.address.AddressDTO;
+import br.senac.bluhelp.model.address.Address;
 import br.senac.bluhelp.projection.address.AddressProjection;
 
 public interface AddressService {
 
-	AddressDTO save(AddressDTO addressDTO);
+	AddressDTO save(Address address);
 
 	void update(Long id, AddressDTO addressDTO);
 
