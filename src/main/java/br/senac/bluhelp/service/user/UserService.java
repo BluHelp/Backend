@@ -3,7 +3,7 @@ package br.senac.bluhelp.service.user;
 import java.util.List;
 
 import br.senac.bluhelp.dto.user.UserDTO;
-import br.senac.bluhelp.dto.user.UserProjectionDTO;
+import br.senac.bluhelp.dto.user.UserProfileDTO;
 import br.senac.bluhelp.projection.user.UserProjection;
 
 public interface UserService {
@@ -14,9 +14,7 @@ public interface UserService {
 
 	void delete(Long id);
 
-	UserProjectionDTO findByIdWithCreatedProjects(Long id);
-	
-	UserProjectionDTO findByIdWithContributedProjects(Long id);
+	UserProfileDTO findByIdWithProjects(Long id);
 
 	List<UserProjection> findAll();
 
