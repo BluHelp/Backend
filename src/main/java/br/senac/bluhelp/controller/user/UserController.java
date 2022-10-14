@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.bluhelp.dto.user.UserDTO;
-import br.senac.bluhelp.dto.user.UserProjectionDTO;
+import br.senac.bluhelp.dto.user.UserProfileDTO;
 import br.senac.bluhelp.projection.user.UserProjection;
 import br.senac.bluhelp.service.user.UserService;
 
@@ -44,19 +44,14 @@ public class UserController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> deleteAddress(@PathVariable(value = "id") Long id) {
+	public ResponseEntity<String> deleteUser(@PathVariable(value = "id") Long id) {
 		userService.delete(id);
 		return ResponseEntity.status(HttpStatus.OK).body("Usuário deletado");
 	}
 
-	@GetMapping("/{id}/createdProjects")
-	public ResponseEntity<UserProjectionDTO> getUserWithCreatedProjects(@PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(userService.findByIdWithCreatedProjects(id));
-	}
-	
-	@GetMapping("/{id}/contributedProjects")
-	public ResponseEntity<UserProjectionDTO> getUserWithContributedProjects(@PathVariable(value = "id") Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(userService.findByIdWithContributedProjects(id));
+	@GetMapping("/{id}")
+	public ResponseEntity<UserProfileDTO> getUserWithProjects(@PathVariable(value = "id") Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(userService.findByIdWithProjects(id));
 	}
 
 	@GetMapping()

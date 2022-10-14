@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import br.senac.bluhelp.dto.contact.ContactDTO;
 import br.senac.bluhelp.dto.project.ProjectQueryDTO;
 import br.senac.bluhelp.dto.user.UserDTO;
-import br.senac.bluhelp.dto.user.UserProjectionDTO;
+import br.senac.bluhelp.dto.user.UserProfileDTO;
 import br.senac.bluhelp.exception.contact.ContactNotFoundException;
 import br.senac.bluhelp.exception.user.UserCpfRegisteredException;
 import br.senac.bluhelp.exception.user.UserNotFoundException;
@@ -90,30 +90,18 @@ public class UserServiceImpl implements UserService {
 		userRepository.deleteById(id);
 	}
 
-	public UserProjectionDTO findByIdWithCreatedProjects(Long id) {
+	public UserProfileDTO findByIdWithProjects(Long id) {
 
 		UserProjection user = userRepository.findUserById(id)
 				.orElseThrow(() -> new UserNotFoundException("User " + id + " was not found"));
 		
-		List<ProjectQueryDTO> projects = projectRepository.findCreatedProjectsByUser(id);
-		
 		ContactProjection contact = contactRepository.findContactById(id).orElseThrow(() -> new ContactNotFoundException("Contact " + id + " was not found"));
 		
-		UserProjectionDTO dto = new UserProjectionDTO(id, user.getName(), user.getSurname(), user.getCpf(), user.getPhoto(), contact.getPhone(), contact.getEmail(), projects);
-		
-		return dto;
-	}
-	
-	public UserProjectionDTO findByIdWithContributedProjects(Long id) {
-		
-		UserProjection user = userRepository.findUserById(id)
-				.orElseThrow(() -> new UserNotFoundException("User " + id + " was not found"));
-		
-		ContactProjection contact = contactRepository.findContactById(id).orElseThrow(() -> new ContactNotFoundException("Contact " + id + " was not found"));
+		List<ProjectQueryProjection> createdProjects = projectRepository.findCreatedProjectsByUser(id);
 		
 		List<ProjectQueryProjection> projects = projectRepository.findContributedProjectsByUser(id);
 		
-		List<ProjectQueryDTO> projectsDTO = new ArrayList<>();
+		List<ProjectQueryDTO> contributedProjects = new ArrayList<>();
 		
 		for (ProjectQueryProjection project : projects) {
 			
@@ -121,10 +109,10 @@ public class UserServiceImpl implements UserService {
 			
 			ProjectQueryDTO dto = new ProjectQueryDTO(project.getId(), project.getTitle(), project.getPhoto(), project.getProgress(), average);
 			
-			projectsDTO.add(dto);
+			contributedProjects.add(dto);
 		}
-				
-		UserProjectionDTO dto = new UserProjectionDTO(id, user.getName(), user.getSurname(), user.getCpf(), user.getPhoto(), contact.getPhone(), contact.getEmail(), projectsDTO);
+		
+		UserProfileDTO dto = new UserProfileDTO(id, user.getName(), user.getSurname(), user.getCpf(), user.getPhoto(), contact.getPhone(), contact.getEmail(), createdProjects, contributedProjects);
 		
 		return dto;
 	}
@@ -133,7 +121,5 @@ public class UserServiceImpl implements UserService {
 
 		return userRepository.findUsers();
 	}
-
-	
 
 }

@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import br.senac.bluhelp.dto.project.ProjectQueryDTO;
 import br.senac.bluhelp.enumeration.progress.Progress;
 import br.senac.bluhelp.model.project.Project;
 import br.senac.bluhelp.projection.project.ProjectProjection;
@@ -44,7 +43,7 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 	Double findAverageReviewById(Long id);
 	
 	@Query(value = "SELECT p.title AS title, p.id AS id, p.photo AS photo, p.progress AS progress, AVG(r.rating) AS averageReview FROM Project as p INNER JOIN p.reviews r WHERE p.creator.id = :id GROUP BY p.id")
-	List<ProjectQueryDTO> findCreatedProjectsByUser(@Param("id") Long user);
+	List<ProjectQueryProjection> findCreatedProjectsByUser(@Param("id") Long user);
 	
 	@Query(value = "SELECT p.title AS title, p.id AS id, p.photo AS photo, p.progress AS progress FROM Project as p INNER JOIN p.contributors co WHERE co.id = :id GROUP BY p.id")
 	List<ProjectQueryProjection> findContributedProjectsByUser(@Param("id") Long user);
