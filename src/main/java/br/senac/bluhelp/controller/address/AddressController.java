@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.senac.bluhelp.dto.address.AddressDTO;
+import br.senac.bluhelp.model.address.Address;
 import br.senac.bluhelp.projection.address.AddressProjection;
 import br.senac.bluhelp.service.address.AddressService;
 
@@ -32,8 +33,8 @@ public class AddressController {
 	}
 
 	@PostMapping
-	public ResponseEntity<AddressDTO> addAddress(@RequestBody AddressDTO addressDTO) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(addressService.save(addressDTO));
+	public ResponseEntity<AddressDTO> addAddress(@RequestBody Address address) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(addressService.save(address));
 	}
 
 	@PutMapping("/{id}")

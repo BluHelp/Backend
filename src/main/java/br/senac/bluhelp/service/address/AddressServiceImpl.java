@@ -23,9 +23,8 @@ public class AddressServiceImpl implements AddressService {
 		this.addressMapper = addressMapper;
 	}
 
-	public AddressDTO save(AddressDTO addressDTO) {
+	public AddressDTO save(Address address) {
 
-		Address address = addressMapper.toEntity(addressDTO);
 		Address addressSaved = addressRepository.save(address);
 
 		return addressMapper.toDTO(addressSaved);

@@ -23,7 +23,9 @@ public class ProjectMapper {
 		}
 
 		return new ProjectDTO(project.getId(), project.getCreator().getId(), project.getTitle(), project.getObjective(),
-				project.getAddress().getId(), project.getDescription(), categoriesProject, project.getPhoto());
+				project.getDescription(), categoriesProject, project.getPhoto(), project.getAddress().getId(),
+				project.getAddress().getStreetType(), project.getAddress().getStreet(), project.getAddress().getNumber(), 
+				project.getAddress().getDistrict(), project.getAddress().getCep(), project.getAddress().getReference());
 	}
 
 	public List<ProjectDTO> toDTO(List<Project> contributors) {
