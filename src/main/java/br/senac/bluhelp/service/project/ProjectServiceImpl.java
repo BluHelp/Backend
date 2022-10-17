@@ -1,15 +1,19 @@
 package br.senac.bluhelp.service.project;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.senac.bluhelp.dto.project.ProjectDTO;
 import br.senac.bluhelp.dto.project.ProjectDescriptionDTO;
+import br.senac.bluhelp.dto.project.ProjectImageDTO;
 import br.senac.bluhelp.dto.project.ProjectInformationDTO;
 import br.senac.bluhelp.dto.project.ProjectPhotoDTO;
 import br.senac.bluhelp.dto.project.ProjectProjectionDTO;
@@ -28,6 +32,7 @@ import br.senac.bluhelp.repository.category.CategoryRepository;
 import br.senac.bluhelp.repository.project.ProjectRepository;
 import br.senac.bluhelp.repository.user.UserRepository;
 import br.senac.bluhelp.service.address.AddressService;
+import br.senac.bluhelp.util.ImageUtil;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
@@ -82,6 +87,22 @@ public class ProjectServiceImpl implements ProjectService {
 		Project projectSaved = projectRepository.save(project);
 
 		return projectMapper.toDTO(projectSaved);
+	}
+	
+	public void saveImage(MultipartFile file, Long id) throws IOException {
+		
+		Project project = projectRepository.findById(id)
+				.orElseThrow(() -> new ProjectNotFoundException("Project " + id + " was not found"));
+		
+		project.setPhoto(ImageUtil.compressBytes(file.getBytes()));
+		
+		projectRepository.save(project);
+	}
+	
+	public ProjectImageDTO getImageById(Long id) {
+		Project dbImage = projectRepository.findById(id)
+				.orElseThrow(() -> new ProjectNotFoundException("Project " + id + " was not found"));
+		return new ProjectImageDTO(Base64.getEncoder().encodeToString(ImageUtil.decompressBytes(dbImage.getPhoto())));
 	}
 	
 	public void updatePhoto(Long id, ProjectPhotoDTO dto) {
