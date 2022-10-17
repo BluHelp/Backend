@@ -31,6 +31,10 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 	@Query(value = "SELECT p.title AS title, p.id AS id, p.photo AS photo, p.progress AS progress, AVG(r.rating) AS averageReview FROM Project as p INNER JOIN p.reviews r WHERE p.address.district = :district GROUP BY p.id")
 	List<ProjectQueryProjection> findProjectsByDistrict(@Param("district") String district);
 	
+	// Testar pesquisa por média
+	@Query(value = "SELECT p.title AS title, p.id AS id, p.photo AS photo, p.progress AS progress, AVG(r.rating) AS averageReview FROM Project as p INNER JOIN p.reviews r WHERE AVG(r.rating) = :average GROUP BY p.id")
+	List<ProjectQueryProjection> findProjectsByAvg(@Param("average") String average);
+	
 	@Query(value = "SELECT p.title AS title, p.id AS id, p.photo AS photo, p.progress AS progress, AVG(r.rating) AS averageReview FROM Project as p INNER JOIN p.reviews r WHERE p.creator.name = :name AND p.creator.surname = :surname GROUP BY p.id")
 	List<ProjectQueryProjection> findProjectsByNameAndSurname(String name, String surname);
 
