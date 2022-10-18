@@ -26,9 +26,6 @@ public class Address {
 	@Column(name = "address_id")
 	private Long id;
 
-	@Column(name = "address_street_type", length = 15, nullable = false)
-	private String streetType;
-
 	@Column(name = "address_street", length = 60, nullable = false)
 	private String street;
 
@@ -45,20 +42,20 @@ public class Address {
 	private String reference;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Project> projects = new ArrayList();
+	private List<Project> projects;
 
 	public Address() {
 	}
 
-	public Address(Long id, String streetType, String street, short number, String district, String cep,
+	public Address(Long id, String street, short number, String district, String cep,
 			String reference) {
 		this.id = id;
-		this.streetType = streetType;
 		this.street = street;
 		this.number = number;
 		this.district = district;
 		this.cep = cep;
 		this.reference = reference;
+		this.projects = new ArrayList<>();
 	}
 
 	public Long getId() {
@@ -67,14 +64,6 @@ public class Address {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getStreetType() {
-		return streetType;
-	}
-
-	public void setStreetType(String streetType) {
-		this.streetType = streetType;
 	}
 
 	public String getStreet() {
