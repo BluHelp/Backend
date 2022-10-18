@@ -10,7 +10,7 @@ import br.senac.bluhelp.dto.project.ProjectDescriptionDTO;
 import br.senac.bluhelp.dto.project.ProjectImageDTO;
 import br.senac.bluhelp.dto.project.ProjectInformationDTO;
 import br.senac.bluhelp.dto.project.ProjectPhotoDTO;
-import br.senac.bluhelp.dto.project.ProjectProjectionDTO;
+import br.senac.bluhelp.dto.project.ProjectProfileDTO;
 import br.senac.bluhelp.dto.project.ProjectQueryDTO;
 import br.senac.bluhelp.enumeration.progress.Progress;
 import br.senac.bluhelp.projection.project.ProjectQueryProjection;
@@ -34,7 +34,7 @@ public interface ProjectService {
 	
 	List<ProjectQueryProjection> findTop4();
 
-	ProjectProjectionDTO findProjectWithAverageReviewById(Long id);
+	ProjectProfileDTO findProjectWithAverageReviewById(Long id);
 
 	List<ProjectQueryProjection> findByProgress(Progress progress);
 	

@@ -13,7 +13,7 @@ public class AddressMapper {
 
 	public AddressDTO toDTO(Address address) {
 
-		return new AddressDTO(address.getId(), address.getStreetType(), address.getStreet(), address.getNumber(), address.getDistrict(), address.getCep(), address.getReference());
+		return new AddressDTO(address.getId(), address.getStreet(), address.getNumber(), address.getDistrict(), address.getCep(), address.getReference());
 	}
 
 	public List<AddressDTO> toDTO(List<Address> addresses) {
@@ -28,6 +28,6 @@ public class AddressMapper {
 	}
 
 	public Address toEntity(AddressDTO addressDTO) {
-		return new Address(addressDTO.id(), addressDTO.streetType(), addressDTO.street(), addressDTO.number(), addressDTO.district(), addressDTO.cep(), addressDTO.reference());
+		return new Address(addressDTO.id(), addressDTO.street(), addressDTO.number(), addressDTO.district(), addressDTO.cep(), addressDTO.reference());
 	}
 }

@@ -37,7 +37,6 @@ public class AddressServiceImpl implements AddressService {
 		address.setReference(addressDTO.reference());
 		address.setDistrict(addressDTO.district());
 		address.setNumber(addressDTO.number());
-		address.setStreetType(addressDTO.streetType());
 		address.setStreet(addressDTO.street());
 		address.setCep(addressDTO.cep());
 

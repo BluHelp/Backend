@@ -23,7 +23,7 @@ import br.senac.bluhelp.dto.project.ProjectDescriptionDTO;
 import br.senac.bluhelp.dto.project.ProjectImageDTO;
 import br.senac.bluhelp.dto.project.ProjectInformationDTO;
 import br.senac.bluhelp.dto.project.ProjectPhotoDTO;
-import br.senac.bluhelp.dto.project.ProjectProjectionDTO;
+import br.senac.bluhelp.dto.project.ProjectProfileDTO;
 import br.senac.bluhelp.dto.project.ProjectQueryDTO;
 import br.senac.bluhelp.enumeration.progress.Progress;
 import br.senac.bluhelp.projection.project.ProjectQueryProjection;
@@ -85,7 +85,7 @@ public class ProjectController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<ProjectProjectionDTO> getProject(@PathVariable(value = "id") Long id) {
+	public ResponseEntity<ProjectProfileDTO> getProject(@PathVariable(value = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findProjectWithAverageReviewById(id));
 	}
 
