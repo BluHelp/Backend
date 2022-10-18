@@ -1,5 +1,6 @@
 package br.senac.bluhelp.controller.user;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import br.senac.bluhelp.dto.project.ProjectImageDTO;
 import br.senac.bluhelp.dto.user.UserDTO;
+import br.senac.bluhelp.dto.user.UserLoginDTO;
+import br.senac.bluhelp.dto.user.UserPhotoDTO;
 import br.senac.bluhelp.dto.user.UserProfileDTO;
 import br.senac.bluhelp.projection.user.UserProjection;
 import br.senac.bluhelp.service.user.UserService;
@@ -57,6 +63,22 @@ public class UserController {
 	@GetMapping()
 	public ResponseEntity<List<UserProjection>> getAllUsers() {
 		return ResponseEntity.status(HttpStatus.OK).body(userService.findAll());
+	}
+	
+	@PostMapping("/image/{id}")
+	public ResponseEntity<String> uploadImage(@RequestParam MultipartFile file, @PathVariable Long id) throws IOException{
+		userService.savePhoto(file, id);
+		return ResponseEntity.status(HttpStatus.CREATED).body("Foto do usuario cadastrada");
+	}
+	
+	@GetMapping("/getImage/{id}")
+    public ResponseEntity<UserPhotoDTO> getImage(@PathVariable Long id) {        
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getImageById(id));
+	}
+	
+	@PostMapping("/login")
+	public ResponseEntity<Long> userLogin(@RequestBody UserLoginDTO dto) {
+		return ResponseEntity.status(HttpStatus.OK).body(userService.loginUser(dto));
 	}
 
 }

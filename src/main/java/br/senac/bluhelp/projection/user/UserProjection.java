@@ -10,6 +10,8 @@ public interface UserProjection {
 	
 	String getCpf();
 	
+	String getPassword();
+	
 	byte[] getPhoto();
 
 }
