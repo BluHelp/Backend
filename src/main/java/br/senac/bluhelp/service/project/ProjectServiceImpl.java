@@ -224,4 +224,8 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectRepository.findProjectsByTitle(title);
 	}
 
+	public List<ProjectQueryProjection> findByAverage(byte average) {
+		return projectRepository.findProjectsByAvg(average);
+	}
+
 }
