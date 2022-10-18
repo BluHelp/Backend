@@ -48,6 +48,11 @@ public class CommentController {
 		commentService.delete(id);
 		return ResponseEntity.status(HttpStatus.OK).body("Comentário deletado");
 	}
+	
+	@GetMapping("/{project}")
+	public ResponseEntity<List<CommentProjection>> getCommentsByProject(@PathVariable(value = "project") Long project) {
+		return ResponseEntity.status(HttpStatus.OK).body(commentService.findByProjectId(project));
+	}
 
 	@GetMapping()
 	public ResponseEntity<List<CommentProjection>> getAllComments() {

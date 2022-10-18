@@ -84,6 +84,10 @@ public class CommentServiceImpl implements CommentService {
 
 		return comment;
 	}
+	
+	public List<CommentProjection> findByProjectId(Long id){
+		return commentRepository.findCommentsByProjectId(id);
+	}
 
 	public List<CommentProjection> findAll() {
 		return commentRepository.findComments();
