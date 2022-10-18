@@ -16,7 +16,7 @@ import br.senac.bluhelp.dto.project.ProjectDescriptionDTO;
 import br.senac.bluhelp.dto.project.ProjectImageDTO;
 import br.senac.bluhelp.dto.project.ProjectInformationDTO;
 import br.senac.bluhelp.dto.project.ProjectPhotoDTO;
-import br.senac.bluhelp.dto.project.ProjectProjectionDTO;
+import br.senac.bluhelp.dto.project.ProjectProfileDTO;
 import br.senac.bluhelp.dto.project.ProjectQueryDTO;
 import br.senac.bluhelp.enumeration.progress.Progress;
 import br.senac.bluhelp.exception.project.ProjectNotFoundException;
@@ -57,7 +57,7 @@ public class ProjectServiceImpl implements ProjectService {
 		User creator = userRepository.findById(projectDTO.creator())
 				.orElseThrow(() -> new UserNotFoundException("User " + projectDTO.creator() + " was not found"));
 		
-		Address address = new Address(projectDTO.address(), projectDTO.streetType(), projectDTO.street(), projectDTO.number(), 
+		Address address = new Address(projectDTO.address(), projectDTO.street(), projectDTO.number(), 
 				projectDTO.district(), projectDTO.cep(), projectDTO.reference());
 		
 		addressService.save(address);
@@ -73,7 +73,6 @@ public class ProjectServiceImpl implements ProjectService {
 		project.setDescription(projectDTO.description());
 		project.setTitle(projectDTO.title());
 		project.setObjective(projectDTO.objective());
-		project.setPhoto(projectDTO.photo());
 
 		creator.addCreatedProject(project);
 
@@ -167,14 +166,14 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectRepository.findTop4ByAverageReview(topFour);
 	}
 	
-	public ProjectProjectionDTO findProjectWithAverageReviewById(Long id) {
+	public ProjectProfileDTO findProjectWithAverageReviewById(Long id) {
 		
 		ProjectProjection project = projectRepository.findProjectById(id).orElseThrow(() -> new ProjectNotFoundException("Project " + id + " was not found"));
 		Double average = projectRepository.findAverageReviewById(id);
 		
-		ProjectProjectionDTO dto = new ProjectProjectionDTO(project.getId(), project.getCreator().getId(), project.getCreator().getName(), project.getCreator().getSurname(), 
+		ProjectProfileDTO dto = new ProjectProfileDTO(project.getId(), project.getCreator().getId(), project.getCreator().getName(), project.getCreator().getSurname(), 
 				project.getTitle(), project.getObjective(), project.getAddress().getId(), project.getAddress().getDistrict(), project.getDescription(), project.getCategories(), 
-				project.getProgress(), project.getPhoto(), project.getDate(), average);
+				project.getProgress(), project.getDate(), average);
 		
 		
 		return dto;
@@ -196,7 +195,7 @@ public class ProjectServiceImpl implements ProjectService {
 			
 			Double average = projectRepository.findAverageReviewById(project.getId());
 			
-			ProjectQueryDTO dto = new ProjectQueryDTO(project.getId(), project.getTitle(), project.getPhoto(), project.getProgress(), average);
+			ProjectQueryDTO dto = new ProjectQueryDTO(project.getId(), project.getTitle(), project.getProgress(), average);
 			
 			dtos.add(dto);
 			

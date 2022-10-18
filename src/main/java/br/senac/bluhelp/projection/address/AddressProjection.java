@@ -4,8 +4,6 @@ public interface AddressProjection {
 
 	Long getId();
 	
-	String getStreetType();
-	
 	String getStreet();
 	
 	short getNumber();
