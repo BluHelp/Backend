@@ -14,6 +14,8 @@ public interface CommentService {
 	void delete(Long id);
 
 	CommentProjection findById(Long id);
+	
+	List<CommentProjection> findByProjectId(Long id);
 
 	List<CommentProjection> findAll();
 }
