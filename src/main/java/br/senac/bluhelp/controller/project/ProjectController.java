@@ -123,7 +123,14 @@ public class ProjectController {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findByTitle(title));
 
 	}
-
+	
+	@GetMapping("average/{average}")
+	public ResponseEntity<List<ProjectQueryProjection>> getProjectsByAverage(
+			@PathVariable(value = "average") byte average) {
+		return ResponseEntity.status(HttpStatus.OK).body(projectService.findByAverage(average));
+	}
+	
+	
 	@GetMapping("/default")
 	public ResponseEntity<List<ProjectQueryProjection>> getTop4Projects() {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findTop4());
