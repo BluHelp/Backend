@@ -132,7 +132,7 @@ public class ProjectController {
 	
 	
 	@GetMapping("/default")
-	public ResponseEntity<List<ProjectQueryProjection>> getTop4Projects() {
+	public ResponseEntity<List<ProjectQueryDTO>> getTop4Projects() {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findTop4());
 	}
 

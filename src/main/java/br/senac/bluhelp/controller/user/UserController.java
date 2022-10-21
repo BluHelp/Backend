@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import br.senac.bluhelp.dto.project.ProjectImageDTO;
 import br.senac.bluhelp.dto.user.UserDTO;
 import br.senac.bluhelp.dto.user.UserLoginDTO;
 import br.senac.bluhelp.dto.user.UserPhotoDTO;

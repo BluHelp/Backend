@@ -19,7 +19,7 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 
 	boolean existsById(Long id);
 	
-	@Query(value = "SELECT p.title AS title, p.id AS id, p.photo AS photo, p.progress AS progress, AVG(r.rating) AS averageReview FROM Project as p INNER JOIN p.reviews r GROUP BY p.id ORDER BY AVG(r.rating) DESC")
+	@Query(value = "SELECT p.title AS title, p.id AS id, p.photo AS photo, p.progress AS progress FROM Project as p INNER JOIN p.reviews r GROUP BY p.id ORDER BY AVG(r.rating) DESC")
 	List<ProjectQueryProjection> findTop4ByAverageReview(Pageable pageable);
 	
 	@Query(value = "SELECT p.title AS title, p.id AS id, p.photo AS photo, p.progress AS progress, AVG(r.rating) AS averageReview FROM Project as p INNER JOIN p.reviews r WHERE p.progress = :progress GROUP BY p.id")

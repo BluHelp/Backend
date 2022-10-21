@@ -159,11 +159,25 @@ public class ProjectServiceImpl implements ProjectService {
 		projectRepository.deleteById(id);
 	}
 	
-	public List<ProjectQueryProjection> findTop4() {
+	public List<ProjectQueryDTO> findTop4() {
 		
 		Pageable topFour = PageRequest.of(0, 4);
 		
-		return projectRepository.findTop4ByAverageReview(topFour);
+		List<ProjectQueryProjection> projects = projectRepository.findTop4ByAverageReview(topFour);
+		
+		List<ProjectQueryDTO> dtos = new ArrayList<>();
+		
+		for(ProjectQueryProjection project : projects) {
+			
+			Double average = projectRepository.findAverageReviewById(project.getId());
+			
+			ProjectQueryDTO dto = new ProjectQueryDTO(project.getId(), project.getTitle(), project.getProgress(), average);
+			
+			dtos.add(dto);
+			
+		}
+		
+		return dtos;
 	}
 	
 	public ProjectProfileDTO findProjectWithAverageReviewById(Long id) {
