@@ -24,4 +24,4 @@ Em junho deste ano, foram investidos mais de R$130 milhões na nossa cidade. Dia
 > 
 > Nicolas José Fachini; [Linkedin](https://www.linkedin.com/in/nicolas-jos%C3%A9-fachini)
 > 
-> Rafael Thiago Barth; [Linkedin](http://www.linkedin.com/in/rafael-t-)
+> Rafael Thiago Barth; [Linkedin](http://www.linkedin.com/in/rafael-t-barth)
