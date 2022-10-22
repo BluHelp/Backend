@@ -19,6 +19,7 @@ import br.senac.bluhelp.dto.project.ProjectPhotoDTO;
 import br.senac.bluhelp.dto.project.ProjectProfileDTO;
 import br.senac.bluhelp.dto.project.ProjectQueryDTO;
 import br.senac.bluhelp.enumeration.progress.Progress;
+import br.senac.bluhelp.exception.category.CategoryNotFoundException;
 import br.senac.bluhelp.exception.project.ProjectNotFoundException;
 import br.senac.bluhelp.exception.user.UserNotFoundException;
 import br.senac.bluhelp.mapper.project.ProjectMapper;
@@ -63,6 +64,9 @@ public class ProjectServiceImpl implements ProjectService {
 		addressService.save(address);
 		
 		Progress progress = Progress.values()[0];
+		
+		Category category = categoryRepository.findById(projectDTO.category())
+				.orElseThrow(() -> new CategoryNotFoundException("Category " + projectDTO.category() + " was not found"));
 
 		Project project = new Project();
 
@@ -73,15 +77,10 @@ public class ProjectServiceImpl implements ProjectService {
 		project.setDescription(projectDTO.description());
 		project.setTitle(projectDTO.title());
 		project.setObjective(projectDTO.objective());
+		project.setCategory(category);
 
 		creator.addCreatedProject(project);
-
-		List<Category> categories = categoryRepository.findAllById(projectDTO.categories());
-
-		for (Category category : categories) {
-			project.addCategory(category);
-			category.addProject(project);
-		}
+		category.addProject(project);
 
 		Project projectSaved = projectRepository.save(project);
 
@@ -122,16 +121,12 @@ public class ProjectServiceImpl implements ProjectService {
 		Project project = projectRepository.findById(id)
 				.orElseThrow(() -> new ProjectNotFoundException("Project " + id + " was not found"));
 		
-		List<Category> categories = categoryRepository.findAllById(dto.categories());
+		Category category = categoryRepository.findById(dto.category()).orElseThrow(() -> new CategoryNotFoundException("Category " + dto.category() + " was not found"));;
 		
-		for (Category category : project.getCategories()) {
-			project.removeCategory(category);
-			category.removeProject(project);
-		}
-
-		for (Category category : categories) {
-			project.addCategory(category);
+		if(project.getCategory() != category) {
+			project.setCategory(category);
 			category.addProject(project);
+			project.getCategory().removeProject(project);
 		}
 		
 		project.setTitle(dto.title());
@@ -171,7 +166,7 @@ public class ProjectServiceImpl implements ProjectService {
 			
 			Double average = projectRepository.findAverageReviewById(project.getId());
 			
-			ProjectQueryDTO dto = new ProjectQueryDTO(project.getId(), project.getTitle(), project.getProgress(), average);
+			ProjectQueryDTO dto = new ProjectQueryDTO(project.getId(), project.getTitle(), project.getPhoto(), project.getProgress(), average);
 			
 			dtos.add(dto);
 			
@@ -186,7 +181,7 @@ public class ProjectServiceImpl implements ProjectService {
 		Double average = projectRepository.findAverageReviewById(id);
 		
 		ProjectProfileDTO dto = new ProjectProfileDTO(project.getId(), project.getCreator().getId(), project.getCreator().getName(), project.getCreator().getSurname(), 
-				project.getTitle(), project.getObjective(), project.getAddress().getId(), project.getAddress().getDistrict(), project.getDescription(), project.getCategories(), 
+				project.getTitle(), project.getObjective(), project.getAddress().getId(), project.getAddress().getDistrict(), project.getDescription(), project.getCategory(), 
 				project.getProgress(), project.getDate(), average);
 		
 		
@@ -209,7 +204,7 @@ public class ProjectServiceImpl implements ProjectService {
 			
 			Double average = projectRepository.findAverageReviewById(project.getId());
 			
-			ProjectQueryDTO dto = new ProjectQueryDTO(project.getId(), project.getTitle(), project.getProgress(), average);
+			ProjectQueryDTO dto = new ProjectQueryDTO(project.getId(), project.getTitle(), project.getPhoto(), project.getProgress(), average);
 			
 			dtos.add(dto);
 			

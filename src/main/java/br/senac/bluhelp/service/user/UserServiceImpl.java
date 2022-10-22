@@ -116,7 +116,7 @@ public class UserServiceImpl implements UserService {
 
 			Double average = projectRepository.findAverageReviewById(project.getId());
 
-			ProjectQueryDTO dto = new ProjectQueryDTO(project.getId(), project.getTitle(), project.getProgress(), average);	
+			ProjectQueryDTO dto = new ProjectQueryDTO(project.getId(), project.getTitle(), project.getPhoto(), project.getProgress(), average);	
 
 			contributedProjects.add(dto);
 		}
