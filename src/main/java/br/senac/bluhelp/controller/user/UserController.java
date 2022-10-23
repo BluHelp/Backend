@@ -65,7 +65,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/image/{id}")
-	public ResponseEntity<String> uploadImage(@RequestParam MultipartFile file, @PathVariable Long id) throws IOException{
+	public ResponseEntity<String> uploadImage(@RequestParam("image") MultipartFile file, @PathVariable Long id) throws IOException{
 		userService.savePhoto(file, id);
 		return ResponseEntity.status(HttpStatus.CREATED).body("Foto do usuario cadastrada");
 	}
