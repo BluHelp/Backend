@@ -1,6 +1,6 @@
 package br.senac.bluhelp.dto.project;
 
-public record ProjectImageDTO(String image) {
+public record ProjectImageDTO(String photo) {
 
 	
 }

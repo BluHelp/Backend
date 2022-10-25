@@ -47,7 +47,7 @@ public class ProjectController {
 	}
 	
 	@PostMapping("/image/{id}")
-	public ResponseEntity<String> uploadImage(@RequestParam MultipartFile file, @PathVariable Long id) throws IOException{
+	public ResponseEntity<String> uploadImage(@RequestParam("image") MultipartFile file, @PathVariable Long id) throws IOException{
 		projectService.saveImage(file, id);
 		return ResponseEntity.status(HttpStatus.CREATED).body("Foto do projeto cadastrada");
 	}
@@ -132,7 +132,7 @@ public class ProjectController {
 	
 	
 	@GetMapping("/default")
-	public ResponseEntity<List<ProjectQueryProjection>> getTop4Projects() {
+	public ResponseEntity<List<ProjectQueryDTO>> getTop4Projects() {
 		return ResponseEntity.status(HttpStatus.OK).body(projectService.findTop4());
 	}
 
