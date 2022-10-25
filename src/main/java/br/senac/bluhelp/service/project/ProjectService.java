@@ -32,7 +32,7 @@ public interface ProjectService {
 
 	void delete(Long id);
 	
-	List<ProjectQueryProjection> findTop4();
+	List<ProjectQueryDTO> findTop4();
 
 	ProjectProfileDTO findProjectWithAverageReviewById(Long id);
 

@@ -68,8 +68,9 @@ public class Project {
 	@Enumerated(EnumType.ORDINAL)
 	private Progress progress;
 	
-	@ManyToMany(mappedBy = "projects")
-	private List<Category> categories = new ArrayList<>();
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "category_id", nullable = false)
+	private Category category;
 	
 	@Lob
 	@Column(name = "project_photo")
@@ -194,16 +195,12 @@ public class Project {
 		this.progress = progress;
 	}
 	
-	public List<Category> getCategories() {
-		return categories;
+	public Category getCategory() {
+		return category;
 	}
 	
-	public void addCategory(Category category) {
-		this.categories.add(category);
-	}
-	
-	public void removeCategory(Category category) {
-		this.categories.remove(category);
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	public byte[] getPhoto() {

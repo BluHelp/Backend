@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import br.senac.bluhelp.dto.project.ProjectImageDTO;
 import br.senac.bluhelp.dto.user.UserDTO;
 import br.senac.bluhelp.dto.user.UserLoginDTO;
 import br.senac.bluhelp.dto.user.UserPhotoDTO;
@@ -66,7 +65,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/image/{id}")
-	public ResponseEntity<String> uploadImage(@RequestParam MultipartFile file, @PathVariable Long id) throws IOException{
+	public ResponseEntity<String> uploadImage(@RequestParam("image") MultipartFile file, @PathVariable Long id) throws IOException{
 		userService.savePhoto(file, id);
 		return ResponseEntity.status(HttpStatus.CREATED).body("Foto do usuario cadastrada");
 	}
