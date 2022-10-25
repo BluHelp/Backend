@@ -106,13 +106,24 @@ public class UserServiceImpl implements UserService {
 		ContactProjection contact = contactRepository.findContactById(id)
 				.orElseThrow(() -> new ContactNotFoundException("Contact " + id + " was not found"));
 
-		List<ProjectQueryProjection> createdProjects = projectRepository.findCreatedProjectsByUser(id);
+		List<ProjectQueryProjection> crProjects = projectRepository.findCreatedProjectsByUser(id);
 
-		List<ProjectQueryProjection> projects = projectRepository.findContributedProjectsByUser(id);
+		List<ProjectQueryProjection> coProjects = projectRepository.findContributedProjectsByUser(id);
+		
+		List<ProjectQueryDTO> createdProjects = new ArrayList<>();
 
 		List<ProjectQueryDTO> contributedProjects = new ArrayList<>();
+		
+		for (ProjectQueryProjection project : crProjects) {
 
-		for (ProjectQueryProjection project : projects) {
+			Double average = projectRepository.findAverageReviewById(project.getId());
+
+			ProjectQueryDTO dto = new ProjectQueryDTO(project.getId(), project.getTitle(), project.getPhoto(), project.getProgress(), average);	
+
+			createdProjects.add(dto);
+		}
+
+		for (ProjectQueryProjection project : coProjects) {
 
 			Double average = projectRepository.findAverageReviewById(project.getId());
 
